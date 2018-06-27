@@ -13,6 +13,8 @@
 		84B2507920E1CB4A0046146A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B2507820E1CB4A0046146A /* Assets.xcassets */; };
 		84B2507C20E1CB4A0046146A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B2507A20E1CB4A0046146A /* LaunchScreen.storyboard */; };
 		84B2508420E1EDDD0046146A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2508320E1EDDD0046146A /* TableViewController.swift */; };
+		84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C571F520E36BE800D9DBEA /* LoginViewController.swift */; };
+		84C571F820E36C0400D9DBEA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C571F720E36C0400D9DBEA /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		84B2507B20E1CB4A0046146A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B2507D20E1CB4A0046146A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B2508320E1EDDD0046146A /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		84C571F520E36BE800D9DBEA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		84C571F720E36C0400D9DBEA /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				84B2507A20E1CB4A0046146A /* LaunchScreen.storyboard */,
 				84B2507D20E1CB4A0046146A /* Info.plist */,
 				84B2508320E1EDDD0046146A /* TableViewController.swift */,
+				84C571F520E36BE800D9DBEA /* LoginViewController.swift */,
+				84C571F720E36C0400D9DBEA /* SignUpViewController.swift */,
 			);
 			path = 2018.06.26_1;
 			sourceTree = "<group>";
@@ -138,9 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */,
 				84B2507420E1CB490046146A /* ViewController.swift in Sources */,
 				84B2508420E1EDDD0046146A /* TableViewController.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,
+				84C571F820E36C0400D9DBEA /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
