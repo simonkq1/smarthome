@@ -31,6 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("aaaa : \(textData)")
             send(textData)
             speakText.text = ""
+            speakText.endEditing(true)
             
         }
     }
@@ -40,7 +41,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         tableView.separatorColor = UIColor.clear
         speakText.addTarget(self, action: #selector(sendBtn(_:)), for: .editingDidEndOnExit)
         
@@ -67,9 +67,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         if !chatString.contains("naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@") {
                             
                             self.chatData.append(["sender":chatSender,"string":chatString,"date":Date(),"account":chatAccount,"id":chatId,"rname":chatrName])
-                                    strDate = Date()
-                                self.tableView.reloadData()
-                                print(self.chatData)
+                            strDate = Date()
+                            self.tableView.reloadData()
+                            if chatId == ViewController.memberData["id"] {
+                                self.scrollViewToBottom(animated: false)
+                            }
+                            
+                            print(self.chatData)
                             
                         }
                     }
@@ -95,23 +99,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func scrollViewToBottom(animated: Bool) {
+            self.tableView.scrollToRow(at: IndexPath(row: self.chatData.count - 1, section: 0), at: .bottom, animated: false)
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         print(ViewController.memberData)
-//        DispatchQueue.global().async {
-//            let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
-//            let member = ViewController.memberData
-//            let account = member["account"] as! String
-//            let id = member["id"] as! String
-//            let rname = member["rname"] as! String
-//            while true{
-//                sleep(15)
-//                let textData = """
-//                {"account":\"\(account)\","id":\"\(id)\","rname":\"\(rname)\","text":\"\(noData)\"}
-//                """
-//
-//                self.send(textData)
-//            }
-//        }
+        tableView.separatorColor = UIColor.clear
+        DispatchQueue.global().async {
+            let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
+            let member = ViewController.memberData
+            let account = member["account"] as! String
+            let id = member["id"] as! String
+            let rname = member["rname"] as! String
+            while true{
+                sleep(15)
+                let textData = """
+                {"account":\"\(account)\","id":\"\(id)\","rname":\"\(rname)\","text":\"\(noData)\"}
+                """
+
+                self.send(textData)
+            }
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -126,19 +136,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let leftcell = tableView.dequeueReusableCell(withIdentifier: "LeftCell", for: indexPath)
+        let rightcell = tableView.dequeueReusableCell(withIdentifier: "RightCell", for: indexPath)
+        
+        let nameLabel = leftcell.viewWithTag(10) as! UILabel
+        let leftText = leftcell.viewWithTag(20) as! UILabel
+        let rightText = rightcell.viewWithTag(10) as! UILabel
+        
         let sender = chatData[indexPath.row]["sender"] as! String
         let string = chatData[indexPath.row]["string"] as! String
+        let senderName = chatData[indexPath.row]["rname"] as! String
+        let senderID = chatData[indexPath.row]["id"] as! String
         let date = chatData[indexPath.row]["date"] as! Date
-        print(string)
-        print(chatData)
-        cell.textLabel?.text = sender
-        cell.detailTextLabel?.text = string
-        tableView.separatorColor = UIColor.clear
+        let nbsp = ""
+        let member = ViewController.memberData
+        print("me: \(member["id"]) ==> sender :  \(senderID)")
+        if member["id"] == senderID {
+            rightText.text = "  \(string)  "
+        }else {
+            nameLabel.text = senderName + " :"
+            leftText.text = "  \(string)  "
+        }
         
         // Configure the cell...
         
-        return cell
+        return (member["id"] == senderID) ? rightcell : leftcell
     }
     
     

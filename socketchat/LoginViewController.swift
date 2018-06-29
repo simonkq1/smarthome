@@ -61,7 +61,6 @@ class LoginViewController: UIViewController {
                             self.showAlert(title: "Error", msg: "Account is not exist", action: nil)
                         }
                     }else {
-                        
                         DispatchQueue.main.async {
                             self.showAlert(title: "Error", msg: "connect error", action: nil)
                         }
@@ -77,6 +76,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     func showAlert(title: String, msg: String , action: ((UIAlertAction) -> Void)?) {
         
