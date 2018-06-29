@@ -14,7 +14,7 @@
         <!--View Controller-->
         <scene sceneID="iv9-wU-RMt">
             <objects>
-                <viewController id="ETY-8h-Z5n" customClass="ViewController" customModule="_018_06_26_1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatroom_vc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ETY-8h-Z5n" customClass="ViewController" customModule="_018_06_26_1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vPQ-ib-y5I">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,7 +60,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="send"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ETY-8h-Z5n" id="cte-uk-cKn"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2z-Y7-HmW">
                                 <rect key="frame" x="313" y="613" width="46" height="34"/>
@@ -92,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4NY-jX-ysP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122.4000000000001" y="-267.61619190404798"/>
+            <point key="canvasLocation" x="1044" y="-269"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="SRf-Mc-FzJ">
@@ -150,6 +153,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="logIn"/>
+                                <connections>
+                                    <action selector="login:" destination="lLu-JR-jR0" eventType="touchUpInside" id="bwQ-Vr-OOo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -180,6 +186,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cjT-U4-9OX"/>
                     </view>
+                    <connections>
+                        <outlet property="accountText" destination="UiP-iO-1sW" id="3xg-ET-7hI"/>
+                        <outlet property="passwordText" destination="GG9-Tm-HLx" id="mlm-C6-0pC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zpY-9J-4j0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -250,7 +260,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="cancel"/>
                                 <connections>
-                                    <segue destination="lLu-JR-jR0" kind="show" id="IHd-XL-k38"/>
+                                    <segue destination="lLu-JR-jR0" kind="show" identifier="segue_to_login" id="IHd-XL-k38"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ctz-qx-x5X">
@@ -260,6 +270,14 @@
                                 <state key="normal" title="send"/>
                                 <connections>
                                     <action selector="signup:" destination="Qq6-oC-M5x" eventType="touchUpInside" id="ewU-mD-Fvt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHs-0I-bXF">
+                                <rect key="frame" x="164" y="617" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="aaa:" destination="Qq6-oC-M5x" eventType="touchUpInside" id="fdi-s0-Nka"/>
                                 </connections>
                             </button>
                         </subviews>

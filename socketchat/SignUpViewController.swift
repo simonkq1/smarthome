@@ -9,13 +9,18 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-    let url = "http://192.168.211.146/chatroom/signUp.php"
+    let url = "http://simonhost.hopto.org/chatroom/signUp.php"
+//    let url = "http://192.168.211.146/chatroom/signUp.php"
 
     @IBOutlet weak var accountText: UITextField!
     
     @IBOutlet weak var passwordText: UITextField!
     
     @IBOutlet weak var realnameText: UITextField!
+    
+    @IBAction func aaa(_ sender: Any) {
+        
+    }
     @IBAction func signup(_ sender: Any) {
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = passwordText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -40,23 +45,30 @@ class SignUpViewController: UIViewController {
                 
                 if let data = data {
                     let html = String(data:data, encoding: .utf8)
-                    if html == "0" {
+                    if html == "1" {
                         DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil)
-//                            self.performSegue(withIdentifier: "vc_to_welcome", sender: self)
+                            self.showAlert(title: "success", msg: "return to login page", action: { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            })
                         }
-                    }else{
-                        let alert = UIAlertController(title: "Error", message: "Account or password is wrong", preferredStyle: .alert)
-                        let OK = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                        alert.addAction(OK)
-                        self.present(alert,animated: true,completion: nil)
-                        //                        DispatchQueue.main.async {
-                        //                            self.errorMessage.alpha = 1
-                        //                            self.errorMessage.textColor = .red
-                        //                        }
+                    }else if html == "2" {
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "Error", msg: "Account is already exist", action: nil)
+                        }
+                        
+                    }else if html == "3" {
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "Error", msg: "connect error", action: nil)
+                        }
+                    }else {
+                        
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "Error", msg: "connect error", action: nil)
+                        }
                     }
                 }
             }
+            dataTesk.resume()
             
         }
         
@@ -67,6 +79,14 @@ class SignUpViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    func showAlert(title: String, msg: String , action: ((UIAlertAction) -> Void)?) {
+        
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: action)
+        alert.addAction(OK)
+        self.present(alert,animated: true,completion: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

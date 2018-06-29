@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84B2506E20E1CB490046146A /* 2018.06.26_1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2018.06.26_1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B2506E20E1CB490046146A /* socketchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = socketchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B2507120E1CB490046146A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B2507320E1CB490046146A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84B2507620E1CB490046146A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 		84B2506520E1CB490046146A = {
 			isa = PBXGroup;
 			children = (
-				84B2507020E1CB490046146A /* 2018.06.26_1 */,
+				84B2507020E1CB490046146A /* socketchat */,
 				84B2506F20E1CB490046146A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,12 +52,12 @@
 		84B2506F20E1CB490046146A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84B2506E20E1CB490046146A /* 2018.06.26_1.app */,
+				84B2506E20E1CB490046146A /* socketchat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		84B2507020E1CB490046146A /* 2018.06.26_1 */ = {
+		84B2507020E1CB490046146A /* socketchat */ = {
 			isa = PBXGroup;
 			children = (
 				84B2507120E1CB490046146A /* AppDelegate.swift */,
@@ -70,15 +70,15 @@
 				84C571F520E36BE800D9DBEA /* LoginViewController.swift */,
 				84C571F720E36C0400D9DBEA /* SignUpViewController.swift */,
 			);
-			path = 2018.06.26_1;
+			path = socketchat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		84B2506D20E1CB490046146A /* 2018.06.26_1 */ = {
+		84B2506D20E1CB490046146A /* socketchat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84B2508020E1CB4A0046146A /* Build configuration list for PBXNativeTarget "2018.06.26_1" */;
+			buildConfigurationList = 84B2508020E1CB4A0046146A /* Build configuration list for PBXNativeTarget "socketchat" */;
 			buildPhases = (
 				84B2506A20E1CB490046146A /* Sources */,
 				84B2506B20E1CB490046146A /* Frameworks */,
@@ -88,9 +88,9 @@
 			);
 			dependencies = (
 			);
-			name = 2018.06.26_1;
-			productName = 2018.06.26_1;
-			productReference = 84B2506E20E1CB490046146A /* 2018.06.26_1.app */;
+			name = socketchat;
+			productName = socketchat;
+			productReference = 84B2506E20E1CB490046146A /* socketchat.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 84B2506920E1CB490046146A /* Build configuration list for PBXProject "2018.06.26_1" */;
+			buildConfigurationList = 84B2506920E1CB490046146A /* Build configuration list for PBXProject "socketchat" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -121,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				84B2506D20E1CB490046146A /* 2018.06.26_1 */,
+				84B2506D20E1CB490046146A /* socketchat */,
 			);
 		};
 /* End PBXProject section */
@@ -225,7 +225,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -279,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -294,12 +294,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7CBFP9DFK8;
-				INFOPLIST_FILE = 2018.06.26_1/Info.plist;
+				INFOPLIST_FILE = socketchat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Simon-Chang.-018-06-26-1";
+				PRODUCT_BUNDLE_IDENTIFIER = "Simon-Chang.-socketchat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -312,12 +312,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7CBFP9DFK8;
-				INFOPLIST_FILE = 2018.06.26_1/Info.plist;
+				INFOPLIST_FILE = socketchat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Simon-Chang.-018-06-26-1";
+				PRODUCT_BUNDLE_IDENTIFIER = "Simon-Chang.-socketchat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -327,7 +327,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		84B2506920E1CB490046146A /* Build configuration list for PBXProject "2018.06.26_1" */ = {
+		84B2506920E1CB490046146A /* Build configuration list for PBXProject "socketchat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84B2507E20E1CB4A0046146A /* Debug */,
@@ -336,7 +336,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84B2508020E1CB4A0046146A /* Build configuration list for PBXNativeTarget "2018.06.26_1" */ = {
+		84B2508020E1CB4A0046146A /* Build configuration list for PBXNativeTarget "socketchat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84B2508120E1CB4A0046146A /* Debug */,
