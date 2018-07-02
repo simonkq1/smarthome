@@ -182,6 +182,14 @@
                                     <action selector="login:" destination="lLu-JR-jR0" eventType="touchUpInside" id="bwQ-Vr-OOo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGh-ZB-AAu">
+                                <rect key="frame" x="164" y="513" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btn:" destination="lLu-JR-jR0" eventType="touchUpInside" id="mTE-G7-KDi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -295,14 +303,6 @@
                                 <state key="normal" title="send"/>
                                 <connections>
                                     <action selector="signup:" destination="Qq6-oC-M5x" eventType="touchUpInside" id="ewU-mD-Fvt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHs-0I-bXF">
-                                <rect key="frame" x="164" y="617" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="aaa:" destination="Qq6-oC-M5x" eventType="touchUpInside" id="fdi-s0-Nka"/>
                                 </connections>
                             </button>
                         </subviews>

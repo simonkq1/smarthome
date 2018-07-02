@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84A6F2A020E9B386004EBF90 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */; };
+		84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6F2A120E9BBFD004EBF90 /* TouchID.swift */; };
 		84B2507220E1CB490046146A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2507120E1CB490046146A /* AppDelegate.swift */; };
 		84B2507420E1CB490046146A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2507320E1CB490046146A /* ViewController.swift */; };
 		84B2507720E1CB490046146A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B2507520E1CB490046146A /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		84A6F2A120E9BBFD004EBF90 /* TouchID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchID.swift; sourceTree = "<group>"; };
 		84B2506E20E1CB490046146A /* socketchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = socketchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B2507120E1CB490046146A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B2507320E1CB490046146A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,17 +39,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A6F2A020E9B386004EBF90 /* LocalAuthentication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84A6F29E20E9B385004EBF90 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		84B2506520E1CB490046146A = {
 			isa = PBXGroup;
 			children = (
 				84B2507020E1CB490046146A /* socketchat */,
 				84B2506F20E1CB490046146A /* Products */,
+				84A6F29E20E9B385004EBF90 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +83,7 @@
 				84C571F520E36BE800D9DBEA /* LoginViewController.swift */,
 				84C571F720E36C0400D9DBEA /* SignUpViewController.swift */,
 				84D227D120E6033200BE498A /* ChatTextLabel.swift */,
+				84A6F2A120E9BBFD004EBF90 /* TouchID.swift */,
 			);
 			path = socketchat;
 			sourceTree = "<group>";
@@ -144,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */,
 				84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */,
 				84B2507420E1CB490046146A /* ViewController.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,

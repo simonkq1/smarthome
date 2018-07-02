@@ -80,8 +80,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             })
         }
-        
-        
     }
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else {return}
