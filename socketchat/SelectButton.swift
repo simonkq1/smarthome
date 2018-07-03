@@ -9,9 +9,6 @@
 import UIKit
 
 
-extension UIButton {
-    static var radioInRow: Int = 0
-}
 
 
 public class SelectButton: UIButton {
@@ -19,7 +16,7 @@ public class SelectButton: UIButton {
     internal var outerCircleLayer = CAShapeLayer()
     internal var innerCircleLayer = CAShapeLayer()
     
-    
+    var radioInRow: Int = 0
     
     
     @IBInspectable public var outerCircleColor: UIColor = UIColor.green {

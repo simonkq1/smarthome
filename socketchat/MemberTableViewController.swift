@@ -89,9 +89,9 @@ class MemberTableViewController: UITableViewController {
         print("cancel")
     }
     
-    @objc func selectRadioAction(sender: UIButton) {
+    @objc func selectRadioAction(sender: SelectButton) {
         
-        
+        print(sender.radioInRow)
 //        print(sender.tag)
     }
     
@@ -192,9 +192,10 @@ class MemberTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         let nameLabel = cell.viewWithTag(10) as! UILabel
-        let selectRadio = cell.viewWithTag(20) as! UIButton
+        let selectRadio = cell.viewWithTag(20) as! SelectButton
         selectRadio.isSelected = radioIsSelected[indexPath.row]
         
+        selectRadio.radioInRow = indexPath.row
         
         
         if isEdit == true {
