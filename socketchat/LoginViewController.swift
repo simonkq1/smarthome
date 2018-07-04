@@ -20,7 +20,9 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func btn(_ sender: Any) {
-        TouchID.verify(action: nil)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
+        vc.name = "AAA"
+        show(vc, sender: nil)
         
     }
     @IBAction func login(_ sender: Any) {

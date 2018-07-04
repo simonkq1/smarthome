@@ -11,14 +11,16 @@ import Popover
 
 class MemberTableViewController: UITableViewController {
     let url = "http://simonhost.hopto.org/chatroom/selectMemberList.php"
-    let list = ["A", "B", "C"]
-    let listStr = ["Add", "Select", "Delete"]
+    let settingList = ["Add", "Select", "Delete"]
+    let selectList = ["permission"]
     var memberList: [[String:String]] = []
     var radioIsSelected: [Bool] = []
+    var permissionTarget: Int? = nil
     var status: String = ""
     var isEdit: Bool = false
     let popover = Popover()
     var tabbaritem: UIBarButtonItem!
+    var deleteTarget:Set<Int> = []
     
     
     
@@ -28,17 +30,18 @@ class MemberTableViewController: UITableViewController {
         sender.isSelected = !sender.isSelected
     }
     
-    @IBAction func editBtn(_ sender: Any) {
+    @IBAction func editBtn(_ sender: UIBarButtonItem) {
         
         let height: CGFloat = 44
-        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
-        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(listStr.count)))
         
-        let editTable = addPopListLabel(list: listStr, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
+        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
+        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(settingList.count)))
+        
+        let editTable = addPopListLabel(list: settingList, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
         for i in editTable {
             aView.addSubview(i)
         }
-//        aView.addSubview(edittableView.view)
+        //        aView.addSubview(edittableView.view)
         
         popover.show(aView, point: startPoint)
     }
@@ -48,53 +51,148 @@ class MemberTableViewController: UITableViewController {
         let tapview = sender.view
         let textLabel = tapview?.viewWithTag(10) as! UILabel
         switch textLabel.text {
-        case listStr[0]:
+        case settingList[0]:
             print("A")
-        case listStr[1]:
-            status = listStr[1]
-            let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
-            let EditBarButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editButton))
-            navigationItem.leftBarButtonItem = cancelBarButton
-            navigationItem.rightBarButtonItem = EditBarButton
-            isEdit = true
+        case settingList[1]:
+            popoverSelectAction(status: settingList[1], rightItemTitle: "Edit", cancelAction: #selector(cancelButton), editAction: #selector(editButton))
+        case settingList[2]:
+            popoverSelectAction(status: settingList[2], rightItemTitle: "Delete", cancelAction: #selector(cancelButton), editAction: #selector(deleteButton))
+            
             tableView.reloadData()
-            self.popover.dismiss()
-        case listStr[2]:
-            isEdit = true
-            tableView.reloadData()
-            self.popover.dismiss()
+        case selectList[0]:
+            if permissionTarget != nil {
+                let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
+                vc.name = memberList[permissionTarget!]["account"]!
+                vc.permission = memberList[permissionTarget!]["mod"]!
+                vc.tid = memberList[permissionTarget!]["id"]!
+                vc.memberView = self
+                present(vc, animated: true, completion: nil)
+                
+            }
+            popover.dismiss()
+//            print(selectList[0])
         default:
             break
         }
         
     }
     
+    func popoverSelectAction(status: String,rightItemTitle: String, cancelAction: Selector? = #selector(cancelButton), editAction: Selector? = nil) {
+        
+        self.status = status
+        let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: cancelAction)
+        let EditBarButton = UIBarButtonItem(title: rightItemTitle, style: .plain, target: self, action: editAction)
+        navigationItem.leftBarButtonItem = cancelBarButton
+        navigationItem.rightBarButtonItem = EditBarButton
+        isEdit = true
+        tableView.reloadData()
+        self.popover.dismiss()
+    }
+    
+    //MARK:- Setting Action
+    
     @objc func cancelButton() {
         isEdit = false
+        for i in 0..<radioIsSelected.count {
+            radioIsSelected[i] = false
+        }
         tableView.reloadData()
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.image = UIImage(named: "setting")
         editButtonItem.action = #selector(editBtn(_:))
+        status = ""
+        deleteTarget = []
         print("cancel")
     }
     
     @objc func editButton() {
+//        isEdit = false
+        showPopView(list: selectList)
+//        tableView.reloadData()
+//        navigationItem.rightBarButtonItem = editButtonItem
+//        navigationItem.leftBarButtonItem = nil
+//        editButtonItem.image = UIImage(named: "setting")
+//        editButtonItem.action = #selector(editBtn(_:))
+    }
+    
+    @objc func deleteButton() {
         isEdit = false
-        tableView.reloadData()
+        if deleteTarget.count != 0 {
+            let deleteurl = "http://simonhost.hopto.org/chatroom/deleteMember.php"
+            if deleteTarget.count != 0 {
+                print(deleteTarget)
+                for i in deleteTarget {
+                    print(memberList[i]["id"] as! String)
+                    
+                    let id = memberList[i]["id"] as! String
+                    
+                    postToURL(url: deleteurl, body: "target=\(id)") {
+                        self.loadMemberList()
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        deleteTarget = []
+        
         navigationItem.rightBarButtonItem = editButtonItem
         navigationItem.leftBarButtonItem = nil
         editButtonItem.image = UIImage(named: "setting")
         editButtonItem.action = #selector(editBtn(_:))
-        print("cancel")
+        
+        
     }
     
     @objc func selectRadioAction(sender: SelectButton) {
+        switch status {
+        case settingList[0]:
+            break
+        case settingList[1]:
+            for i in 0..<radioIsSelected.count {
+                if i == sender.radioInRow {
+                    permissionTarget = sender.radioInRow
+                    radioIsSelected[i] = true
+                }else {
+                    radioIsSelected[i] = false
+                }
+                tableView.reloadData()
+            }
+        case settingList[2]:
+            if sender.isSelected == true {
+                deleteTarget.insert(sender.radioInRow)
+            }else {
+                deleteTarget.remove(sender.radioInRow)
+            }
+            
+            print(deleteTarget)
+        default:
+            break
+        }
         
-        print(sender.radioInRow)
-//        print(sender.tag)
     }
-    
+    func postToURL(url: String, body: String, action: (() -> Void)? = nil) {
+            let postURL = URL(string: url)
+            var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+            request.httpBody = body .data(using: .utf8)
+            request.httpMethod = "POST"
+            let config = URLSessionConfiguration.default
+            let session = URLSession(configuration: config)
+            let dataTask = session.dataTask(with: request) { (data, response, error) in
+                if let data = data {
+                    let html = String(data: data, encoding: .utf8)
+                    if action != nil {
+                        action!()
+                    }
+                    
+                    print(html)
+                }
+            }
+            dataTask.resume()
+    }
+    //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,24 +201,48 @@ class MemberTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
         tabbaritem = editButtonItem
-        if let jsonURL = URL(string: url) {
-            do {
-                let data = try Data(contentsOf: jsonURL)
-                let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String:String]]
-                memberList = jsonData
-                //                print(jsonData)
-                
-            } catch {
-                print(error)
-            }
-        }
+        
+        loadMemberList()
         
         for _ in memberList {
             radioIsSelected.append(false)
         }
         print(radioIsSelected)
         
+    }
+    
+    func loadMemberList() {
+        
+        if let jsonURL = URL(string: url) {
+            do {
+                let data = try Data(contentsOf: jsonURL)
+                let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String:String]]
+                memberList = jsonData
+                
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    //MARK: 氣泡框內容
+    
+    func showPopView(list: [String]) {
+        
+        let height: CGFloat = 44
+        
+        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
+        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(list.count)))
+        
+        let editTable = addPopListLabel(list: list, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
+        for i in editTable {
+            aView.addSubview(i)
+        }
+        //        aView.addSubview(edittableView.view)
+        
+        popover.show(aView, point: startPoint)
     }
     
     func addPopListLabel(list: [String], size: CGSize, startPoint: CGPoint) -> [UIView] {
@@ -137,34 +259,34 @@ class MemberTableViewController: UITableViewController {
             textLayer.frame.origin = CGPoint(x: 0, y: 0)
             textLayer.textColor = UIColor.black
             textLayer.font = UIFont(name: "System", size: 15)
-//            textLayer.layer.borderWidth = 1
+            //            textLayer.layer.borderWidth = 1
             textLayer.textAlignment = .center
             textLayer.tag = 10
-
+            
             viewArr.append(viewObject)
             labelArray.append(textLayer)
             viewObject.addSubview(textLayer)
             viewObject.tag = i + 1
-            if viewObject.tag < listStr.count {
+            if viewObject.tag < list.count {
                 viewObject.layer.addSublayer(drawButtonLine(width: size.width, height: size.height))
             }
             
             viewObject.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:))))
-//            print(textLayer.frame.origin)
+            //            print(textLayer.frame.origin)
         }
         return viewArr
     }
     
     func drawButtonLine( width: CGFloat, height: CGFloat) -> CAShapeLayer {
         
-            let shapeLayer = CAShapeLayer()
-            let linePath = UIBezierPath()
-            linePath.move(to: CGPoint(x: 0, y: height))
-            linePath.addLine(to: CGPoint(x: width, y: height))
-            shapeLayer.strokeColor = UIColor.black.cgColor
-            shapeLayer.fillColor = UIColor.clear.cgColor
-            shapeLayer.lineWidth = 0.5
-            shapeLayer.path = linePath.cgPath
+        let shapeLayer = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: height))
+        linePath.addLine(to: CGPoint(x: width, y: height))
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 0.5
+        shapeLayer.path = linePath.cgPath
         
         return shapeLayer
     }

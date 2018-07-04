@@ -146,9 +146,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let senderName = chatData[indexPath.row]["rname"] as! String
         let senderID = chatData[indexPath.row]["id"] as! String
         let date = chatData[indexPath.row]["date"] as! Date
-        let nbsp = ""
         let member = ViewController.memberData
-        print("me: \(member["id"]) ==> sender :  \(senderID)")
+        
         if member["id"] == senderID {
             rightText.text = "  \(string)  "
         }else {
