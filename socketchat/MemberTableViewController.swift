@@ -9,18 +9,20 @@
 import UIKit
 import Popover
 
-class MemberTableViewController: UITableViewController {
+class MemberTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     let url = "http://simonhost.hopto.org/chatroom/selectMemberList.php"
-    let settingList = ["Add", "Select", "Delete"]
-    let selectList = ["permission"]
+    var settingList = ["Add", "Select", "Delete", "Reload"]
+    let selectList = ["Permission"]
     var memberList: [[String:String]] = []
     var radioIsSelected: [Bool] = []
     var permissionTarget: Int? = nil
     var status: String = ""
     var isEdit: Bool = false
-    let popover = Popover()
+    var popover: Popover!
     var tabbaritem: UIBarButtonItem!
     var deleteTarget:Set<Int> = []
+    var member: [String:String] = [:]
+    var myPermission: Int!
     
     
     
@@ -32,18 +34,17 @@ class MemberTableViewController: UITableViewController {
     
     @IBAction func editBtn(_ sender: UIBarButtonItem) {
         
-        let height: CGFloat = 44
-        
-        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
-        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(settingList.count)))
-        
-        let editTable = addPopListLabel(list: settingList, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
-        for i in editTable {
-            aView.addSubview(i)
-        }
-        //        aView.addSubview(edittableView.view)
-        
-        popover.show(aView, point: startPoint)
+        //        let height: CGFloat = 44
+        //
+        //        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
+        //        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(settingList.count)))
+        //
+        //        let editTable = addPopListLabel(list: settingList, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
+        //        for i in editTable {
+        //            aView.addSubview(i)
+        //        }
+        //        //        aView.addSubview(edittableView.view)
+        //            self.popover.show(aView, point: startPoint)
     }
     
     
@@ -51,15 +52,25 @@ class MemberTableViewController: UITableViewController {
         let tapview = sender.view
         let textLabel = tapview?.viewWithTag(10) as! UILabel
         switch textLabel.text {
-        case settingList[0]:
+        case "Add":
+            //add
             print("A")
-        case settingList[1]:
-            popoverSelectAction(status: settingList[1], rightItemTitle: "Edit", cancelAction: #selector(cancelButton), editAction: #selector(editButton))
-        case settingList[2]:
-            popoverSelectAction(status: settingList[2], rightItemTitle: "Delete", cancelAction: #selector(cancelButton), editAction: #selector(deleteButton))
+        case "Select":
+            //select
+            popoverSelectAction(status: "Select", rightItemTitle: "Edit", cancelAction: #selector(cancelButton), editAction: #selector(editButton))
+        case "Delete":
+            //delete
+            popoverSelectAction(status: "Delete", rightItemTitle: "Delete", cancelAction: #selector(cancelButton), editAction: #selector(deleteButton))
             
             tableView.reloadData()
-        case selectList[0]:
+        case "Reload":
+            reloadButton()
+            popover.dismiss()
+        case "Logout":
+            let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
+            showDetailViewController(vc, sender: nil)
+            
+        case "Permission":
             if permissionTarget != nil {
                 let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
                 vc.name = memberList[permissionTarget!]["account"]!
@@ -70,7 +81,6 @@ class MemberTableViewController: UITableViewController {
                 
             }
             popover.dismiss()
-//            print(selectList[0])
         default:
             break
         }
@@ -96,38 +106,47 @@ class MemberTableViewController: UITableViewController {
         for i in 0..<radioIsSelected.count {
             radioIsSelected[i] = false
         }
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         navigationItem.leftBarButtonItem = nil
         navigationItem.rightBarButtonItem = editButtonItem
         editButtonItem.image = UIImage(named: "setting")
         editButtonItem.action = #selector(editBtn(_:))
         status = ""
         deleteTarget = []
-        print("cancel")
     }
     
     @objc func editButton() {
-//        isEdit = false
         showPopView(list: selectList)
-//        tableView.reloadData()
-//        navigationItem.rightBarButtonItem = editButtonItem
-//        navigationItem.leftBarButtonItem = nil
-//        editButtonItem.image = UIImage(named: "setting")
-//        editButtonItem.action = #selector(editBtn(_:))
     }
+    
+    @objc func reloadButton() {
+        isEdit = false
+        for i in 0..<radioIsSelected.count {
+            radioIsSelected[i] = false
+        }
+        DispatchQueue.main.async {
+            self.loadMemberList()
+            self.tableView.reloadData()
+        }
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem = editButtonItem
+        editButtonItem.image = UIImage(named: "setting")
+        editButtonItem.action = #selector(editBtn(_:))
+        status = ""
+        deleteTarget = []
+    }
+    
     
     @objc func deleteButton() {
         isEdit = false
         if deleteTarget.count != 0 {
             let deleteurl = "http://simonhost.hopto.org/chatroom/deleteMember.php"
             if deleteTarget.count != 0 {
-                print(deleteTarget)
                 for i in deleteTarget {
-                    print(memberList[i]["id"] as! String)
-                    
                     let id = memberList[i]["id"] as! String
-                    
-                    postToURL(url: deleteurl, body: "target=\(id)") {
+                    postToURL(url: deleteurl, body: "target=\(id)") { (data) in
                         self.loadMemberList()
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
@@ -135,6 +154,8 @@ class MemberTableViewController: UITableViewController {
                     }
                 }
             }
+        }else {
+            tableView.reloadData()
         }
         deleteTarget = []
         
@@ -148,9 +169,9 @@ class MemberTableViewController: UITableViewController {
     
     @objc func selectRadioAction(sender: SelectButton) {
         switch status {
-        case settingList[0]:
+        case "Add":
             break
-        case settingList[1]:
+        case "Select":
             for i in 0..<radioIsSelected.count {
                 if i == sender.radioInRow {
                     permissionTarget = sender.radioInRow
@@ -160,41 +181,40 @@ class MemberTableViewController: UITableViewController {
                 }
                 tableView.reloadData()
             }
-        case settingList[2]:
+        case "Delete":
             if sender.isSelected == true {
                 deleteTarget.insert(sender.radioInRow)
             }else {
                 deleteTarget.remove(sender.radioInRow)
             }
             
-            print(deleteTarget)
         default:
             break
         }
         
     }
-    func postToURL(url: String, body: String, action: (() -> Void)? = nil) {
-            let postURL = URL(string: url)
-            var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-            request.httpBody = body .data(using: .utf8)
-            request.httpMethod = "POST"
-            let config = URLSessionConfiguration.default
-            let session = URLSession(configuration: config)
-            let dataTask = session.dataTask(with: request) { (data, response, error) in
-                if let data = data {
-                    let html = String(data: data, encoding: .utf8)
-                    if action != nil {
-                        action!()
-                    }
-                    
-                    print(html)
+    func postToURL(url: String, body: String, action: ((_ returnData: String?) -> Void)? = nil) {
+        let postURL = URL(string: url)
+        var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+        request.httpBody = body .data(using: .utf8)
+        request.httpMethod = "POST"
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let dataTask = session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                let html = String(data: data, encoding: .utf8)
+                if action != nil {
+                    action!(html)
                 }
             }
-            dataTask.resume()
+        }
+        dataTask.resume()
     }
     //MARK:-
     override func viewDidLoad() {
+        popover = Popover()
         super.viewDidLoad()
+        print("SHOW VIEW")
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -205,12 +225,26 @@ class MemberTableViewController: UITableViewController {
         tabbaritem = editButtonItem
         
         loadMemberList()
-        
         for _ in memberList {
             radioIsSelected.append(false)
         }
-        print(radioIsSelected)
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "member_to_popover" {
+            let popctrl = segue.destination.popoverPresentationController
+            let popview = segue.destination as! PopoverViewController
+            popview.memberTable_vc = self
+            if sender is UIButton {
+                popctrl?.sourceRect = (sender as! UIButton).bounds
+                popctrl?.permittedArrowDirections = .down
+            }
+            popctrl?.delegate = self
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
     
     func loadMemberList() {
@@ -219,7 +253,7 @@ class MemberTableViewController: UITableViewController {
             do {
                 let data = try Data(contentsOf: jsonURL)
                 let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String:String]]
-                memberList = jsonData
+                self.memberList = jsonData
                 
             } catch {
                 print(error)
@@ -272,7 +306,6 @@ class MemberTableViewController: UITableViewController {
             }
             
             viewObject.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:))))
-            //            print(textLayer.frame.origin)
         }
         return viewArr
     }
@@ -315,8 +348,8 @@ class MemberTableViewController: UITableViewController {
         
         let nameLabel = cell.viewWithTag(10) as! UILabel
         let selectRadio = cell.viewWithTag(20) as! SelectButton
-        selectRadio.isSelected = radioIsSelected[indexPath.row]
         
+        selectRadio.isSelected = radioIsSelected[indexPath.row]
         selectRadio.radioInRow = indexPath.row
         
         

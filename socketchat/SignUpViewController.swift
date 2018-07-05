@@ -18,9 +18,6 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var realnameText: UITextField!
     
-    @IBAction func aaa(_ sender: Any) {
-        
-    }
     @IBAction func signup(_ sender: Any) {
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = passwordText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -77,6 +74,10 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        passwordText.addTarget(self, action: #selector(passwordEndEditing(sender:)), for: .editingDidEndOnExit)
+        accountText.addTarget(self, action: #selector(accountEndEditing(sender:)), for: .editingDidEndOnExit)
+        realnameText.addTarget(self, action: #selector(realnameEndEditing(sender:)), for: .editingDidEndOnExit)
+        
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -88,6 +89,19 @@ class SignUpViewController: UIViewController {
         let OK = UIAlertAction(title: "OK", style: .cancel, handler: action)
         alert.addAction(OK)
         self.present(alert,animated: true,completion: nil)
+    }
+    
+    @objc func accountEndEditing(sender: UITextField) {
+        sender.endEditing(true)
+        passwordText.becomeFirstResponder()
+        
+    }
+    @objc func passwordEndEditing(sender: UITextField) {
+        sender.endEditing(true)
+        realnameText.becomeFirstResponder()
+    }
+    @objc func realnameEndEditing(sender: UITextField) {
+        sender.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {

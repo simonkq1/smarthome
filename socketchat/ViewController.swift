@@ -13,14 +13,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var outStream: OutputStream? = nil
     var jsonObject: [String:Any] = [:]
     var chatData: [[String:Any]] = []
-    static var memberData: [String:String] = [:]
     
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var speakText: UITextField!
     @IBAction func sendBtn(_ sender: Any) {
         if let text = speakText.text, text != "" {
-            let member = ViewController.memberData
+            let member = Global.memberData
             let account = member["account"] as! String
             let id = member["id"] as! String
             let rname = member["rname"] as! String
@@ -44,14 +43,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.separatorColor = UIColor.clear
         speakText.addTarget(self, action: #selector(sendBtn(_:)), for: .editingDidEndOnExit)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
         //MARK:- --- socket連線 ---
         let _ = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &isStream, outputStream: &outStream)
 //        let _ = Stream.getStreamsToHost(withName: "localhost", port: 5000, inputStream: &isStream, outputStream: &outStream)
         isStream?.open()
         outStream?.open()
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
         
         DispatchQueue.global().async {
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             self.chatData.append(["sender":chatSender,"string":chatString,"date":Date(),"account":chatAccount,"id":chatId,"rname":chatrName])
                             strDate = Date()
                             self.tableView.reloadData()
-                            if chatId == ViewController.memberData["id"] {
+                            if chatId == Global.memberData["id"] {
                                 self.scrollViewToBottom(animated: false)
                             }
                             
@@ -103,11 +103,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print(ViewController.memberData)
         tableView.separatorColor = UIColor.clear
         DispatchQueue.global().async {
             let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
-            let member = ViewController.memberData
+            let member = Global.memberData
             let account = member["account"] as! String
             let id = member["id"] as! String
             let rname = member["rname"] as! String
@@ -146,7 +145,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let senderName = chatData[indexPath.row]["rname"] as! String
         let senderID = chatData[indexPath.row]["id"] as! String
         let date = chatData[indexPath.row]["date"] as! Date
-        let member = ViewController.memberData
+        let member = Global.memberData
         
         if member["id"] == senderID {
             rightText.text = "  \(string)  "

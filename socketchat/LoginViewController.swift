@@ -16,14 +16,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var accountText: UITextField!
     
     @IBOutlet weak var passwordText: UITextField!
-    let a = ViewController.memberData
-    
+    let home = NSHomeDirectory()
+    let user = UserDefaults()
     
     @IBAction func btn(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
-        vc.name = "AAA"
-        show(vc, sender: nil)
         
+        user.set("aa", forKey: "test")
+        user.synchronize()
     }
     @IBAction func login(_ sender: Any) {
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -34,56 +33,11 @@ class LoginViewController: UIViewController {
             
         }else if passwordText.text == "" {
             
-            
         }
         
         if accountText.text != "", passwordText.text != "" {
             
-            TouchID.verify {
-                
-                let signUpURL = URL(string: self.url)
-                var request = URLRequest(url: signUpURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-                request.httpBody = "account=\(acc!)&password=\(pwd!)" .data(using: .utf8)
-                request.httpMethod = "POST"
-                let config = URLSessionConfiguration.default
-                let session = URLSession(configuration: config)
-                var status: String = ""
-                let dataTesk = session.dataTask(with: request) { (data, response, error) in
-                    
-                    if let data = data {
-                        let html = String(data:data, encoding: .utf8)
-                        let jsonData = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:String]
-                        //                    print(jsonData)
-                        if jsonData["status"] != nil {
-                            status = jsonData["status"] as! String
-                        }
-                        print(status)
-                        if status == "0" {
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "chatroom_vc") as! ViewController
-                            ViewController.memberData = jsonData
-                            DispatchQueue.main.async {
-                                self.show(vc, sender: nil)
-                                //                            self.showAlert(title: "success", msg: "return to login page", action: nil)
-                            }
-                        }else if status == "1" {
-                            DispatchQueue.main.async {
-                                self.showAlert(title: "Error", msg: "Password wrong", action: nil)
-                            }
-                            
-                        }else if status == "2" {
-                            DispatchQueue.main.async {
-                                self.showAlert(title: "Error", msg: "Account is not exist", action: nil)
-                            }
-                        }else {
-                            DispatchQueue.main.async {
-                                self.showAlert(title: "Error", msg: "connect error", action: nil)
-                                
-                            }
-                        }
-                    }
-                }
-                dataTesk.resume()
-            }
+            login(tourl: url, account: accountText.text!, password: passwordText.text!)
             
         }
     }
@@ -91,10 +45,15 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        if let string = user.object(forKey: "test") {
+            print(string as! String)
+        }
+        
         // Do any additional setup after loading the view.
         
         self.isEditing = false
+        accountText.addTarget(self, action: #selector(accountEndEditing(sender:)), for: .editingDidEndOnExit)
+        passwordText.addTarget(self, action: #selector(login(_:)), for: .editingDidEndOnExit)
         
         let fingerPrint = UserDefaults.standard.value(forKey: "fingerPrint")
         if ((fingerPrint != nil) && fingerPrint as! Bool) {
@@ -104,7 +63,6 @@ class LoginViewController: UIViewController {
             
             let isTouchAvaliable = authenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
             if isTouchAvaliable {
-                print("OK")
                 authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "需要驗證指紋來確認您的身份信息") { (success, error) in
                     if success {
                         NSLog("通過驗證")
@@ -113,15 +71,78 @@ class LoginViewController: UIViewController {
                         NSLog("驗證失敗")
                     }
                 }
-                
             }
         }
-        
     }
+    
+    
+    func login(tourl: String, account: String, password: String) {
+        
+        let acc = account.trimmingCharacters(in: .whitespacesAndNewlines)
+        let pwd = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if account == "" {
+            
+        }else if password == "" {
+            
+        }
+        
+        if account != "", password != "" {
+            
+            //            TouchID.verify {
+            let signUpURL = URL(string: tourl)
+            var request = URLRequest(url: signUpURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+            request.httpBody = "account=\(acc)&password=\(pwd)" .data(using: .utf8)
+            request.httpMethod = "POST"
+            let config = URLSessionConfiguration.default
+            let session = URLSession(configuration: config)
+            var status: String = ""
+            let dataTesk = session.dataTask(with: request) { (data, response, error) in
+                
+                if let data = data {
+                    let html = String(data:data, encoding: .utf8)
+                    let jsonData = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:String]
+                    if jsonData["status"] != nil {
+                        status = jsonData["status"] as! String
+                    }
+                    print(status)
+                    if status == "0" {
+                        //                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "chatroom_vc") as! ViewController
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
+                        //                            ViewController.memberData = jsonData
+                        Global.memberData = jsonData
+                        DispatchQueue.main.async {
+                            self.show(vc, sender: nil)
+                        }
+                    }else if status == "1" {
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "Error", msg: "Password wrong", action: nil)
+                        }
+                        
+                    }else if status == "2" {
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "Error", msg: "Account is not exist", action: nil)
+                        }
+                    }else {
+                        DispatchQueue.main.async {
+                            self.showAlert(title: "Error", msg: "connect error", action: nil)
+                            
+                        }
+                    }
+                }
+            }
+            dataTesk.resume()
+        }
+    }
+    
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    @objc func accountEndEditing(sender: UITextField) {
+        Global.editingNextTextField(first: sender, next: passwordText)
     }
     
     func showAlert(title: String, msg: String , action: ((UIAlertAction) -> Void)?) {

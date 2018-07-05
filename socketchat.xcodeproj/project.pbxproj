@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8416F7CD20EE07A2008F8032 /* Popover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8416F7CC20EE07A2008F8032 /* Popover.framework */; };
+		8416F7D520EE0B57008F8032 /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416F7D420EE0B57008F8032 /* PopViewController.swift */; };
+		8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */; };
 		843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */; };
 		843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */; };
 		84A6F2A020E9B386004EBF90 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */; };
@@ -21,21 +24,13 @@
 		84D227D220E6033200BE498A /* ChatTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D227D120E6033200BE498A /* ChatTextLabel.swift */; };
 		84E8F7D020EB1F9F005BB4A1 /* MemberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7CF20EB1F9F005BB4A1 /* MemberTableViewController.swift */; };
 		84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */; };
-		84E8F7E820EB4095005BB4A1 /* Popover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E8F7E720EB4091005BB4A1 /* Popover.framework */; };
 		84E8F7F020EB4DE7005BB4A1 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7EF20EB4DE7005BB4A1 /* Global.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		84E8F7E620EB4091005BB4A1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 84E8F7E220EB4091005BB4A1 /* Popover.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 72782A571C6BE5C3003BA478;
-			remoteInfo = Popover;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		8416F7CC20EE07A2008F8032 /* Popover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Popover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8416F7D420EE0B57008F8032 /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
+		8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionSettingViewController.swift; sourceTree = "<group>"; };
 		843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionPickerViewController.swift; sourceTree = "<group>"; };
 		84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
@@ -52,7 +47,6 @@
 		84D227D120E6033200BE498A /* ChatTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextLabel.swift; sourceTree = "<group>"; };
 		84E8F7CF20EB1F9F005BB4A1 /* MemberTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewController.swift; sourceTree = "<group>"; };
 		84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectButton.swift; sourceTree = "<group>"; };
-		84E8F7E220EB4091005BB4A1 /* Popover.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Popover.xcodeproj; path = "../../../../../Downloads/Popover-master/Popover.xcodeproj"; sourceTree = "<group>"; };
 		84E8F7EF20EB4DE7005BB4A1 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84E8F7E820EB4095005BB4A1 /* Popover.framework in Frameworks */,
+				8416F7CD20EE07A2008F8032 /* Popover.framework in Frameworks */,
 				84A6F2A020E9B386004EBF90 /* LocalAuthentication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,6 +66,7 @@
 		84A6F29E20E9B385004EBF90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8416F7CC20EE07A2008F8032 /* Popover.framework */,
 				84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */,
 			);
 			name = Frameworks;
@@ -112,17 +107,10 @@
 				84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */,
 				84A6F2A120E9BBFD004EBF90 /* TouchID.swift */,
 				84E8F7EF20EB4DE7005BB4A1 /* Global.swift */,
-				84E8F7E220EB4091005BB4A1 /* Popover.xcodeproj */,
+				8416F7D420EE0B57008F8032 /* PopViewController.swift */,
+				8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */,
 			);
 			path = socketchat;
-			sourceTree = "<group>";
-		};
-		84E8F7E320EB4091005BB4A1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				84E8F7E720EB4091005BB4A1 /* Popover.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,28 +159,12 @@
 			mainGroup = 84B2506520E1CB490046146A;
 			productRefGroup = 84B2506F20E1CB490046146A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 84E8F7E320EB4091005BB4A1 /* Products */;
-					ProjectRef = 84E8F7E220EB4091005BB4A1 /* Popover.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				84B2506D20E1CB490046146A /* socketchat */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		84E8F7E720EB4091005BB4A1 /* Popover.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Popover.framework;
-			remoteRef = 84E8F7E620EB4091005BB4A1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		84B2506C20E1CB490046146A /* Resources */ = {
@@ -214,12 +186,14 @@
 			files = (
 				84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */,
 				843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */,
+				8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */,
 				84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */,
 				84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */,
 				84B2507420E1CB490046146A /* ViewController.swift in Sources */,
 				84E8F7F020EB4DE7005BB4A1 /* Global.swift in Sources */,
 				84E8F7D020EB1F9F005BB4A1 /* MemberTableViewController.swift in Sources */,
 				843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */,
+				8416F7D520EE0B57008F8032 /* PopViewController.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,
 				84D227D220E6033200BE498A /* ChatTextLabel.swift in Sources */,
 				84C571F820E36C0400D9DBEA /* SignUpViewController.swift in Sources */,
@@ -299,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -353,7 +327,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
