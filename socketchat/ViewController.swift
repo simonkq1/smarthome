@@ -22,9 +22,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let member = Global.memberData
             let account = member["account"] as! String
             let id = member["id"] as! String
-            let rname = member["rname"] as! String
+            let username = member["username"] as! String
             let textData = """
-                            {"account":\"\(account)\","id":\"\(id)\","rname":\"\(rname)\","text":\"\(text)\"}
+                            {"account":\"\(account)\","id":\"\(id)\","username":\"\(username)\","text":\"\(text)\"}
                         """
             
             print("aaaa : \(textData)")
@@ -62,11 +62,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let chatSender = data!["sender"] as! String
                         let chatAccount = data!["account"] as! String
                         let chatId = data!["id"] as! String
-                        let chatrName = data!["rname"] as! String
+                        let chatrName = data!["username"] as! String
                         var strDate = Date()
                         if !chatString.contains("naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@") {
                             
-                            self.chatData.append(["sender":chatSender,"string":chatString,"date":Date(),"account":chatAccount,"id":chatId,"rname":chatrName])
+                            self.chatData.append(["sender":chatSender,"string":chatString,"date":Date(),"account":chatAccount,"id":chatId,"username":chatrName])
                             strDate = Date()
                             self.tableView.reloadData()
                             if chatId == Global.memberData["id"] {
@@ -109,11 +109,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let member = Global.memberData
             let account = member["account"] as! String
             let id = member["id"] as! String
-            let rname = member["rname"] as! String
+            let username = member["username"] as! String
             while true{
                 sleep(15)
                 let textData = """
-                {"account":\"\(account)\","id":\"\(id)\","rname":\"\(rname)\","text":\"\(noData)\"}
+                {"account":\"\(account)\","id":\"\(id)\","username":\"\(username)\","text":\"\(noData)\"}
                 """
 
                 self.send(textData)
@@ -142,7 +142,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let sender = chatData[indexPath.row]["sender"] as! String
         let string = chatData[indexPath.row]["string"] as! String
-        let senderName = chatData[indexPath.row]["rname"] as! String
+        let senderName = chatData[indexPath.row]["username"] as! String
         let senderID = chatData[indexPath.row]["id"] as! String
         let date = chatData[indexPath.row]["date"] as! Date
         let member = Global.memberData

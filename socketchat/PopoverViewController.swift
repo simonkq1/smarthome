@@ -19,6 +19,8 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
     var status: String = ""
     var isEdit: Bool = false
     var memberTable_vc: MemberTableViewController!
+    var views: [UIView] = []
+    let user = UserDefaults()
     
     
     @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
@@ -31,34 +33,58 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
             print("A")
         case "Select":
             //select
+            memberTable_vc.status = "Select"
+            memberTable_vc.barEditBtn.image = nil
+            memberTable_vc.barEditBtn.title = "Edit"
+            memberTable_vc.navigationItem.rightBarButtonItem = memberTable_vc.barEditBtn
+            memberTable_vc.editPermissionButton()
+            memberTable_vc.isEdit = true
+            
+            memberTable_vc.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: memberTable_vc, action: #selector(memberTable_vc.cancelButton))
+            memberTable_vc.tableView.reloadData()
+           
             self.dismiss(animated: true, completion: nil)
-//            popoverSelectAction(status: "Select", rightItemTitle: "Edit", cancelAction: #selector(cancelButton), editAction: #selector(editButton))
             break
         case "Delete":
             //delete
-//            popoverSelectAction(status: "Delete", rightItemTitle: "Delete", cancelAction: #selector(cancelButton), editAction: #selector(deleteButton))
-//
-//            tableView.reloadData()
+            print("Delete")
+            
+            memberTable_vc.popoverSelectAction(status: "Delete", rightItemTitle: "Delete", cancelAction: #selector(memberTable_vc.cancelButton), editAction: #selector(memberTable_vc.deleteButton))
+//            memberTable_vc.tableView.reloadData()
+            self.dismiss(animated: true, completion: nil)
             break
         case "Reload":
-//            reloadButton()
-//            popover.dismiss()
+            memberTable_vc.reloadButton()
+            self.dismiss(animated: true, completion: nil)
             break
         case "Logout":
+            if let _ = user.object(forKey: "password") {
+                user.removeObject(forKey: "password")
+            }
+            if let _ = user.object(forKey: "account") {
+                user.removeObject(forKey: "account")
+            }
+            if let _ = user.object(forKey: "isLogin") {
+                user.removeObject(forKey: "isLogin")
+            }
+            let logoutURL = "http://simonhost.hopto.org/chatroom/logout.php"
+            
+            Global.postToURL(url: logoutURL, body: "id=\(Global.selfData.id)")
+            
             let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
             showDetailViewController(vc, sender: nil)
             break
         case "Permission":
-//            if permissionTarget != nil {
-//                let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
-//                vc.name = memberList[permissionTarget!]["account"]!
-//                vc.permission = memberList[permissionTarget!]["mod"]!
-//                vc.tid = memberList[permissionTarget!]["id"]!
-//                vc.memberView = self
-//                present(vc, animated: true, completion: nil)
-//
-//            }
-//            popover.dismiss()
+            if memberTable_vc.permissionTarget != nil {
+                let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
+                vc.name = memberTable_vc.memberList[memberTable_vc.permissionTarget!]["account"]!
+                vc.permission = memberTable_vc.memberList[memberTable_vc.permissionTarget!]["mod"]!
+                vc.tid = memberTable_vc.memberList[memberTable_vc.permissionTarget!]["id"]!
+                vc.memberView = memberTable_vc
+                self.dismiss(animated: true, completion: nil)
+                memberTable_vc.present(vc, animated: true, completion: nil)
+
+            }
             break
         default:
             break
@@ -71,29 +97,40 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        member = Global.memberData
         
-//        member = Global.memberData
-        
-        myPermission = 1
+        myPermission = Int(member["mod"]!)
+        memberTable_vc.myPermission = myPermission
         switch myPermission {
         case 1:
             settingList = ["Add", "Select", "Delete", "Reload", "Logout"]
+            break
         case 2:
             settingList = ["Add", "Select", "Delete", "Reload", "Logout"]
+            break
         case 3:
             settingList = ["Add", "Select", "Reload", "Logout"]
+            break
         case 4:
             settingList = ["Add", "Select", "Reload", "Logout"]
+            break
         case 5:
             settingList = ["Add", "Reload", "Logout"]
+            break
         case 6:
             settingList = ["Reload", "Logout"]
+            break
         default:
             settingList = ["Add", "Select", "Delete", "Reload", "Logout"]
         }
+        switch memberTable_vc.status {
+        case "Select":
+            views = addPopListLabel(list: selectList, size: CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height), startPoint: CGPoint(x: 0, y: 0))
+            break
+        default:
+             views = addPopListLabel(list: settingList, size: CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height), startPoint: CGPoint(x: 0, y: 0))
+        }
         
-        memberTable_vc = storyboard?.instantiateViewController(withIdentifier: "memberTable_vc") as! MemberTableViewController
-        let views = addPopListLabel(list: settingList, size: CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height), startPoint: CGPoint(x: 0, y: 0))
         
         for i in views {
             self.view.addSubview(i)
@@ -101,88 +138,14 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     
     override func viewDidLayoutSubviews() {
-        self.preferredContentSize = CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height * CGFloat(settingList.count) + 20)
-    }
-    
-    
-    func popoverSelectAction(status: String,rightItemTitle: String, cancelAction: Selector? = #selector(cancelButton), editAction: Selector? = nil) {
-        
-        self.status = status
-        let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: cancelAction)
-        let EditBarButton = UIBarButtonItem(title: rightItemTitle, style: .plain, target: self, action: editAction)
-        navigationItem.leftBarButtonItem = cancelBarButton
-        navigationItem.rightBarButtonItem = EditBarButton
-        memberTable_vc.isEdit = true
-        memberTable_vc.tableView.reloadData()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    
-    @objc func editButton() {
-        showPopView(list: selectList)
-    }
-    
-    @objc func reloadButton() {
-        isEdit = false
-        for i in 0..<radioIsSelected.count {
-            radioIsSelected[i] = false
+        switch memberTable_vc.status {
+        case "Select":
+            self.preferredContentSize = CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height * CGFloat(selectList.count) + 20)
+        default:
+            self.preferredContentSize = CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height * CGFloat(settingList.count) + 20)
         }
-        DispatchQueue.main.async {
-            self.loadMemberList()
-            self.tableView.reloadData()
-        }
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = editButtonItem
-        editButtonItem.image = UIImage(named: "setting")
-        editButtonItem.action = #selector(editBtn(_:))
-        status = ""
-        deleteTarget = []
     }
     
-    
-    @objc func deleteButton() {
-        isEdit = false
-        if deleteTarget.count != 0 {
-            let deleteurl = "http://simonhost.hopto.org/chatroom/deleteMember.php"
-            if deleteTarget.count != 0 {
-                for i in deleteTarget {
-                    let id = memberList[i]["id"] as! String
-                    postToURL(url: deleteurl, body: "target=\(id)") { (data) in
-                        self.loadMemberList()
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    }
-                }
-            }
-        }else {
-            tableView.reloadData()
-        }
-        deleteTarget = []
-        
-        navigationItem.rightBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem = nil
-        editButtonItem.image = UIImage(named: "setting")
-        editButtonItem.action = #selector(editBtn(_:))
-        
-        
-    }
-    @objc func cancelButton() {
-        isEdit = false
-        for i in 0..<memberTable_vc.radioIsSelected.count {
-            memberTable_vc.radioIsSelected[i] = false
-        }
-        DispatchQueue.main.async {
-            self.memberTable_vc.tableView.reloadData()
-        }
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = editButtonItem
-        editButtonItem.image = UIImage(named: "setting")
-        editButtonItem.action = #selector(editBtn(_:))
-        status = ""
-        memberTable_vc.deleteTarget = []
-        
-    }
     
     
     

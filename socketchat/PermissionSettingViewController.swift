@@ -40,6 +40,9 @@ class PermissionSettingViewController: UIViewController {
             }
         }
         memberView.cancelButton()
+        memberView.permissionTarget = nil
+        memberView.barEditBtn.title = ""
+        memberView.barEditBtn.image = UIImage(named: "setting")
         memberView.tableView.reloadData()
         self.dismiss(animated: true, completion: nil)
         
@@ -51,6 +54,9 @@ class PermissionSettingViewController: UIViewController {
             memberView.isEdit = false
         }
         memberView.cancelButton()
+        memberView.permissionTarget = nil
+        memberView.barEditBtn.title = ""
+        memberView.barEditBtn.image = UIImage(named: "setting")
         memberView.tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }
@@ -64,6 +70,15 @@ class PermissionSettingViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        alertView.frame = CGRect(x: alertView.frame.origin, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+        self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: self.view.frame.height / 3)
+        
+        for i in view.constraints {
+            if i.identifier == "button_botton" {
+                i.constant = 0
+            }
+        }
         
         nameLabel.text = name
         permissionLabel.text = permission

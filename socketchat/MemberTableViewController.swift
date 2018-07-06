@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Popover
 
 class MemberTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     let url = "http://simonhost.hopto.org/chatroom/selectMemberList.php"
@@ -18,12 +17,12 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     var permissionTarget: Int? = nil
     var status: String = ""
     var isEdit: Bool = false
-    var popover: Popover!
     var tabbaritem: UIBarButtonItem!
     var deleteTarget:Set<Int> = []
     var member: [String:String] = [:]
     var myPermission: Int!
-    
+    var permissionEditBarButton: UIBarButtonItem!
+    let user = UserDefaults()
     
     
     
@@ -34,58 +33,8 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     
     @IBAction func editBtn(_ sender: UIBarButtonItem) {
         
-        //        let height: CGFloat = 44
-        //
-        //        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
-        //        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(settingList.count)))
-        //
-        //        let editTable = addPopListLabel(list: settingList, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
-        //        for i in editTable {
-        //            aView.addSubview(i)
-        //        }
-        //        //        aView.addSubview(edittableView.view)
-        //            self.popover.show(aView, point: startPoint)
     }
     
-    
-    @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
-        let tapview = sender.view
-        let textLabel = tapview?.viewWithTag(10) as! UILabel
-        switch textLabel.text {
-        case "Add":
-            //add
-            print("A")
-        case "Select":
-            //select
-            popoverSelectAction(status: "Select", rightItemTitle: "Edit", cancelAction: #selector(cancelButton), editAction: #selector(editButton))
-        case "Delete":
-            //delete
-            popoverSelectAction(status: "Delete", rightItemTitle: "Delete", cancelAction: #selector(cancelButton), editAction: #selector(deleteButton))
-            
-            tableView.reloadData()
-        case "Reload":
-            reloadButton()
-            popover.dismiss()
-        case "Logout":
-            let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
-            showDetailViewController(vc, sender: nil)
-            
-        case "Permission":
-            if permissionTarget != nil {
-                let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
-                vc.name = memberList[permissionTarget!]["account"]!
-                vc.permission = memberList[permissionTarget!]["mod"]!
-                vc.tid = memberList[permissionTarget!]["id"]!
-                vc.memberView = self
-                present(vc, animated: true, completion: nil)
-                
-            }
-            popover.dismiss()
-        default:
-            break
-        }
-        
-    }
     
     func popoverSelectAction(status: String,rightItemTitle: String, cancelAction: Selector? = #selector(cancelButton), editAction: Selector? = nil) {
         
@@ -96,74 +45,102 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         navigationItem.rightBarButtonItem = EditBarButton
         isEdit = true
         tableView.reloadData()
-        self.popover.dismiss()
     }
     
     //MARK:- Setting Action
     
     @objc func cancelButton() {
-        isEdit = false
-        for i in 0..<radioIsSelected.count {
-            radioIsSelected[i] = false
+        print(Global.memberData)
+        self.isEdit = false
+        for i in 0..<self.radioIsSelected.count {
+            self.radioIsSelected[i] = false
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = editButtonItem
-        editButtonItem.image = UIImage(named: "setting")
-        editButtonItem.action = #selector(editBtn(_:))
-        status = ""
-        deleteTarget = []
+        self.navigationItem.rightBarButtonItem = barEditBtn
+        barEditBtn.image = UIImage(named: "setting")
+        barEditBtn.title = ""
+        barEditBtn.isEnabled = true
+        self.navigationItem.leftBarButtonItem = nil
+        self.status = ""
+        self.permissionTarget = nil
+        self.deleteTarget = []
     }
     
-    @objc func editButton() {
-        showPopView(list: selectList)
+    @objc func selectButton() {
+        
+    }
+    
+    @objc func editPermissionButton() {
+        if self.permissionTarget != nil {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
+            vc.permission = memberList[permissionTarget!]["mod"]!
+            vc.name = memberList[permissionTarget!]["account"]!
+            vc.tid = memberList[permissionTarget!]["id"]!
+            vc.memberView = self
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @objc func reloadButton() {
-        isEdit = false
-        for i in 0..<radioIsSelected.count {
-            radioIsSelected[i] = false
+        self.isEdit = false
+        for i in 0..<self.radioIsSelected.count {
+            self.radioIsSelected[i] = false
         }
         DispatchQueue.main.async {
             self.loadMemberList()
+            if self.memberList.count != self.radioIsSelected.count {
+                self.radioIsSelected = []
+                for _ in self.memberList {
+                    self.radioIsSelected.append(false)
+                }
+            }
             self.tableView.reloadData()
         }
-        navigationItem.leftBarButtonItem = nil
-        navigationItem.rightBarButtonItem = editButtonItem
-        editButtonItem.image = UIImage(named: "setting")
-        editButtonItem.action = #selector(editBtn(_:))
-        status = ""
-        deleteTarget = []
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = barEditBtn
+        self.status = ""
+        self.deleteTarget = []
     }
     
     
     @objc func deleteButton() {
-        isEdit = false
-        if deleteTarget.count != 0 {
+        print("AAA")
+        self.isEdit = false
+        if self.deleteTarget.count != 0 {
             let deleteurl = "http://simonhost.hopto.org/chatroom/deleteMember.php"
-            if deleteTarget.count != 0 {
-                for i in deleteTarget {
-                    let id = memberList[i]["id"] as! String
-                    postToURL(url: deleteurl, body: "target=\(id)") { (data) in
-                        self.loadMemberList()
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
+            if self.deleteTarget.count != 0 {
+                for i in self.deleteTarget {
+                    
+                    if myPermission < i {
+                        let id = self.memberList[i]["id"] as! String
+                        self.postToURL(url: deleteurl, body: "target=\(id)") { (data) in
+                            self.loadMemberList()
+                            self.radioIsSelected = []
+                            for _ in self.memberList {
+                                self.radioIsSelected.append(false)
+                            }
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
+                    }else {
+                        let targetName = self.memberList[i]["username"]
+                        self.showAlert(title: "Warning", msg: "you have no permission to delete \(targetName!)", action: nil)
+                        self.isEdit = false
+                        self.tableView.reloadData()
                     }
                 }
+                
             }
         }else {
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
-        deleteTarget = []
+        self.deleteTarget = []
         
-        navigationItem.rightBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem = nil
-        editButtonItem.image = UIImage(named: "setting")
-        editButtonItem.action = #selector(editBtn(_:))
-        
+        self.navigationItem.rightBarButtonItem = barEditBtn
+        self.navigationItem.leftBarButtonItem = nil
         
     }
     
@@ -212,7 +189,6 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     }
     //MARK:-
     override func viewDidLoad() {
-        popover = Popover()
         super.viewDidLoad()
         print("SHOW VIEW")
         
@@ -221,13 +197,21 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        DispatchQueue.main.async {
+            sleep(2)
+            self.member = Global.memberData
+            self.myPermission = Int(self.member["mod"]!)
+        }
         
-        tabbaritem = editButtonItem
         
         loadMemberList()
+        
         for _ in memberList {
             radioIsSelected.append(false)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -262,53 +246,20 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     }
     
     //MARK: 氣泡框內容
+//
+//    func showPopView(list: [String]) {
+//
+//        let height: CGFloat = 44
+//
+//        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
+//        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(list.count)))
+//
+//        let editTable = addPopListLabel(list: list, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
+//        for i in editTable {
+//            aView.addSubview(i)
+//        }
+//    }
     
-    func showPopView(list: [String]) {
-        
-        let height: CGFloat = 44
-        
-        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
-        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(list.count)))
-        
-        let editTable = addPopListLabel(list: list, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
-        for i in editTable {
-            aView.addSubview(i)
-        }
-        //        aView.addSubview(edittableView.view)
-        
-        popover.show(aView, point: startPoint)
-    }
-    
-    func addPopListLabel(list: [String], size: CGSize, startPoint: CGPoint) -> [UIView] {
-        var labelArray: [UILabel] = []
-        var viewArr: [UIView] = []
-        for i in 0..<list.count {
-            let textLayer = UILabel()
-            let viewObject = UIView()
-            viewObject.frame.size = size
-            viewObject.frame.origin = CGPoint(x: 0, y: 10 + size.height * CGFloat(i))
-            textLayer.text = list[i]
-            
-            textLayer.frame.size = size
-            textLayer.frame.origin = CGPoint(x: 0, y: 0)
-            textLayer.textColor = UIColor.black
-            textLayer.font = UIFont(name: "System", size: 15)
-            //            textLayer.layer.borderWidth = 1
-            textLayer.textAlignment = .center
-            textLayer.tag = 10
-            
-            viewArr.append(viewObject)
-            labelArray.append(textLayer)
-            viewObject.addSubview(textLayer)
-            viewObject.tag = i + 1
-            if viewObject.tag < list.count {
-                viewObject.layer.addSublayer(drawButtonLine(width: size.width, height: size.height))
-            }
-            
-            viewObject.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:))))
-        }
-        return viewArr
-    }
     
     func drawButtonLine( width: CGFloat, height: CGFloat) -> CAShapeLayer {
         
@@ -324,6 +275,13 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         return shapeLayer
     }
     
+    func showAlert(title: String, msg: String , action: ((UIAlertAction) -> Void)?) {
+        
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: action)
+        alert.addAction(OK)
+        self.present(alert,animated: true,completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -335,6 +293,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -356,7 +315,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         if isEdit == true {
             for i in cell.contentView.constraints {
                 if i.identifier == "radio_btn_constraint" {
-                    i.constant = 1
+                    i.constant = 5
                     UIView.animate(withDuration: 0.5) {
                         self.view.layoutIfNeeded()
                     }
@@ -374,8 +333,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         }
         
         selectRadio.addTarget(self, action: #selector(selectRadioAction(sender:)), for: .touchUpInside)
-        
-        nameLabel.text = memberList[indexPath.row]["account"]
+        nameLabel.text = memberList[indexPath.row]["username"]
         
         // Configure the cell...
         

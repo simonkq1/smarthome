@@ -21,10 +21,8 @@ class LoginViewController: UIViewController {
     
     @IBAction func btn(_ sender: Any) {
         
-        user.set("aa", forKey: "test")
-        user.synchronize()
     }
-    @IBAction func login(_ sender: Any) {
+    @IBAction func login(_ sender: UIButton) {
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = passwordText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -37,6 +35,14 @@ class LoginViewController: UIViewController {
         
         if accountText.text != "", passwordText.text != "" {
             
+            sender.isEnabled = false
+            if #available(iOS 10.0, *) {
+                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                    sender.isEnabled = true
+                }
+            } else {
+                // Fallback on earlier versions
+            }
             login(tourl: url, account: accountText.text!, password: passwordText.text!)
             
         }
@@ -45,9 +51,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let string = user.object(forKey: "test") {
-            print(string as! String)
-        }
         
         // Do any additional setup after loading the view.
         
@@ -55,24 +58,6 @@ class LoginViewController: UIViewController {
         accountText.addTarget(self, action: #selector(accountEndEditing(sender:)), for: .editingDidEndOnExit)
         passwordText.addTarget(self, action: #selector(login(_:)), for: .editingDidEndOnExit)
         
-        let fingerPrint = UserDefaults.standard.value(forKey: "fingerPrint")
-        if ((fingerPrint != nil) && fingerPrint as! Bool) {
-            let authenticationContext = LAContext()
-            var error: NSError?
-            
-            
-            let isTouchAvaliable = authenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
-            if isTouchAvaliable {
-                authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "需要驗證指紋來確認您的身份信息") { (success, error) in
-                    if success {
-                        NSLog("通過驗證")
-                        return
-                    }else {
-                        NSLog("驗證失敗")
-                    }
-                }
-            }
-        }
     }
     
     
@@ -109,8 +94,15 @@ class LoginViewController: UIViewController {
                     if status == "0" {
                         //                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "chatroom_vc") as! ViewController
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
+                        
+                        self.user.set(acc, forKey: "account")
+                        self.user.set(pwd, forKey: "password")
+                        self.user.set(true, forKey: "isLogin")
+                        self.user.synchronize()
+                        
                         //                            ViewController.memberData = jsonData
                         Global.memberData = jsonData
+                        self.updateToken(id: Global.selfData.id)
                         DispatchQueue.main.async {
                             self.show(vc, sender: nil)
                         }
@@ -132,6 +124,14 @@ class LoginViewController: UIViewController {
                 }
             }
             dataTesk.resume()
+        }
+    }
+    func updateToken(id: String) {
+        
+        let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
+        print("ID : \(Global.selfData.id)")
+        Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(Global.selfData.token)") { (data) in
+            print("TOKEN : \(data)")
         }
     }
     
