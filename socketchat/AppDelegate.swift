@@ -43,9 +43,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if defIsLogin as! Bool == true {
                 print("Auto : \(myToken)")
                 let status = autoLogin(tourl: url, account: acc, password: pwd, token: myToken)
+                while Global.memberData.count <= 0 {
+                    sleep(1/10)
+                }
                     self.window = UIWindow(frame: UIScreen.main.bounds)
                     let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
-                    let vc = story.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
+//                    let vc = story.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
+                let vc = story.instantiateViewController(withIdentifier: "message_nc") as! UINavigationController
                     self.window?.rootViewController = vc
                     self.window?.makeKeyAndVisible()
             }else {
@@ -57,8 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         }else {
-            
-            
+
+
         }
         
         return true

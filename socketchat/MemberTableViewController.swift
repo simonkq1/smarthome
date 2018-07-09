@@ -223,6 +223,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
                 popctrl?.sourceRect = (sender as! UIButton).bounds
                 popctrl?.permittedArrowDirections = .down
             }
+            
             popctrl?.delegate = self
         }
     }

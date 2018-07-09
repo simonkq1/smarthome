@@ -48,7 +48,6 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
         case "Delete":
             //delete
             print("Delete")
-            
             memberTable_vc.popoverSelectAction(status: "Delete", rightItemTitle: "Delete", cancelAction: #selector(memberTable_vc.cancelButton), editAction: #selector(memberTable_vc.deleteButton))
 //            memberTable_vc.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
@@ -174,7 +173,7 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
             viewObject.addSubview(textLayer)
             viewObject.tag = i + 1
             if viewObject.tag < list.count {
-                viewObject.layer.addSublayer(drawButtonLine(width: size.width, height: size.height))
+                viewObject.layer.addSublayer(drawButtomLine(width: size.width, height: size.height))
             }
             
             viewObject.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGesture(_:))))
@@ -182,7 +181,7 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
         return viewArr
     }
     
-    func drawButtonLine( width: CGFloat, height: CGFloat) -> CAShapeLayer {
+    func drawButtomLine( width: CGFloat, height: CGFloat) -> CAShapeLayer {
         
         let shapeLayer = CAShapeLayer()
         let linePath = UIBezierPath()

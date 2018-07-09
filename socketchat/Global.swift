@@ -8,8 +8,74 @@
 
 import UIKit
 
+
+extension UILabel {
+    func drawUpperLine() {
+        let shapeLayer = CAShapeLayer()
+        let linePath = UIBezierPath()
+        
+        linePath.move(to: CGPoint(x: 0, y: 0))
+        linePath.addLine(to: CGPoint(x: self.frame.size.width + 10, y: 0))
+        
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 0.5
+        
+        shapeLayer.path = linePath.cgPath
+        
+        self.layer.addSublayer(shapeLayer)
+        
+    }
+}
+extension UIView {
+    
+    enum BorderSides {
+        case up
+        case down
+        case left
+        case right
+    }
+    
+    func drawborder(width: CGFloat, color: UIColor,sides: [BorderSides]) {
+//        self.clipsToBounds = true
+        
+        let shapelayer = CAShapeLayer()
+        let linePath = UIBezierPath()
+        for i in sides {
+            switch i {
+            case.up:
+                linePath.move(to: CGPoint(x: 0, y: 0))
+                linePath.addLine(to: CGPoint(x: self.bounds.size.width + 10, y: 0))
+                break
+            case .down:
+                linePath.move(to: CGPoint(x: 0, y: self.bounds.size.height))
+                linePath.addLine(to: CGPoint(x: self.bounds.size.width + 10, y: self.bounds.size.height))
+                break
+            case .left:
+                linePath.move(to: CGPoint(x: 0, y: 0))
+                linePath.addLine(to: CGPoint(x: 0, y: self.bounds.size.height))
+                break
+            case .right:
+                linePath.move(to: CGPoint(x: self.bounds.size.width, y: 0))
+                linePath.addLine(to: CGPoint(x: self.bounds.size.width, y: self.bounds.size.height))
+                break
+            }
+            shapelayer.strokeColor = color.cgColor
+            shapelayer.fillColor = UIColor.clear.cgColor
+            shapelayer.lineWidth = width
+            shapelayer.path = linePath.cgPath
+            
+            self.layer.addSublayer(shapelayer)
+        }
+        
+        
+        
+    }
+}
+
 class Global: NSObject {
     class selfData: Global {
+        
         static var permission: String = Global.memberData["mod"]!
         static var account: String = Global.memberData["account"]!
         static var username: String = Global.memberData["rname"]!
@@ -80,35 +146,59 @@ class Global: NSObject {
                 dataTesk.resume()
             }
         }
-        
-        
         return status
-}
+    }
+    
+    
+    
+    func addPopListLabel(tablelist: [String], size: CGSize, startPoint: CGPoint, tapAction: Selector) -> [UIView] {
+        var labelArray: [UILabel] = []
+        var viewArr: [UIView] = []
+        for i in 0..<tablelist.count {
+            let textLayer = UILabel()
+            let viewObject = UIView()
+            viewObject.frame.size = size
+            viewObject.frame.origin = CGPoint(x: 0, y: 10 + size.height * CGFloat(i))
+            textLayer.text = tablelist[i]
+            
+            textLayer.frame.size = viewObject.frame.size
+            textLayer.bounds.origin = CGPoint(x: 0, y: 0)
+            textLayer.textColor = UIColor.black
+            textLayer.font = UIFont(name: "System", size: 15)
+            //            textLayer.layer.borderWidth = 1
+            textLayer.textAlignment = .center
+            textLayer.tag = 10
+            
+            viewArr.append(viewObject)
+            labelArray.append(textLayer)
+            viewObject.addSubview(textLayer)
+            viewObject.tag = i + 1
+            if viewObject.tag < tablelist.count {
+                viewObject.layer.addSublayer(drawButtonLine(width: size.width, height: size.height))
+            }
+            
+            viewObject.addGestureRecognizer(UITapGestureRecognizer(target: self, action: tapAction))
+        }
+        return viewArr
+    }
+    
+    private func drawButtonLine( width: CGFloat, height: CGFloat) -> CAShapeLayer {
+        
+        let shapeLayer = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: height))
+        linePath.addLine(to: CGPoint(x: width, y: height))
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 0.5
+        shapeLayer.path = linePath.cgPath
+        
+        return shapeLayer
+    }
+    
+    
+    
 }
 
-//class KeyboardControl: UIViewController {
-//    static private var usetarget: UIViewController!
-//
-//    func keyboardAutoRaiseUp() {
-//        NotificationCenter.default.addObserver(target, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.addObserver(target, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-//
-//
-//    }
-//
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        guard let userInfo = notification.userInfo else {return}
-//        guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {return}
-//        let keyboardFrame = keyboardSize.cgRectValue
-//        if self.view.frame.origin.y == 0 {
-//            self.view.frame.origin.y -= keyboardFrame.height
-//        }
-//
-//    }
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        if self.view.frame.origin.y != 0 {
-//            self.view.frame.origin.y = 0
-//        }
-//    }
-//}
+
+

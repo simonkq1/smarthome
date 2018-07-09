@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var outStream: OutputStream? = nil
     var jsonObject: [String:Any] = [:]
     var chatData: [[String:Any]] = []
+    var originY: CGFloat!
     
 
     @IBOutlet weak var tableView: UITableView!
@@ -40,6 +41,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+//        while Global.memberData.count <= 0 {
+//            sleep(1/10)
+//        }
+        originY = self.view.frame.origin.y
         tableView.separatorColor = UIColor.clear
         speakText.addTarget(self, action: #selector(sendBtn(_:)), for: .editingDidEndOnExit)
         
@@ -85,15 +91,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let userInfo = notification.userInfo else {return}
         guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
-        if self.view.frame.origin.y == 0 {
+        if self.view.frame.origin.y == originY {
             self.view.frame.origin.y -= keyboardFrame.height
         }
         
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+        if self.view.frame.origin.y != originY {
+            self.view.frame.origin.y = originY
         }
     }
     
@@ -104,7 +110,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.separatorColor = UIColor.clear
+        
         DispatchQueue.global().async {
+            print(Global.memberData)
             let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
             let member = Global.memberData
             let account = member["account"] as! String
