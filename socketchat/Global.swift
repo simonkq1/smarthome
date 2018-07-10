@@ -78,7 +78,7 @@ class Global: NSObject {
         
         static var permission: String = Global.memberData["mod"]!
         static var account: String = Global.memberData["account"]!
-        static var username: String = Global.memberData["rname"]!
+        static var username: String = Global.memberData["username"]!
         static var id: String = Global.memberData["id"]!
         static var token: String = ""
     }

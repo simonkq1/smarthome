@@ -116,6 +116,12 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "show_and_chat_vc") as! MessageAndChatViewController
+        vc.messageData = messageData[indexPath.row]
+        DispatchQueue.main.async {
+            self.show(vc, sender: self)
+        }
+        print(indexPath.row)
         
     }
     

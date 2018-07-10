@@ -16,6 +16,8 @@
 		8461BE1820F30FAD007CE490 /* MessagePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461BE1720F30FAD007CE490 /* MessagePopoverViewController.swift */; };
 		8461BE1A20F334DF007CE490 /* AddMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461BE1920F334DF007CE490 /* AddMessageViewController.swift */; };
 		8461BE3A20F37185007CE490 /* MessageAndChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461BE3920F37185007CE490 /* MessageAndChatViewController.swift */; };
+		846D8B7F20F47CE80049CE6E /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D8B7D20F47CE80049CE6E /* ChatTableViewCell.swift */; };
+		846D8B8020F47CE80049CE6E /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846D8B7E20F47CE80049CE6E /* ChatTableViewCell.xib */; };
 		84A6F2A020E9B386004EBF90 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */; };
 		84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6F2A120E9BBFD004EBF90 /* TouchID.swift */; };
 		84B2507220E1CB490046146A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2507120E1CB490046146A /* AppDelegate.swift */; };
@@ -41,6 +43,8 @@
 		8461BE1720F30FAD007CE490 /* MessagePopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePopoverViewController.swift; sourceTree = "<group>"; };
 		8461BE1920F334DF007CE490 /* AddMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMessageViewController.swift; sourceTree = "<group>"; };
 		8461BE3920F37185007CE490 /* MessageAndChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAndChatViewController.swift; sourceTree = "<group>"; };
+		846D8B7D20F47CE80049CE6E /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		846D8B7E20F47CE80049CE6E /* ChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
 		849BE85C20EF48310009FD47 /* socketchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = socketchat.entitlements; sourceTree = "<group>"; };
 		84A6F29F20E9B386004EBF90 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		84A6F2A120E9BBFD004EBF90 /* TouchID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchID.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				8461BE1020F2F4EB007CE490 /* MessageBoardTableViewCell.xib */,
 				8461BE1520F2F565007CE490 /* MessageBoardViewController.swift */,
 				8461BE1720F30FAD007CE490 /* MessagePopoverViewController.swift */,
+				846D8B7D20F47CE80049CE6E /* ChatTableViewCell.swift */,
+				846D8B7E20F47CE80049CE6E /* ChatTableViewCell.xib */,
 				8461BE1920F334DF007CE490 /* AddMessageViewController.swift */,
 				8461BE3920F37185007CE490 /* MessageAndChatViewController.swift */,
 			);
@@ -207,6 +213,7 @@
 			files = (
 				84B2507C20E1CB4A0046146A /* LaunchScreen.storyboard in Resources */,
 				84B2507920E1CB4A0046146A /* Assets.xcassets in Resources */,
+				846D8B8020F47CE80049CE6E /* ChatTableViewCell.xib in Resources */,
 				8461BE1220F2F4EB007CE490 /* MessageBoardTableViewCell.xib in Resources */,
 				84B2507720E1CB490046146A /* Main.storyboard in Resources */,
 			);
@@ -222,6 +229,7 @@
 				84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */,
 				8461BE3A20F37185007CE490 /* MessageAndChatViewController.swift in Sources */,
 				843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */,
+				846D8B7F20F47CE80049CE6E /* ChatTableViewCell.swift in Sources */,
 				8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */,
 				84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */,
 				84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */,
