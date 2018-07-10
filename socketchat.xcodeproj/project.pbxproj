@@ -71,6 +71,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84810AFC20F4408E001924F0 /* MessageBoard */ = {
+			isa = PBXGroup;
+			children = (
+				8461BE0F20F2F4EB007CE490 /* MessageBoardTableViewCell.swift */,
+				8461BE1020F2F4EB007CE490 /* MessageBoardTableViewCell.xib */,
+				8461BE1520F2F565007CE490 /* MessageBoardViewController.swift */,
+				8461BE1720F30FAD007CE490 /* MessagePopoverViewController.swift */,
+				8461BE1920F334DF007CE490 /* AddMessageViewController.swift */,
+				8461BE3920F37185007CE490 /* MessageAndChatViewController.swift */,
+			);
+			path = MessageBoard;
+			sourceTree = "<group>";
+		};
+		84810AFD20F440B0001924F0 /* MemberControl */ = {
+			isa = PBXGroup;
+			children = (
+				84E8F7CF20EB1F9F005BB4A1 /* MemberTableViewController.swift */,
+				843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */,
+				843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */,
+				8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */,
+			);
+			path = MemberControl;
+			sourceTree = "<group>";
+		};
 		84A6F29E20E9B385004EBF90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,19 +133,11 @@
 				84C571F520E36BE800D9DBEA /* LoginViewController.swift */,
 				84C571F720E36C0400D9DBEA /* SignUpViewController.swift */,
 				84D227D120E6033200BE498A /* ChatTextLabel.swift */,
-				84E8F7CF20EB1F9F005BB4A1 /* MemberTableViewController.swift */,
-				843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */,
-				843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */,
 				84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */,
 				84A6F2A120E9BBFD004EBF90 /* TouchID.swift */,
 				84E8F7EF20EB4DE7005BB4A1 /* Global.swift */,
-				8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */,
-				8461BE0F20F2F4EB007CE490 /* MessageBoardTableViewCell.swift */,
-				8461BE1020F2F4EB007CE490 /* MessageBoardTableViewCell.xib */,
-				8461BE1520F2F565007CE490 /* MessageBoardViewController.swift */,
-				8461BE1720F30FAD007CE490 /* MessagePopoverViewController.swift */,
-				8461BE1920F334DF007CE490 /* AddMessageViewController.swift */,
-				8461BE3920F37185007CE490 /* MessageAndChatViewController.swift */,
+				84810AFD20F440B0001924F0 /* MemberControl */,
+				84810AFC20F4408E001924F0 /* MessageBoard */,
 			);
 			path = socketchat;
 			sourceTree = "<group>";

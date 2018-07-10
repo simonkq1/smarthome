@@ -228,6 +228,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         }
     }
     
+    
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }

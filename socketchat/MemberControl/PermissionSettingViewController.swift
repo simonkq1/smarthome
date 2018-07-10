@@ -33,8 +33,8 @@ class PermissionSettingViewController: UIViewController {
         let mod = permission_picker.permissionList[permission_picker.pickerView.selectedRow(inComponent: 0)]
         
         if permission != mod {
-            Global.postToURL(url: url, body: "tid=\(tid)&mod=\(mod)") { (data) in
-                if data == "1" {
+            Global.postToURL(url: url, body: "tid=\(tid)&mod=\(mod)") { (html, data) in
+                if html == "1" {
                     self.memberView.loadMemberList()
                 }
             }

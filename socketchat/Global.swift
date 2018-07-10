@@ -83,7 +83,8 @@ class Global: NSObject {
         static var token: String = ""
     }
     static var memberData: [String: String] = [:]
-    static func postToURL(url: String, body: String, action: ((_ returnData: String?) -> Void)? = nil) {
+    
+    static func postToURL(url: String, body: String, action: ((_ returnData: String?, _ returndata: Data?) -> Void)? = nil) {
         let postURL = URL(string: url)
         var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
         request.httpBody = body .data(using: .utf8)
@@ -94,7 +95,7 @@ class Global: NSObject {
             if let data = data {
                 let html = String(data: data, encoding: .utf8)
                 if action != nil {
-                    action!(html)
+                    action!(html, data)
                 }
                 
                 print(html)

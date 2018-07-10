@@ -461,7 +461,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3619" y="-915"/>
+            <point key="canvasLocation" x="3416" y="-961"/>
         </scene>
         <!--Add Message View Controller-->
         <scene sceneID="JQz-cA-ntx">
@@ -729,22 +729,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wBA-tR-0aA">
-                                <rect key="frame" x="68" y="365" width="97" height="54"/>
+                                <rect key="frame" x="64" y="365" width="110" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="SignUp"/>
                                 <connections>
                                     <segue destination="Qq6-oC-M5x" kind="show" id="VY8-dq-YyA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmV-U9-yNg">
-                                <rect key="frame" x="211" y="365" width="97" height="54"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="97" id="3Lq-cU-CFZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="logIn"/>
-                                <connections>
-                                    <action selector="login:" destination="lLu-JR-jR0" eventType="touchUpInside" id="bwQ-Vr-OOo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGh-ZB-AAu">
@@ -755,20 +744,31 @@
                                     <action selector="btn:" destination="lLu-JR-jR0" eventType="touchUpInside" id="mTE-G7-KDi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmV-U9-yNg">
+                                <rect key="frame" x="194" y="365" width="110" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="3Lq-cU-CFZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="logIn"/>
+                                <connections>
+                                    <action selector="login:" destination="lLu-JR-jR0" eventType="touchUpInside" id="bwQ-Vr-OOo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EG0-HS-PqT" firstAttribute="leading" secondItem="G49-v2-54p" secondAttribute="leading" id="3U5-74-csu"/>
                             <constraint firstItem="UiP-iO-1sW" firstAttribute="leading" secondItem="G49-v2-54p" secondAttribute="trailing" constant="28" id="4ba-To-HRi"/>
-                            <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="cmV-U9-yNg" secondAttribute="trailing" constant="67" id="5sl-uk-1Lu"/>
+                            <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="cmV-U9-yNg" secondAttribute="trailing" constant="71" id="5sl-uk-1Lu"/>
                             <constraint firstItem="UiP-iO-1sW" firstAttribute="trailing" secondItem="7ol-uT-LK3" secondAttribute="trailingMargin" id="9Ui-P6-lZY"/>
                             <constraint firstItem="4Zb-Qj-XL8" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="128" id="AJs-cs-yxU"/>
                             <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="4Zb-Qj-XL8" secondAttribute="trailing" constant="128" id="CTa-kj-Y3A"/>
                             <constraint firstItem="G49-v2-54p" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="16" id="DCB-WG-O7x"/>
-                            <constraint firstItem="wBA-tR-0aA" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="68" id="Hs8-Q9-rh1"/>
+                            <constraint firstItem="wBA-tR-0aA" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="64" id="Hs8-Q9-rh1"/>
                             <constraint firstItem="cjT-U4-9OX" firstAttribute="bottom" secondItem="wBA-tR-0aA" secondAttribute="bottom" constant="248" id="QTo-Qb-f1T"/>
                             <constraint firstItem="4Zb-Qj-XL8" firstAttribute="top" secondItem="cjT-U4-9OX" secondAttribute="top" constant="84" id="Uxm-4D-dwr"/>
-                            <constraint firstItem="cmV-U9-yNg" firstAttribute="leading" secondItem="wBA-tR-0aA" secondAttribute="trailing" constant="46" id="ZQG-kd-J26"/>
+                            <constraint firstItem="cmV-U9-yNg" firstAttribute="leading" secondItem="wBA-tR-0aA" secondAttribute="trailing" constant="20" id="ZQG-kd-J26"/>
                             <constraint firstItem="UiP-iO-1sW" firstAttribute="top" secondItem="4Zb-Qj-XL8" secondAttribute="bottom" constant="30" id="ZWq-j2-2aU"/>
                             <constraint firstItem="GG9-Tm-HLx" firstAttribute="leading" secondItem="EG0-HS-PqT" secondAttribute="trailing" constant="28" id="bYV-i5-J0F"/>
                             <constraint firstItem="GG9-Tm-HLx" firstAttribute="top" secondItem="UiP-iO-1sW" secondAttribute="bottom" constant="41" id="czS-Rw-Tto"/>

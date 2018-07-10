@@ -76,8 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
             print("ID : \(Global.selfData.id)")
-            Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(token)") { (data) in
-                print("TOKEN : \(data)")
+            Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(token)") { (html, data) in
+                print("TOKEN : \(html)")
             }
         }
         
