@@ -37,7 +37,7 @@ extension UIView {
     }
     
     func drawborder(width: CGFloat, color: UIColor,sides: [BorderSides]) {
-//        self.clipsToBounds = true
+        self.clipsToBounds = false
         
         let shapelayer = CAShapeLayer()
         let linePath = UIBezierPath()
@@ -45,11 +45,11 @@ extension UIView {
             switch i {
             case.up:
                 linePath.move(to: CGPoint(x: 0, y: 0))
-                linePath.addLine(to: CGPoint(x: self.bounds.size.width + 10, y: 0))
+                linePath.addLine(to: CGPoint(x: self.bounds.size.width + 100, y: 0))
                 break
             case .down:
                 linePath.move(to: CGPoint(x: 0, y: self.bounds.size.height))
-                linePath.addLine(to: CGPoint(x: self.bounds.size.width + 10, y: self.bounds.size.height))
+                linePath.addLine(to: CGPoint(x: self.bounds.size.width + 100, y: self.bounds.size.height))
                 break
             case .left:
                 linePath.move(to: CGPoint(x: 0, y: 0))
@@ -64,7 +64,6 @@ extension UIView {
             shapelayer.fillColor = UIColor.clear.cgColor
             shapelayer.lineWidth = width
             shapelayer.path = linePath.cgPath
-            
             self.layer.addSublayer(shapelayer)
         }
         
@@ -83,6 +82,7 @@ class Global: NSObject {
         static var token: String = ""
     }
     static var memberData: [String: String] = [:]
+    
     
     static func postToURL(url: String, body: String, action: ((_ returnData: String?, _ returndata: Data?) -> Void)? = nil) {
         let postURL = URL(string: url)
@@ -195,6 +195,89 @@ class Global: NSObject {
         shapeLayer.path = linePath.cgPath
         
         return shapeLayer
+    }
+    class SocketServer: Global {
+        
+       static private var isStream: InputStream? = nil
+       static private var outStream: OutputStream? = nil
+        static var isConnect: Bool = false
+        static var outConnect: Bool = false
+        
+        static func connectSocketServer() {
+            let _ = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &isStream, outputStream: &outStream)
+            if isConnect == false {
+                isStream?.open()
+                isConnect = true
+            }
+            if outConnect == false {
+                outStream?.open()
+                outConnect = true
+            }
+            let gid = "0"
+            let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
+            DispatchQueue.global().async {
+                while true{
+                    sleep(15)
+                    if isConnect {
+                        let now = Date() + (60 * 60 * 8)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+                        dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
+                        let nowDate = dateFormatter.string(from: now)
+                        
+                        let textData = """
+                        {"account":\"\(Global.selfData.account)\","sid":\"\(Global.selfData.id)\","username":\"\(Global.selfData.username)\","text":\"\(noData)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
+                        """
+                        send(textData)
+                    }
+                }
+            }
+            
+        }
+        static func disconnectSocketServer() {
+            isStream?.close()
+            isConnect = false
+            outStream?.close()
+//            outStream?.close()
+            outConnect = false
+        }
+        
+        static func receiveData(avaliable: @escaping (_ data: [String:Any]?) -> Void) {
+            if isConnect == false {
+                isStream?.open()
+                isConnect = true
+            }
+            if outConnect == false {
+                outStream?.open()
+                outConnect = true
+            }
+            var buf = Array(repeating: UInt8(0), count: 1024)
+            var jsonObject: [String : Any] = [:]
+            DispatchQueue.global().async {
+                while true {
+                    if let n = isStream?.read(&buf, maxLength: 1024) {
+                        
+                        let data = Data(bytes: buf, count: n)
+                        do{
+                            jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
+                        }catch{
+                            print(error)
+                        }
+                        
+                        avaliable(jsonObject)
+                    }
+                }
+            }
+        }
+        
+        static func send(_ string: String) {
+            var buf = Array(repeating: UInt8(0), count: 1024)
+            var data = string.data(using: .utf8)!
+            
+            data.copyBytes(to: &buf, count: data.count)
+            outStream?.write(buf, maxLength: data.count)
+            
+        }
     }
     
     

@@ -9,10 +9,12 @@
 import UIKit
 
 class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var contextLabel: UILabel!
+    
+    @IBOutlet weak var contextView: UIView!
     @IBOutlet weak var contextViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var tableView: UITableView!
@@ -38,14 +40,19 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
             Global.postToURL(url: sendURL, body: "gid=\(gid)&sid=\(sid)&text=\(text)") { (html, data) in
                 print(html)
             }
+            
+            
             let now = Date() + (60 * 60 * 8)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
             dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
-            let noeDate = dateFormatter.string(from: now)
-            let chatTemp = ["text":text, "username":Global.selfData.username, "mid":sid, "account":Global.selfData.account, "sid":sid, "gid":gid, "date": noeDate]
-            chatData.append(chatTemp)
-            tableView.reloadData()
+            let nowDate = dateFormatter.string(from: now)
+            
+            let textData = """
+            {"account":\"\(Global.selfData.account)\","sid":\"\(Global.selfData.id)\","username":\"\(Global.selfData.username)\","text":\"\(text)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
+            """
+            
+            Global.SocketServer.send(textData)
             
         }
         chatTextField.text = ""
@@ -56,16 +63,21 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         tableView.register(UINib(nibName: "ChatTableViewCell", bundle: Bundle(identifier: "Simon-Chang.-socketchat")), forCellReuseIdentifier: "Cell")
         
         originY = self.view.frame.origin.y
+        self.navigationItem.rightBarButtonItem = nil
         
         chatTextField.addTarget(self, action: #selector(sendMessage(_:)), for: .editingDidEndOnExit)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveAction), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
         titleTextField.isEnabled = false
         titleTextField.borderStyle = .none
         titleTextField.isSelected = false
@@ -74,14 +86,75 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         if contextViewHeightConstraint.constant < contextLabel.frame.size.height {
             contextViewHeightConstraint.constant = contextLabel.frame.size.height
         }
+        //        contextView.drawborder(width: 1, color: UIColor.black, sides: [.down])
+        //        tableView.drawborder(width: 1, color: UIColor.black, sides: [.up])
         messageLoad()
         loadChatData()
         while isLoaded == false {
             sleep(1/10)
         }
+        receiveAction()
+        //        socketServer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+        sleep(1)
+        let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
+        
+        let gid = messageData["gid"] as! String
+        let sid = Global.selfData.id
+        DispatchQueue.global().async {
+            while true{
+                sleep(15)
+                let now = Date() + (60 * 60 * 8)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+                dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
+                let nowDate = dateFormatter.string(from: now)
+                
+                let textData = """
+                {"account":\"\(Global.selfData.account)\","sid":\"\(Global.selfData.id)\","username":\"\(Global.selfData.username)\","text":\"\(noData)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
+                """
+                
+                //                self.send(textData)
+            }
+        }
+        scrollViewToBottom(animated: false)
+        
+    }
+    let app = UIApplication.shared.delegate as! AppDelegate
+    
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+    }
+    
+    @objc func receiveAction() {
+        Global.SocketServer.receiveData { (data) in
+            DispatchQueue.main.async {
+                if let _ = data {
+                    let chatString = data!["text"] as? String ?? ""
+                    let chatSender = data!["sender"] as? String ?? ""
+                    let chatAccount = data!["account"] as? String ?? ""
+                    let chatSid = data!["id"] as? String ?? ""
+                    let chatGid = data!["gid"] as? String ?? ""
+                    let chatrName = data!["username"] as? String ?? ""
+                    let chatDate = data!["date"] as? String ?? ""
+                    let gid = self.messageData["gid"]
+                    if !chatString.contains("naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@") {
+                        if chatGid == gid {
+                            self.chatData.append(["text":chatString, "username":chatrName, "account":chatAccount, "sid":chatSid, "gid":chatGid, "date": chatDate])
+                            self.tableView.reloadData()
+                        }
+                        if chatSid == Global.memberData["id"] {
+                            self.scrollViewToBottom(animated: false)
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     
     func messageLoad() {
@@ -108,7 +181,6 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
                         let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String:Any]]
                         self.chatData = jsonData
                         self.isLoaded = true
-                        
                     }catch{
                         self.isLoaded = false
                     }
@@ -132,6 +204,8 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         
         let newTarget = dateFormatter.date(from: targetTime)
         let components = Calendar.current.dateComponents([.second], from: newTarget!, to: now).second
+        
+        let test = Calendar.current.dateComponents([.year], from: newTarget!, to: now).year as! Int
         if components! < 60 {
             return "just"
         }else if components! >= 60, components! < 3600{
@@ -142,7 +216,6 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
             return (timecom != 1) ? "\(timecom) hours ago" : "\(timecom) hour ago"
         }else if components! >= 86400{
             let timecom = Calendar.current.dateComponents([.day], from: newTarget!, to: now).day as! Int
-            
             return (timecom != 1) ? "\(timecom) days ago" : "\(timecom) day ago"
         }else {
             return "error"
@@ -172,6 +245,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         
     }
     
+    
     //MARK: - TableViewControl
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -179,14 +253,14 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        self.tableView.frame.height =
+        //        self.tableView.frame.height =
         return chatData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ChatTableViewCell
-//        tableViewHeight += tableView.rowHeight
-//        tableView.frame.size.height = tableViewHeight
+        //        tableViewHeight += tableView.rowHeight
+        //        tableView.frame.size.height = tableViewHeight
         
         let sender = chatData[indexPath.row]["username"] as! String
         let text = chatData[indexPath.row]["text"] as! String
@@ -202,10 +276,10 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         return UITableViewAutomaticDimension
     }
     
+    
     func heightForTableView() {
         
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -214,33 +288,30 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     // MARK: - SocketServer
     
     func socketServer() {
-        
-        let _ = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &isStream, outputStream: &outStream)
-        //        let _ = Stream.getStreamsToHost(withName: "localhost", port: 5000, inputStream: &isStream, outputStream: &outStream)
+        let mysocket = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &isStream, outputStream: &outStream)
         isStream?.open()
         outStream?.open()
-        
         
         DispatchQueue.global().async {
             self.receiveData(avaliable: { (data) in
                 DispatchQueue.main.async {
                     if let _ = data {
-                        let chatString = data!["string"] as! String
+                        let chatString = data!["text"] as! String
                         let chatSender = data!["sender"] as! String
                         let chatAccount = data!["account"] as! String
-                        let chatId = data!["id"] as! String
+                        let chatSid = data!["id"] as! String
+                        let chatGid = data!["gid"] as! String
                         let chatrName = data!["username"] as! String
-                        var strDate = Date()
+                        let chatDate = data!["date"] as! String
+                        let gid = self.messageData["gid"]
                         if !chatString.contains("naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@") {
-                            
-                            self.chatData.append(["sender":chatSender,"string":chatString,"date":Date(),"account":chatAccount,"id":chatId,"username":chatrName])
-                            strDate = Date()
-                            self.tableView.reloadData()
-                            if chatId == Global.memberData["id"] {
+                            if chatGid == gid {
+                                self.chatData.append(["text":chatString, "username":chatrName, "account":chatAccount, "sid":chatSid, "gid":chatGid, "date": chatDate])
+                                self.tableView.reloadData()
+                            }
+                            if chatSid == Global.memberData["id"] {
                                 self.scrollViewToBottom(animated: false)
                             }
-                            
-                            
                         }
                     }
                 }
@@ -275,15 +346,15 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     }
     
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

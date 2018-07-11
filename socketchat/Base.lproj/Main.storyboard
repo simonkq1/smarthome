@@ -229,7 +229,29 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1422" y="450"/>
+            <point key="canvasLocation" x="1422" y="509"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="rwq-UD-vMT">
+            <objects>
+                <viewController id="Uvq-NS-asG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="An6-fc-HkD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Qn-FD-d8h">
+                                <rect key="frame" x="36" y="221" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="shejiyeiconws2qzgzfqqe"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="3Ze-Kl-NQ7"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hz3-7p-Hqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-780" y="757.87106446776613"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x3e-FS-bG5">
@@ -245,7 +267,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtM-O1-IVc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="626" y="449"/>
+            <point key="canvasLocation" x="625" y="509"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="kaN-oB-DRm">
@@ -561,7 +583,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3988" y="-618"/>
+            <point key="canvasLocation" x="3988" y="-665"/>
         </scene>
         <!--Message Board View Controller-->
         <scene sceneID="s7O-b6-Biw">
@@ -794,7 +816,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zpY-9J-4j0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="748" y="-243.32833583208398"/>
+            <point key="canvasLocation" x="-258" y="-235"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="JqD-1K-k8E">
@@ -963,7 +985,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHc-71-k8g">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iur-lP-GwM">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iur-lP-GwM">
                                                         <rect key="frame" x="8" y="8" width="359" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="fCt-mc-Bf5"/>
@@ -1091,6 +1113,7 @@
                     <connections>
                         <outlet property="chatTextField" destination="tjJ-wN-6NM" id="djB-cR-SRu"/>
                         <outlet property="contextLabel" destination="Pra-8B-7Ts" id="dF3-cM-XqR"/>
+                        <outlet property="contextView" destination="EtQ-Uv-s0Z" id="IMg-hn-PdY"/>
                         <outlet property="contextViewHeightConstraint" destination="4bG-vA-DhY" id="VFc-74-ZLk"/>
                         <outlet property="tableView" destination="SPb-FN-cjt" id="4hm-A0-DSz"/>
                         <outlet property="tableViewHeightConstraint" destination="eGu-fa-Moo" id="fKF-qx-CTk"/>
@@ -1107,5 +1130,6 @@
     <resources>
         <image name="deletecross" width="29" height="29"/>
         <image name="setting" width="29" height="29"/>
+        <image name="shejiyeiconws2qzgzfqqe" width="512" height="512"/>
     </resources>
 </document>

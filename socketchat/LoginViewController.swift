@@ -44,7 +44,6 @@ class LoginViewController: UIViewController {
                 // Fallback on earlier versions
             }
             login(tourl: url, account: accountText.text!, password: passwordText.text!)
-            
         }
     }
     
@@ -103,6 +102,8 @@ class LoginViewController: UIViewController {
                         //                            ViewController.memberData = jsonData
                         Global.memberData = jsonData
                         self.updateToken(id: Global.selfData.id)
+                        
+                        Global.SocketServer.connectSocketServer()
                         DispatchQueue.main.async {
                             self.show(vc, sender: nil)
                         }

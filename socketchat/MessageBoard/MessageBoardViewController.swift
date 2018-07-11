@@ -22,6 +22,7 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("load")
         // Do any additional setup after loading the view.
         var timeOut: CGFloat = 0
         let _ = loadMessageList()
@@ -29,14 +30,12 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
             timeOut += 1/10
             sleep(1/10)
         }
-        if timeOut >= 10 {
-            print("AAA")
-        }
         
         print(messageData)
         
         tableView.register(UINib(nibName: "MessageBoardTableViewCell", bundle: Bundle(identifier: "Simon-Chang.-socketchat")), forCellReuseIdentifier: "Cell")
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "message_to_popover" {

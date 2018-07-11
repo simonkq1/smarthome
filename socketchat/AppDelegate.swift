@@ -11,31 +11,31 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
+    var bgTask: UIBackgroundTaskIdentifier!
     
     let user = UserDefaults()
     let url = "http://simonhost.hopto.org/chatroom/logincheck.php"
     var myToken: String = ""
-
-
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         print("APP Delegate")
-        
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
             center.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
                 if granted {
                     DispatchQueue.main.async {
                         application.registerForRemoteNotifications()
-//                        application.applicationIconBadgeNumber = 0
+                        //                        application.applicationIconBadgeNumber = 0
                     }
                 }
             }
         } else {
             // Fallback on earlier versions
         }
-            
+        
         if let defPwd = user.object(forKey: "password"), let defAcc = user.object(forKey: "account"), let defIsLogin = user.object(forKey: "isLogin") {
             print("pwd : \(defPwd as! String) ==> acc : \(defAcc as! String)")
             let acc = defAcc as! String
@@ -46,12 +46,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 while Global.memberData.count <= 0 {
                     sleep(1/10)
                 }
-                    self.window = UIWindow(frame: UIScreen.main.bounds)
-                    let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
-//                    let vc = story.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
+                Global.SocketServer.connectSocketServer()
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
+                //                    let vc = story.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
                 let vc = story.instantiateViewController(withIdentifier: "message_nc") as! UINavigationController
-                    self.window?.rootViewController = vc
-                    self.window?.makeKeyAndVisible()
+                self.window?.rootViewController = vc
+                self.window?.makeKeyAndVisible()
             }else {
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
@@ -61,8 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         }else {
-
-
+            
+            
         }
         
         return true
@@ -126,34 +127,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dataTesk.resume()
         }
         return status
-}
-
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        //stopApp
+//        Global.SocketServer.disconnectSocketServer()
         print("applicationWillResignActive")
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        bgTask = application.beginBackgroundTask(expirationHandler: {
+            Global.SocketServer.disconnectSocketServer()
+            application.endBackgroundTask(self.bgTask)
+            self.bgTask = UIBackgroundTaskInvalid
+        })
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         print("applicationWillEnterForeground")
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        //startAPP
+        if Global.SocketServer.isConnect == false {
+            Global.SocketServer.connectSocketServer()
+            self.window?.reloadInputViews()
+            
+        }
         print("applicationDidBecomeActive")
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         print("applicationWillTerminate")
     }
-
-
+    
+    
 }
 

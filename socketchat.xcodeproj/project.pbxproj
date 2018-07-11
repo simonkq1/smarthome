@@ -10,6 +10,7 @@
 		8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */; };
 		843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */; };
 		843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */; };
+		8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440557C20F60B3F00427C42 /* CircleButton.swift */; };
 		8461BE1120F2F4EB007CE490 /* MessageBoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461BE0F20F2F4EB007CE490 /* MessageBoardTableViewCell.swift */; };
 		8461BE1220F2F4EB007CE490 /* MessageBoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8461BE1020F2F4EB007CE490 /* MessageBoardTableViewCell.xib */; };
 		8461BE1620F2F565007CE490 /* MessageBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461BE1520F2F565007CE490 /* MessageBoardViewController.swift */; };
@@ -37,6 +38,7 @@
 		8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionSettingViewController.swift; sourceTree = "<group>"; };
 		843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionPickerViewController.swift; sourceTree = "<group>"; };
+		8440557C20F60B3F00427C42 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		8461BE0F20F2F4EB007CE490 /* MessageBoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBoardTableViewCell.swift; sourceTree = "<group>"; };
 		8461BE1020F2F4EB007CE490 /* MessageBoardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageBoardTableViewCell.xib; sourceTree = "<group>"; };
 		8461BE1520F2F565007CE490 /* MessageBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBoardViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */,
 				84A6F2A120E9BBFD004EBF90 /* TouchID.swift */,
 				84E8F7EF20EB4DE7005BB4A1 /* Global.swift */,
+				8440557C20F60B3F00427C42 /* CircleButton.swift */,
 				84810AFD20F440B0001924F0 /* MemberControl */,
 				84810AFC20F4408E001924F0 /* MessageBoard */,
 			);
@@ -240,6 +243,7 @@
 				8461BE1620F2F565007CE490 /* MessageBoardViewController.swift in Sources */,
 				843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */,
 				8461BE1120F2F4EB007CE490 /* MessageBoardTableViewCell.swift in Sources */,
+				8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,
 				8461BE1820F30FAD007CE490 /* MessagePopoverViewController.swift in Sources */,
 				84D227D220E6033200BE498A /* ChatTextLabel.swift in Sources */,
