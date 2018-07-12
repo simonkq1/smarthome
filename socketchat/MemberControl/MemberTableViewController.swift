@@ -112,8 +112,9 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
             let deleteurl = "http://simonhost.hopto.org/chatroom/deleteMember.php"
             if self.deleteTarget.count != 0 {
                 for i in self.deleteTarget {
-                    
-                    if myPermission < i {
+                    let numberFormatter = NumberFormatter()
+                    let targetPermission = numberFormatter.number(from: self.memberList[i]["mod"] as! String) as! Int
+                    if myPermission < targetPermission {
                         let id = self.memberList[i]["id"] as! String
                         self.postToURL(url: deleteurl, body: "target=\(id)") { (data) in
                             self.loadMemberList()
@@ -170,6 +171,12 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         }
         
     }
+    
+    func reloadTable() {
+        self.tableView.reloadData()
+    }
+    
+    
     func postToURL(url: String, body: String, action: ((_ returnData: String?) -> Void)? = nil) {
         let postURL = URL(string: url)
         var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)

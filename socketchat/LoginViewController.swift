@@ -18,10 +18,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     let home = NSHomeDirectory()
     let user = UserDefaults()
+    var isShowPassword: Bool = false
     
-    @IBAction func btn(_ sender: Any) {
-        
-    }
+    
     @IBAction func login(_ sender: UIButton) {
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = passwordText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -47,6 +46,16 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func showPassword(_ sender: UIButton) {
+        isShowPassword = !isShowPassword
+        if isShowPassword {
+            passwordText.isSecureTextEntry = false
+            sender.setTitle("hide", for: .normal)
+        }else {
+            passwordText.isSecureTextEntry = true
+            sender.setTitle("show", for: .normal)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,6 +65,7 @@ class LoginViewController: UIViewController {
         self.isEditing = false
         accountText.addTarget(self, action: #selector(accountEndEditing(sender:)), for: .editingDidEndOnExit)
         passwordText.addTarget(self, action: #selector(login(_:)), for: .editingDidEndOnExit)
+        passwordText.isSecureTextEntry = true
         
     }
     
@@ -92,16 +102,16 @@ class LoginViewController: UIViewController {
                     print(status)
                     if status == "0" {
                         //                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "chatroom_vc") as! ViewController
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "home_nc") as! UINavigationController
                         
                         self.user.set(acc, forKey: "account")
                         self.user.set(pwd, forKey: "password")
                         self.user.set(true, forKey: "isLogin")
                         self.user.synchronize()
-                        
+                        self.accountText.borderStyle = .roundedRect
                         //                            ViewController.memberData = jsonData
                         Global.memberData = jsonData
-                        self.updateToken(id: Global.selfData.id)
+                        self.updateToken(id: Global.selfData.id!)
                         
                         Global.SocketServer.connectSocketServer()
                         DispatchQueue.main.async {

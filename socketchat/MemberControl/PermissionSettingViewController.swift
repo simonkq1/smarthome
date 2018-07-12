@@ -43,7 +43,7 @@ class PermissionSettingViewController: UIViewController {
         memberView.permissionTarget = nil
         memberView.barEditBtn.title = ""
         memberView.barEditBtn.image = UIImage(named: "setting")
-        memberView.tableView.reloadData()
+        memberView.reloadTable()
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -57,7 +57,7 @@ class PermissionSettingViewController: UIViewController {
         memberView.permissionTarget = nil
         memberView.barEditBtn.title = ""
         memberView.barEditBtn.image = UIImage(named: "setting")
-        memberView.tableView.reloadData()
+        memberView.reloadTable()
         dismiss(animated: true, completion: nil)
     }
     

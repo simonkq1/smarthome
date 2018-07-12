@@ -17,6 +17,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     
     @IBOutlet weak var realnameText: UITextField!
+    var isShowPassword: Bool = false
     
     @IBAction func signup(_ sender: Any) {
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -70,13 +71,32 @@ class SignUpViewController: UIViewController {
         }
         
     }
+    
+    
+    @IBAction func showPassword(_ sender: UIButton) {
+        isShowPassword = !isShowPassword
+        if isShowPassword {
+            passwordText.isSecureTextEntry = false
+            sender.setTitle("hide", for: .normal)
+        }else {
+            passwordText.isSecureTextEntry = true
+            sender.setTitle("show", for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        passwordText.addTarget(self, action: #selector(passwordEndEditing(sender:)), for: .editingDidEndOnExit)
         accountText.addTarget(self, action: #selector(accountEndEditing(sender:)), for: .editingDidEndOnExit)
+        passwordText.addTarget(self, action: #selector(passwordEndEditing(sender:)), for: .editingDidEndOnExit)
         realnameText.addTarget(self, action: #selector(realnameEndEditing(sender:)), for: .editingDidEndOnExit)
+        
+        realnameText.addTarget(self, action: #selector(textFieldDidEditing(sender:)), for: .editingDidBegin)
+        realnameText.addTarget(self, action: #selector(textFieldEndEditing(sender:)), for: .editingDidEnd)
+        passwordText.addTarget(self, action: #selector(textFieldDidEditing(sender:)), for: .editingDidBegin)
+        passwordText.addTarget(self, action: #selector(textFieldEndEditing(sender:)), for: .editingDidEnd)
+        passwordText.isSecureTextEntry = true
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -99,6 +119,23 @@ class SignUpViewController: UIViewController {
     @objc func passwordEndEditing(sender: UITextField) {
         sender.endEditing(true)
         realnameText.becomeFirstResponder()
+    }
+    @objc func textFieldDidEditing(sender: UITextField) {
+        UIView.animate(withDuration: 0.5) {
+        switch sender.restorationIdentifier {
+        case "password_text":
+            self.view.frame.origin.y -= 50
+        case "realname_text":
+            self.view.frame.origin.y -= 80
+        default:
+            break
+        }
+        }
+    }
+    @objc func textFieldEndEditing(sender: UITextField) {
+        UIView.animate(withDuration: 0.5) {
+            self.view.frame.origin.y = 0
+        }
     }
     @objc func realnameEndEditing(sender: UITextField) {
         sender.endEditing(true)

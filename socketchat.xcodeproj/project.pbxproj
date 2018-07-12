@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */; };
+		842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */; };
+		842BCC2220F7058B00F9C6B5 /* MemberNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */; };
+		842BCC2F20F71BF600F9C6B5 /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */; };
+		842BCC3120F71C1C00F9C6B5 /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3020F71C1C00F9C6B5 /* CircleViewController.swift */; };
+		842BCC3320F71C7300F9C6B5 /* RainPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3220F71C7300F9C6B5 /* RainPopViewController.swift */; };
+		842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */; };
+		842BCC3720F71D5400F9C6B5 /* IbeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */; };
+		842BCC3920F726E000F9C6B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842BCC3820F726E000F9C6B5 /* Assets.xcassets */; };
+		842BCC3B20F746D000F9C6B5 /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3A20F746D000F9C6B5 /* BottomBorderTextField.swift */; };
 		843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */; };
 		843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */; };
 		8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440557C20F60B3F00427C42 /* CircleButton.swift */; };
@@ -24,7 +33,6 @@
 		84B2507220E1CB490046146A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2507120E1CB490046146A /* AppDelegate.swift */; };
 		84B2507420E1CB490046146A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2507320E1CB490046146A /* ViewController.swift */; };
 		84B2507720E1CB490046146A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B2507520E1CB490046146A /* Main.storyboard */; };
-		84B2507920E1CB4A0046146A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B2507820E1CB4A0046146A /* Assets.xcassets */; };
 		84B2507C20E1CB4A0046146A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B2507A20E1CB4A0046146A /* LaunchScreen.storyboard */; };
 		84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C571F520E36BE800D9DBEA /* LoginViewController.swift */; };
 		84C571F820E36C0400D9DBEA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C571F720E36C0400D9DBEA /* SignUpViewController.swift */; };
@@ -36,6 +44,15 @@
 
 /* Begin PBXFileReference section */
 		8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberNavigationController.swift; path = MemberControl/MemberNavigationController.swift; sourceTree = "<group>"; };
+		842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
+		842BCC3020F71C1C00F9C6B5 /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
+		842BCC3220F71C7300F9C6B5 /* RainPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainPopViewController.swift; sourceTree = "<group>"; };
+		842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingViewController.swift; sourceTree = "<group>"; };
+		842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbeaconViewController.swift; sourceTree = "<group>"; };
+		842BCC3820F726E000F9C6B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		842BCC3A20F746D000F9C6B5 /* BottomBorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBorderTextField.swift; sourceTree = "<group>"; };
 		843D2EBF20ECA4DD009D25C7 /* PermissionSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionSettingViewController.swift; sourceTree = "<group>"; };
 		843D2EC120ECBC02009D25C7 /* PermissionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionPickerViewController.swift; sourceTree = "<group>"; };
 		8440557C20F60B3F00427C42 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
@@ -54,7 +71,6 @@
 		84B2507120E1CB490046146A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B2507320E1CB490046146A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84B2507620E1CB490046146A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		84B2507820E1CB4A0046146A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84B2507B20E1CB4A0046146A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B2507D20E1CB4A0046146A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84C571F520E36BE800D9DBEA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +93,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		842BCC2320F71AF800F9C6B5 /* IOT */ = {
+			isa = PBXGroup;
+			children = (
+				842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */,
+				842BCC3020F71C1C00F9C6B5 /* CircleViewController.swift */,
+				842BCC3220F71C7300F9C6B5 /* RainPopViewController.swift */,
+				842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */,
+				842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */,
+			);
+			path = IOT;
+			sourceTree = "<group>";
+		};
 		84810AFC20F4408E001924F0 /* MessageBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,11 +159,12 @@
 		84B2507020E1CB490046146A /* socketchat */ = {
 			isa = PBXGroup;
 			children = (
+				842BCC2320F71AF800F9C6B5 /* IOT */,
 				849BE85C20EF48310009FD47 /* socketchat.entitlements */,
 				84B2507120E1CB490046146A /* AppDelegate.swift */,
 				84B2507320E1CB490046146A /* ViewController.swift */,
+				842BCC3820F726E000F9C6B5 /* Assets.xcassets */,
 				84B2507520E1CB490046146A /* Main.storyboard */,
-				84B2507820E1CB4A0046146A /* Assets.xcassets */,
 				84B2507A20E1CB4A0046146A /* LaunchScreen.storyboard */,
 				84B2507D20E1CB4A0046146A /* Info.plist */,
 				84C571F520E36BE800D9DBEA /* LoginViewController.swift */,
@@ -143,10 +172,13 @@
 				84D227D120E6033200BE498A /* ChatTextLabel.swift */,
 				84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */,
 				84A6F2A120E9BBFD004EBF90 /* TouchID.swift */,
+				842BCC3A20F746D000F9C6B5 /* BottomBorderTextField.swift */,
 				84E8F7EF20EB4DE7005BB4A1 /* Global.swift */,
 				8440557C20F60B3F00427C42 /* CircleButton.swift */,
+				842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */,
 				84810AFD20F440B0001924F0 /* MemberControl */,
 				84810AFC20F4408E001924F0 /* MessageBoard */,
+				842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */,
 			);
 			path = socketchat;
 			sourceTree = "<group>";
@@ -215,10 +247,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B2507C20E1CB4A0046146A /* LaunchScreen.storyboard in Resources */,
-				84B2507920E1CB4A0046146A /* Assets.xcassets in Resources */,
 				846D8B8020F47CE80049CE6E /* ChatTableViewCell.xib in Resources */,
 				8461BE1220F2F4EB007CE490 /* MessageBoardTableViewCell.xib in Resources */,
 				84B2507720E1CB490046146A /* Main.storyboard in Resources */,
+				842BCC3920F726E000F9C6B5 /* Assets.xcassets in Resources */,
+				842BCC2F20F71BF600F9C6B5 /* IOT.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,19 +264,26 @@
 			files = (
 				84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */,
 				8461BE3A20F37185007CE490 /* MessageAndChatViewController.swift in Sources */,
+				842BCC2220F7058B00F9C6B5 /* MemberNavigationController.swift in Sources */,
 				843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */,
 				846D8B7F20F47CE80049CE6E /* ChatTableViewCell.swift in Sources */,
 				8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */,
 				84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */,
 				84C571F620E36BE800D9DBEA /* LoginViewController.swift in Sources */,
 				84B2507420E1CB490046146A /* ViewController.swift in Sources */,
+				842BCC3720F71D5400F9C6B5 /* IbeaconViewController.swift in Sources */,
 				8461BE1A20F334DF007CE490 /* AddMessageViewController.swift in Sources */,
 				84E8F7F020EB4DE7005BB4A1 /* Global.swift in Sources */,
 				84E8F7D020EB1F9F005BB4A1 /* MemberTableViewController.swift in Sources */,
+				842BCC3120F71C1C00F9C6B5 /* CircleViewController.swift in Sources */,
+				842BCC3320F71C7300F9C6B5 /* RainPopViewController.swift in Sources */,
 				8461BE1620F2F565007CE490 /* MessageBoardViewController.swift in Sources */,
+				842BCC3B20F746D000F9C6B5 /* BottomBorderTextField.swift in Sources */,
 				843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */,
 				8461BE1120F2F4EB007CE490 /* MessageBoardTableViewCell.swift in Sources */,
+				842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */,
 				8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */,
+				842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,
 				8461BE1820F30FAD007CE490 /* MessagePopoverViewController.swift in Sources */,
 				84D227D220E6033200BE498A /* ChatTextLabel.swift in Sources */,
@@ -324,7 +364,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -378,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

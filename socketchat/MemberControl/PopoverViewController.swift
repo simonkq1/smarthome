@@ -102,25 +102,25 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
         memberTable_vc.myPermission = myPermission
         switch myPermission {
         case 1:
-            settingList = ["Add", "Select", "Delete", "Reload", "Logout"]
+            settingList = ["Select", "Delete", "Reload", "Logout"]
             break
         case 2:
-            settingList = ["Add", "Select", "Delete", "Reload", "Logout"]
+            settingList = ["Select", "Delete", "Reload", "Logout"]
             break
         case 3:
-            settingList = ["Add", "Select", "Reload", "Logout"]
+            settingList = ["Select", "Reload", "Logout"]
             break
         case 4:
-            settingList = ["Add", "Select", "Reload", "Logout"]
+            settingList = ["Select", "Reload", "Logout"]
             break
         case 5:
-            settingList = ["Add", "Reload", "Logout"]
+            settingList = ["Reload", "Logout"]
             break
         case 6:
             settingList = ["Reload", "Logout"]
             break
         default:
-            settingList = ["Add", "Select", "Delete", "Reload", "Logout"]
+            settingList = ["Select", "Delete", "Reload", "Logout"]
         }
         switch memberTable_vc.status {
         case "Select":

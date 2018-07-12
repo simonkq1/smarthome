@@ -74,12 +74,11 @@ extension UIView {
 
 class Global: NSObject {
     class selfData: Global {
-        
-        static var permission: String = Global.memberData["mod"]!
-        static var account: String = Global.memberData["account"]!
-        static var username: String = Global.memberData["username"]!
-        static var id: String = Global.memberData["id"]!
-        static var token: String = ""
+        static var permission: String? = Global.memberData["mod"] ?? ""
+        static var account: String? = Global.memberData["account"] ?? ""
+        static var username: String? = Global.memberData["username"] ?? ""
+        static var id: String? = Global.memberData["id"] ?? ""
+        static var token: String? = ""
     }
     static var memberData: [String: String] = [:]
     

@@ -38,6 +38,20 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>opendata.cwb.gov.tw</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>opendata.gov.tw</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>simonhost.hopto.org</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>

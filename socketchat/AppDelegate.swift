@@ -47,22 +47,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     sleep(1/10)
                 }
                 Global.SocketServer.connectSocketServer()
+                
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
-                //                    let vc = story.instantiateViewController(withIdentifier: "memberControl_vc") as! UINavigationController
-                let vc = story.instantiateViewController(withIdentifier: "message_nc") as! UINavigationController
+                let vc = story.instantiateViewController(withIdentifier: "home_nc") as! UINavigationController
                 self.window?.rootViewController = vc
                 self.window?.makeKeyAndVisible()
             }else {
-                self.window = UIWindow(frame: UIScreen.main.bounds)
                 let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
-                let vc = story.instantiateViewController(withIdentifier: "login_vc") as! UINavigationController
+                let vc = story.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
                 self.window?.rootViewController = vc
                 self.window?.makeKeyAndVisible()
             }
-            
         }else {
             
+            let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
+            let vc = story.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
+            self.window?.rootViewController = vc
+            self.window?.makeKeyAndVisible()
             
         }
         
@@ -99,7 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if account != "", password != "" {
             
-            //            TouchID.verify {
             let signUpURL = URL(string: tourl)
             var request = URLRequest(url: signUpURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
             request.httpBody = "account=\(acc)&password=\(pwd)&token=\(token)" .data(using: .utf8)
@@ -133,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         //stopApp
-//        Global.SocketServer.disconnectSocketServer()
+        //        Global.SocketServer.disconnectSocketServer()
         print("applicationWillResignActive")
     }
     
@@ -155,10 +156,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //startAPP
-        if Global.SocketServer.isConnect == false {
-            Global.SocketServer.connectSocketServer()
-            self.window?.reloadInputViews()
-            
+        
+        if let defIsLogin = user.object(forKey: "isLogin"), defIsLogin as! Bool == true {
+            if Global.SocketServer.isConnect == false {
+                Global.SocketServer.connectSocketServer()
+                self.window?.reloadInputViews()
+                
+            }
         }
         print("applicationDidBecomeActive")
     }
