@@ -15,7 +15,7 @@ var error:NSError? // 儲存錯誤訊息
 class TouchID: NSObject {
     
     
-   static private func check()->Bool{
+    static private func check()->Bool{
         // 大於ios 9才檢查
         if #available(iOS 9.0, *) {
             let b:Bool = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
@@ -46,14 +46,8 @@ class TouchID: NSObject {
                         // 驗證失敗，印出錯誤訊息
                         
                     }
-                    
                 }
-                
             })
-            
         }
-        
     }
-    
-    
 }

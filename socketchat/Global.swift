@@ -74,15 +74,20 @@ extension UIView {
 
 class Global: NSObject {
     class selfData: Global {
-        static var permission: String? = Global.memberData["mod"] ?? ""
-        static var account: String? = Global.memberData["account"] ?? ""
-        static var username: String? = Global.memberData["username"] ?? ""
-        static var id: String? = Global.memberData["id"] ?? ""
+        static var permission: String! = Global.memberData["mod"]
+        static var account: String! = Global.memberData["account"]
+        static var username: String! = Global.memberData["username"]
+        static var id: String! = Global.memberData["id"]
         static var token: String? = ""
     }
     static var memberData: [String: String] = [:]
     
-    
+    static func reloadSelfData() {
+        Global.selfData.permission = Global.memberData["mod"]
+        Global.selfData.account = Global.memberData["account"]
+        Global.selfData.username = Global.memberData["username"]
+        Global.selfData.id = Global.memberData["id"]
+    }
     static func postToURL(url: String, body: String, action: ((_ returnData: String?, _ returndata: Data?) -> Void)? = nil) {
         let postURL = URL(string: url)
         var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
@@ -225,9 +230,9 @@ class Global: NSObject {
                         let nowDate = dateFormatter.string(from: now)
                         
                         let textData = """
-                        {"account":\"\(Global.selfData.account)\","sid":\"\(Global.selfData.id)\","username":\"\(Global.selfData.username)\","text":\"\(noData)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
+                        {"account":\"\(Global.selfData.account as! String)\","sid":\"\(Global.selfData.id as! String)\","username":\"\(Global.selfData.username as! String)\","text":\"\(noData)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
                         """
-                        send(textData)
+                        Global.SocketServer.send(textData)
                     }
                 }
             }
@@ -237,7 +242,6 @@ class Global: NSObject {
             isStream?.close()
             isConnect = false
             outStream?.close()
-//            outStream?.close()
             outConnect = false
         }
         

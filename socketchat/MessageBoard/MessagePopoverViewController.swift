@@ -9,10 +9,11 @@
 import UIKit
 
 class MessagePopoverViewController: UIViewController, UIPopoverPresentationControllerDelegate {
-    var message_vc: MessageBoardViewController!
-    var selectList = ["Add"]
+    var message_vc: MessageAndChatViewController!
+    var selectList = ["Delete"]
     var height: CGFloat = 44
     var views: [UIView] = []
+    var messageData:[String:String] = [:]
     
 
     
@@ -22,8 +23,24 @@ class MessagePopoverViewController: UIViewController, UIPopoverPresentationContr
         let textLabel = tapview?.viewWithTag(10) as! UILabel
         
         switch textLabel.text {
-        case "Add":
-            print("Add")
+        case "Delete":
+            let deleteURL = "http://simonhost.hopto.org/chatroom/deleteGroupMessage.php"
+            let gid = messageData["gid"] as! String
+            Global.postToURL(url: deleteURL, body: "gid=\(gid)") { (string, data) in
+                if string == "0" {
+                    self.message_vc.message_board_vc.messageData = []
+                    let _ = self.message_vc.message_board_vc.loadMessageList()
+                    DispatchQueue.main.async {
+                        while self.message_vc.message_board_vc.messageData == [] {
+                            sleep(1/10)
+                        }
+                        self.message_vc.message_board_vc.tableView.reloadData()
+                    }
+                }
+            }
+            self.dismiss(animated: true, completion: nil)
+            message_vc.navigationController?.popViewController(animated: true)
+            
         default:
             break
         }

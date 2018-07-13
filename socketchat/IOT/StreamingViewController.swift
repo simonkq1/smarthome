@@ -47,7 +47,7 @@ class StreamingViewController: UIViewController {
         print("viewdidAppear")
         
         
-        let openStreamUrl = URL(string: "http://192.168.211.153/cgi-bin/streaming.cgi")
+        let openStreamUrl = URL(string: "http://192.168.43.6/cgi-bin/streaming.cgi")
         
         
         
@@ -67,14 +67,14 @@ class StreamingViewController: UIViewController {
         }
         print("SDFg")
         sleep(4)
-        let url = URL(string: "http://192.168.211.153/streaming/stream.m3u8")
+        let url = URL(string: "http://192.168.43.6/streaming/stream.m3u8")
         let request = URLRequest(url: url!)
         self.streamingWebView.load(request)
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        let stopStreamUrl = URL(string: "http://192.168.211.153/cgi-bin/stopStreaming.cgi")
+        let stopStreamUrl = URL(string: "http://192.168.43.6/cgi-bin/stopStreaming.cgi")
         
         DispatchQueue.global().async {
             do {

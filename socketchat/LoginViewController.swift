@@ -43,6 +43,7 @@ class LoginViewController: UIViewController {
                 // Fallback on earlier versions
             }
             login(tourl: url, account: accountText.text!, password: passwordText.text!)
+            
         }
     }
     
@@ -111,6 +112,7 @@ class LoginViewController: UIViewController {
                         self.accountText.borderStyle = .roundedRect
                         //                            ViewController.memberData = jsonData
                         Global.memberData = jsonData
+                        Global.reloadSelfData()
                         self.updateToken(id: Global.selfData.id!)
                         
                         Global.SocketServer.connectSocketServer()

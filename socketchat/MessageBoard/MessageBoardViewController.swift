@@ -12,6 +12,7 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
     var messageData: [[String:String]] = []
+    var textLabel = UILabel()
     
     
     @IBAction func addMessageAction(_ sender: UIBarButtonItem) {
@@ -31,23 +32,13 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
             sleep(1/10)
         }
         
-        print(messageData)
+//        print(messageData)
         
         tableView.register(UINib(nibName: "MessageBoardTableViewCell", bundle: Bundle(identifier: "Simon-Chang.-socketchat")), forCellReuseIdentifier: "Cell")
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "message_to_popover" {
-            let popctrl = segue.destination.popoverPresentationController
-            let popview = segue.destination as! MessagePopoverViewController
-            popview.message_vc = self
-            if sender is UIButton {
-                popctrl?.sourceRect = (sender as! UIButton).bounds
-                popctrl?.permittedArrowDirections = .down
-            }
-            popctrl?.delegate = self
-        }
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
@@ -80,7 +71,7 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
         return status
     }
     func drawNoDataString(string: String) -> UILabel {
-        let textLabel = UILabel(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 300, height: 200))
+        textLabel.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 300, height: 200)
         textLabel.center = self.view.center
         textLabel.center.y = self.view.center.y  - 100
         textLabel.textColor = UIColor.black
@@ -117,6 +108,7 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "show_and_chat_vc") as! MessageAndChatViewController
         vc.messageData = messageData[indexPath.row]
+        vc.message_board_vc = self
         DispatchQueue.main.async {
             self.show(vc, sender: self)
         }

@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -60,7 +59,6 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="76P-ZF-3Z2"/>
                         <segue destination="Ohq-pA-BFZ" kind="relationship" relationship="viewControllers" id="7Vy-Py-bj8"/>
-                        <segue destination="SQy-Th-Sji" kind="relationship" relationship="viewControllers" id="9xs-mG-gZk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urf-JB-k9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,7 +74,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJc-dl-YdX">
-                                <rect key="frame" x="0.0" y="77" width="375" height="334"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="334"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -84,9 +82,9 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aJc-dl-YdX" firstAttribute="top" secondItem="1pd-nb-0tV" secondAttribute="top" constant="57" id="0fb-6m-rCA"/>
+                            <constraint firstItem="aJc-dl-YdX" firstAttribute="top" secondItem="1pd-nb-0tV" secondAttribute="top" constant="120" id="0fb-6m-rCA"/>
                             <constraint firstItem="1pd-nb-0tV" firstAttribute="trailing" secondItem="aJc-dl-YdX" secondAttribute="trailing" id="bC6-1z-ssk"/>
                             <constraint firstItem="aJc-dl-YdX" firstAttribute="leading" secondItem="1pd-nb-0tV" secondAttribute="leading" id="glU-X5-PMj"/>
                             <constraint firstItem="aJc-dl-YdX" firstAttribute="height" secondItem="p4N-I1-3lB" secondAttribute="height" multiplier="1:2" id="jSa-qS-O6r"/>
@@ -102,108 +100,9 @@
             </objects>
             <point key="canvasLocation" x="137" y="799"/>
         </scene>
-        <!--rain-->
-        <scene sceneID="2ak-Ua-xld">
-            <objects>
-                <viewController id="SQy-Th-Sji" customClass="RainPopViewController" customModule="socketchat" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ceB-MC-0In">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQM-hD-DRK">
-                                <rect key="frame" x="0.0" y="85" width="375" height="162"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="162" id="tSD-Zc-QBV"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="SQy-Th-Sji" id="ICf-24-mTt"/>
-                                    <outlet property="delegate" destination="SQy-Th-Sji" id="3fn-kL-uHr"/>
-                                </connections>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0D-bH-fqE">
-                                <rect key="frame" x="8" y="265" width="359" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="AXH-OP-qlq"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="選擇區域"/>
-                                <connections>
-                                    <action selector="onClickRainLocation:" destination="SQy-Th-Sji" eventType="touchUpInside" id="xRR-jp-Kye"/>
-                                </connections>
-                            </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ABk-Hs-svL">
-                                <rect key="frame" x="16" y="343" width="343" height="247"/>
-                                <connections>
-                                    <segue destination="hIg-bn-EH2" kind="embed" id="ZRR-fP-w0k"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="N8i-l9-Xuk" firstAttribute="trailing" secondItem="ABk-Hs-svL" secondAttribute="trailing" constant="16" id="2b4-rx-YCi"/>
-                            <constraint firstItem="W0D-bH-fqE" firstAttribute="leading" secondItem="N8i-l9-Xuk" secondAttribute="leading" constant="8" id="AZR-RT-gF4"/>
-                            <constraint firstItem="bQM-hD-DRK" firstAttribute="top" secondItem="N8i-l9-Xuk" secondAttribute="top" constant="65" id="DCf-CF-DQG"/>
-                            <constraint firstItem="bQM-hD-DRK" firstAttribute="leading" secondItem="N8i-l9-Xuk" secondAttribute="leading" id="Ekw-7b-nGq"/>
-                            <constraint firstItem="W0D-bH-fqE" firstAttribute="top" secondItem="bQM-hD-DRK" secondAttribute="bottom" constant="18" id="GCU-Ae-UEG"/>
-                            <constraint firstItem="bQM-hD-DRK" firstAttribute="trailing" secondItem="N8i-l9-Xuk" secondAttribute="trailing" id="Lef-Us-6Do"/>
-                            <constraint firstItem="N8i-l9-Xuk" firstAttribute="bottom" secondItem="ABk-Hs-svL" secondAttribute="bottom" constant="28" id="Wgs-Sf-uRD"/>
-                            <constraint firstItem="ABk-Hs-svL" firstAttribute="leading" secondItem="N8i-l9-Xuk" secondAttribute="leading" constant="16" id="XF9-dd-2es"/>
-                            <constraint firstItem="ABk-Hs-svL" firstAttribute="top" secondItem="W0D-bH-fqE" secondAttribute="bottom" constant="38" id="aUR-jS-Clq"/>
-                            <constraint firstItem="N8i-l9-Xuk" firstAttribute="trailing" secondItem="W0D-bH-fqE" secondAttribute="trailing" constant="8" id="vEz-Ex-SC4"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="N8i-l9-Xuk"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="rain" image="rainIcon" id="Zjh-kS-ume"/>
-                    <connections>
-                        <outlet property="rainLocationPicker" destination="bQM-hD-DRK" id="Ge8-PK-PAa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="emJ-qu-AY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="138.40000000000001" y="1514.392803598201"/>
-        </scene>
-        <!--Circle View Controller-->
-        <scene sceneID="sND-Qp-T9Q">
-            <objects>
-                <viewController storyboardIdentifier="rain_circle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hIg-bn-EH2" customClass="CircleViewController" customModule="socketchat" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2tT-Sv-2i9">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="247"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i55-Hn-GNf">
-                                <rect key="frame" x="99" y="164" width="80" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="0tX-AT-72A"/>
-                                    <constraint firstAttribute="height" constant="21" id="cgh-Ht-eYg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="i55-Hn-GNf" firstAttribute="leading" secondItem="2tT-Sv-2i9" secondAttribute="leadingMargin" constant="83" id="1eb-zH-HFp"/>
-                            <constraint firstItem="i55-Hn-GNf" firstAttribute="top" secondItem="2tT-Sv-2i9" secondAttribute="topMargin" constant="164" id="9yD-jp-ZgS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="i55-Hn-GNf" secondAttribute="trailing" constant="83" id="LKK-1l-l9y"/>
-                            <constraint firstItem="i55-Hn-GNf" firstAttribute="centerX" secondItem="2tT-Sv-2i9" secondAttribute="centerX" id="bDw-K0-A39"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="i55-Hn-GNf" secondAttribute="bottom" constant="20" id="gFW-Rh-gF8"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="0GM-F6-Tuh"/>
-                    </view>
-                    <connections>
-                        <outlet property="label" destination="i55-Hn-GNf" id="bd5-NX-3ze"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3wT-U9-jgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="136" y="2060"/>
-        </scene>
     </scenes>
     <resources>
         <image name="lockIcon" width="29" height="29"/>
         <image name="monitorIcon" width="29" height="29"/>
-        <image name="rainIcon" width="29" height="29"/>
     </resources>
 </document>

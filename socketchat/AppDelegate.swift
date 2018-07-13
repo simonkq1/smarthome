@@ -41,13 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let acc = defAcc as! String
             let pwd = defPwd as! String
             if defIsLogin as! Bool == true {
-                print("Auto : \(myToken)")
                 let status = autoLogin(tourl: url, account: acc, password: pwd, token: myToken)
                 while Global.memberData.count <= 0 {
                     sleep(1/10)
                 }
                 Global.SocketServer.connectSocketServer()
-                
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
                 let vc = story.instantiateViewController(withIdentifier: "home_nc") as! UINavigationController
@@ -60,14 +58,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window?.makeKeyAndVisible()
             }
         }else {
-            
             let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
             let vc = story.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
             self.window?.rootViewController = vc
             self.window?.makeKeyAndVisible()
             
         }
-        
         return true
     }
     
@@ -80,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
             print("ID : \(Global.selfData.id)")
             Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(token)") { (html, data) in
-                print("TOKEN : \(html)")
+//                print("TOKEN : \(html)")
             }
         }
         

@@ -11,8 +11,6 @@
 		842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */; };
 		842BCC2220F7058B00F9C6B5 /* MemberNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */; };
 		842BCC2F20F71BF600F9C6B5 /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */; };
-		842BCC3120F71C1C00F9C6B5 /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3020F71C1C00F9C6B5 /* CircleViewController.swift */; };
-		842BCC3320F71C7300F9C6B5 /* RainPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3220F71C7300F9C6B5 /* RainPopViewController.swift */; };
 		842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */; };
 		842BCC3720F71D5400F9C6B5 /* IbeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */; };
 		842BCC3920F726E000F9C6B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842BCC3820F726E000F9C6B5 /* Assets.xcassets */; };
@@ -47,8 +45,6 @@
 		842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberNavigationController.swift; path = MemberControl/MemberNavigationController.swift; sourceTree = "<group>"; };
 		842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
-		842BCC3020F71C1C00F9C6B5 /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
-		842BCC3220F71C7300F9C6B5 /* RainPopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainPopViewController.swift; sourceTree = "<group>"; };
 		842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingViewController.swift; sourceTree = "<group>"; };
 		842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbeaconViewController.swift; sourceTree = "<group>"; };
 		842BCC3820F726E000F9C6B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,8 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */,
-				842BCC3020F71C1C00F9C6B5 /* CircleViewController.swift */,
-				842BCC3220F71C7300F9C6B5 /* RainPopViewController.swift */,
 				842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */,
 				842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */,
 			);
@@ -275,8 +269,6 @@
 				8461BE1A20F334DF007CE490 /* AddMessageViewController.swift in Sources */,
 				84E8F7F020EB4DE7005BB4A1 /* Global.swift in Sources */,
 				84E8F7D020EB1F9F005BB4A1 /* MemberTableViewController.swift in Sources */,
-				842BCC3120F71C1C00F9C6B5 /* CircleViewController.swift in Sources */,
-				842BCC3320F71C7300F9C6B5 /* RainPopViewController.swift in Sources */,
 				8461BE1620F2F565007CE490 /* MessageBoardViewController.swift in Sources */,
 				842BCC3B20F746D000F9C6B5 /* BottomBorderTextField.swift in Sources */,
 				843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */,

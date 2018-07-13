@@ -27,12 +27,13 @@ class AddMessageViewController: UIViewController {
         let context = (contentTextField.text) ?? ""
         print(context)
         if contentTextField.text != "" {
-            Global.postToURL(url: url, body: "title=\(title)&text=\(context)&member=2&sid=\(Global.selfData.id)") { (html, data) in
+            Global.postToURL(url: url, body: "title=\(title)&text=\(context)&member=2&sid=\(Global.selfData.id as! String)") { (html, data) in
                 print(data)
                 switch html {
                 case "0":
                     DispatchQueue.main.async {
                         self.view.endEditing(true)
+                        self.messageBoard_vc.textLabel.alpha = 0
                         self.messageBoard_vc.loadMessageList()
                         self.messageBoard_vc.tableView.reloadData()
                         self.dismiss(animated: true, completion: nil)

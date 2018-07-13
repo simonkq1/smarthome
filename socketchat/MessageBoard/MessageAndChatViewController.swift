@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var titleView: UIView!
@@ -21,6 +21,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var chatTextField: UITextField!
+    var message_board_vc: MessageBoardViewController!
     var isStream: InputStream? = nil
     var outStream: OutputStream? = nil
     var jsonObject: [String:Any] = [:]
@@ -31,7 +32,9 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     var messageData: [String:String] = [:]
     var isLoaded: Bool = false
     var tableViewHeight:CGFloat = 0
+    var navigationbarHeight: CGFloat!
     
+    @IBOutlet var editBarButton: UIBarButtonItem!
     @IBAction func sendMessage(_ sender: Any) {
         if let text = chatTextField.text, text != "" {
             let sendURL = "http://simonhost.hopto.org/chatroom/insertChatMessage.php"
@@ -47,10 +50,10 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
             dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
             let nowDate = dateFormatter.string(from: now)
-            
             let textData = """
-            {"account":\"\(Global.selfData.account)\","sid":\"\(Global.selfData.id)\","username":\"\(Global.selfData.username)\","text":\"\(text)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
+            {"account":\"\(Global.selfData.account as! String)\","sid":\"\(Global.selfData.id as! String)\","username":\"\(Global.selfData.username as! String)\","text":\"\(text)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
             """
+            
             
             Global.SocketServer.send(textData)
             
@@ -63,11 +66,10 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(messageData)
         // Do any additional setup after loading the view.
         tableView.register(UINib(nibName: "ChatTableViewCell", bundle: Bundle(identifier: "Simon-Chang.-socketchat")), forCellReuseIdentifier: "Cell")
         
-        originY = self.view.frame.origin.y
         self.navigationItem.rightBarButtonItem = nil
         
         chatTextField.addTarget(self, action: #selector(sendMessage(_:)), for: .editingDidEndOnExit)
@@ -77,6 +79,20 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.receiveAction), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+        let numberFormatter = NumberFormatter()
+        let id = numberFormatter.number(from: Global.selfData.id) as! Int
+        let sid = numberFormatter.number(from: messageData["sid"]!) as! Int
+        let mod = numberFormatter.number(from: Global.selfData.permission) as! Int
+        let smod = numberFormatter.number(from: messageData["mod"]!) as! Int
+        
+        if id == sid {
+            self.navigationItem.rightBarButtonItem = editBarButton
+        }else if mod < smod, mod < 4 {
+            self.navigationItem.rightBarButtonItem = editBarButton
+        }else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
         
         titleTextField.isEnabled = false
         titleTextField.borderStyle = .none
@@ -93,42 +109,43 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         while isLoaded == false {
             sleep(1/10)
         }
-        receiveAction()
-        //        socketServer()
+        if Global.SocketServer.isConnect {
+            receiveAction()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
-        sleep(1)
-        let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
-        
-        let gid = messageData["gid"] as! String
-        let sid = Global.selfData.id
-        DispatchQueue.global().async {
-            while true{
-                sleep(15)
-                let now = Date() + (60 * 60 * 8)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-                dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
-                let nowDate = dateFormatter.string(from: now)
-                
-                let textData = """
-                {"account":\"\(Global.selfData.account)\","sid":\"\(Global.selfData.id)\","username":\"\(Global.selfData.username)\","text":\"\(noData)\","gid":\"\(gid)\","date":\"\(nowDate)\"}
-                """
-                
-                //                self.send(textData)
-            }
-        }
         scrollViewToBottom(animated: false)
-        
+        originY = self.view.frame.origin.y
+        navigationbarHeight = self.navigationController?.navigationBar.frame.size.height
+        let vc = storyboard?.instantiateViewController(withIdentifier: "message_popover_vc") as! MessagePopoverViewController
     }
-    let app = UIApplication.shared.delegate as! AppDelegate
     
     
-    
-    override func viewDidDisappear(_ animated: Bool) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "message_to_popover" {
+            let popctrl = segue.destination.popoverPresentationController
+            let popview = segue.destination as! MessagePopoverViewController
+            popview.message_vc = self
+            popview.messageData = self.messageData
+            if sender is UIButton {
+                popctrl?.sourceRect = (sender as! UIButton).bounds
+                popctrl?.permittedArrowDirections = .down
+            }
+            popctrl?.delegate = self
+        }
     }
+    
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    
+    
+    
     
     @objc func receiveAction() {
         Global.SocketServer.receiveData { (data) in
@@ -156,7 +173,6 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         }
         
     }
-    
     func messageLoad() {
         titleTextField.text = messageData["gtitle"]
         contextLabel.text = messageData["gtext"]
@@ -228,21 +244,23 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         guard let userInfo = notification.userInfo else {return}
         guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
-        if self.view.frame.origin.y == 0 {
+        if self.view.frame.origin.y == originY {
             self.view.frame.origin.y -= keyboardFrame.height
         }
         
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
+        if self.view.frame.origin.y != originY {
+            self.view.frame.origin.y = originY
         }
     }
     
     func scrollViewToBottom(animated: Bool) {
-        self.tableView.scrollToRow(at: IndexPath(row: self.chatData.count - 1, section: 0), at: .bottom, animated: false)
-        
+        if chatData.count >= 1 {
+            self.tableView.scrollToRow(at: IndexPath(row: self.chatData.count - 1, section: 0), at: .bottom, animated: false)
+            
+        }
     }
     
     
