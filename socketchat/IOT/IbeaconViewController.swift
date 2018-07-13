@@ -14,7 +14,6 @@ class IbeaconViewController: UIViewController, CLLocationManagerDelegate {
     
     
     let url = URL(string: "http://192.168.43.6/cgi-bin/openLockerCgi.cgi")
-    var circle_vc: CircleViewController!
     
     @IBAction func onClickOpenLockBtn(_ sender: Any) {
         TouchID.verify {
