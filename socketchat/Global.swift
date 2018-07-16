@@ -26,6 +26,19 @@ extension UILabel {
         self.layer.addSublayer(shapeLayer)
         
     }
+    
+    
+    func firstIndex() {
+        let paraph = NSMutableParagraphStyle()
+        paraph.firstLineHeadIndent = 2
+        //样式属性集合
+        
+        let s1 = NSMutableAttributedString(string: self.text!, attributes: [NSAttributedStringKey.paragraphStyle:paraph])
+        self.attributedText = s1
+        
+    }
+    
+    
 }
 extension UIView {
     
@@ -200,29 +213,56 @@ class Global: NSObject {
         
         return shapeLayer
     }
+    
+    static func timeToNow(targetTime: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
+        let now = Date() + (60 * 60 * 8)
+        
+        let newTarget = dateFormatter.date(from: targetTime)
+        let components = Calendar.current.dateComponents([.second], from: newTarget!, to: now).second
+        
+        if components! < 60 {
+            return "剛剛"
+        }else if components! >= 60, components! < 3600{
+            let timecom = Calendar.current.dateComponents([.minute], from: newTarget!, to: now).minute as! Int
+            return (timecom != 1) ? "\(timecom) 分鐘前" : "\(timecom) 分鐘前"
+        }else if components! >= 3600, components! < 86400{
+            let timecom = Calendar.current.dateComponents([.hour], from: newTarget!, to: now).hour as! Int
+            return (timecom != 1) ? "\(timecom) 小時前" : "\(timecom) 小時前"
+        }else if components! >= 86400{
+            let timecom = Calendar.current.dateComponents([.day], from: newTarget!, to: now).day as! Int
+            return (timecom != 1) ? "\(timecom) 天前" : "\(timecom) 天前"
+        }else {
+            return "error"
+        }
+    }
+    
     class SocketServer: Global {
         
        static private var isStream: InputStream? = nil
        static private var outStream: OutputStream? = nil
         static var isConnect: Bool = false
         static var outConnect: Bool = false
+        static var isReceive: Bool = false
         
         static func connectSocketServer() {
-            let _ = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &isStream, outputStream: &outStream)
-            if isConnect == false {
-                isStream?.open()
-                isConnect = true
+            let _ = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &Global.SocketServer.isStream, outputStream: &Global.SocketServer.outStream)
+            if Global.SocketServer.isConnect == false {
+                Global.SocketServer.isStream?.open()
+                Global.SocketServer.isConnect = true
             }
-            if outConnect == false {
-                outStream?.open()
-                outConnect = true
+            if Global.SocketServer.outConnect == false {
+                Global.SocketServer.outStream?.open()
+                Global.SocketServer.outConnect = true
             }
             let gid = "0"
             let noData = "naflqknflqwnfiqwnfoivnqwilncfqoiwncionqwiondi120ue1902ue09qwndi12y4891y284!@#!@#!@ED,qwiojndjioqwndioclqn21#!@"
             DispatchQueue.global().async {
                 while true{
                     sleep(15)
-                    if isConnect {
+                    if Global.SocketServer.isConnect {
                         let now = Date() + (60 * 60 * 8)
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
@@ -239,36 +279,40 @@ class Global: NSObject {
             
         }
         static func disconnectSocketServer() {
-            isStream?.close()
-            isConnect = false
-            outStream?.close()
-            outConnect = false
+            Global.SocketServer.isStream?.close()
+            Global.SocketServer.isConnect = false
+            Global.SocketServer.outStream?.close()
+            Global.SocketServer.outConnect = false
+            Global.SocketServer.isReceive = false
         }
         
         static func receiveData(avaliable: @escaping (_ data: [String:Any]?) -> Void) {
-            if isConnect == false {
-                isStream?.open()
-                isConnect = true
+            if Global.SocketServer.isConnect == false {
+                Global.SocketServer.isStream?.open()
+                Global.SocketServer.isConnect = true
             }
-            if outConnect == false {
-                outStream?.open()
-                outConnect = true
+            if Global.SocketServer.outConnect == false {
+                Global.SocketServer.outStream?.open()
+                Global.SocketServer.outConnect = true
             }
             var buf = Array(repeating: UInt8(0), count: 1024)
             var jsonObject: [String : Any] = [:]
             DispatchQueue.global().async {
                 while true {
-                    if let n = isStream?.read(&buf, maxLength: 1024) {
-                        
-                        let data = Data(bytes: buf, count: n)
-                        do{
-                            jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
-                        }catch{
-                            print(error)
+                    if Global.SocketServer.isReceive == true {
+                        if let n = Global.SocketServer.isStream?.read(&buf, maxLength: 1024) {
+                            
+                            let data = Data(bytes: buf, count: n)
+                            do{
+                                jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
+                            }catch{
+                                print(error)
+                            }
+                            
+                            avaliable(jsonObject)
                         }
-                        
-                        avaliable(jsonObject)
                     }
+                    sleep(1/10)
                 }
             }
         }
@@ -278,7 +322,7 @@ class Global: NSObject {
             var data = string.data(using: .utf8)!
             
             data.copyBytes(to: &buf, count: data.count)
-            outStream?.write(buf, maxLength: data.count)
+            Global.SocketServer.outStream?.write(buf, maxLength: data.count)
             
         }
     }

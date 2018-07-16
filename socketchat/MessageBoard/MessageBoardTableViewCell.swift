@@ -19,11 +19,9 @@ class MessageBoardTableViewCell: UITableViewCell {
         bottom_left_label.drawUpperLine()
         boardView.layer.borderWidth = 0.5
         boardView.layer.cornerRadius = 5
-//        bottom_right_label.drawUpperLine()
-        // Initialization code
-//        self.layer.borderWidth = 0.5
-//        self.layer.cornerRadius = 10
+        bottom_left_label.textColor = UIColor(red: 115/255, green: 115/255, blue: 115/255, alpha: 0.7)
     }
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

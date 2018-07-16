@@ -28,7 +28,7 @@ class FirstViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "home_to_member" {
             let backItem = UIBarButtonItem()
-            backItem.title = "Home"
+            backItem.title = "首頁"
             navigationItem.backBarButtonItem = backItem
 //        }
     }

@@ -39,7 +39,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         if let text = chatTextField.text, text != "" {
             let sendURL = "http://simonhost.hopto.org/chatroom/insertChatMessage.php"
             let gid = messageData["gid"] as! String
-            let sid = Global.selfData.id
+            let sid = Global.selfData.id as! String
             Global.postToURL(url: sendURL, body: "gid=\(gid)&sid=\(sid)&text=\(text)") { (html, data) in
                 print(html)
             }
@@ -66,7 +66,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(messageData)
+        print("viewdidload")
         // Do any additional setup after loading the view.
         tableView.register(UINib(nibName: "ChatTableViewCell", bundle: Bundle(identifier: "Simon-Chang.-socketchat")), forCellReuseIdentifier: "Cell")
         
@@ -88,7 +88,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         
         if id == sid {
             self.navigationItem.rightBarButtonItem = editBarButton
-        }else if mod < smod, mod < 4 {
+        }else if mod < smod, mod <= 4 {
             self.navigationItem.rightBarButtonItem = editBarButton
         }else {
             self.navigationItem.rightBarButtonItem = nil
@@ -98,12 +98,12 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         titleTextField.borderStyle = .none
         titleTextField.isSelected = false
         titleView.layer.borderWidth = 0.5
+        
         contextHeight = contextViewHeightConstraint.constant
         if contextViewHeightConstraint.constant < contextLabel.frame.size.height {
             contextViewHeightConstraint.constant = contextLabel.frame.size.height
         }
-        //        contextView.drawborder(width: 1, color: UIColor.black, sides: [.down])
-        //        tableView.drawborder(width: 1, color: UIColor.black, sides: [.up])
+        
         messageLoad()
         loadChatData()
         while isLoaded == false {
@@ -119,8 +119,15 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         print("viewDidAppear")
         scrollViewToBottom(animated: false)
         originY = self.view.frame.origin.y
+        contextView.drawborder(width: 0.5, color: UIColor.black, sides: [.down])
         navigationbarHeight = self.navigationController?.navigationBar.frame.size.height
         let vc = storyboard?.instantiateViewController(withIdentifier: "message_popover_vc") as! MessagePopoverViewController
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        Global.SocketServer.isReceive = false
+        print("BBB")
+        print(Global.SocketServer.isReceive)
     }
     
     
@@ -148,6 +155,9 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     
     
     @objc func receiveAction() {
+        Global.SocketServer.isReceive = true
+        print("AAA")
+        print(Global.SocketServer.isReceive)
         Global.SocketServer.receiveData { (data) in
             DispatchQueue.main.async {
                 if let _ = data {
@@ -223,16 +233,16 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         
         let test = Calendar.current.dateComponents([.year], from: newTarget!, to: now).year as! Int
         if components! < 60 {
-            return "just"
+            return "剛剛"
         }else if components! >= 60, components! < 3600{
             let timecom = Calendar.current.dateComponents([.minute], from: newTarget!, to: now).minute as! Int
-            return (timecom != 1) ? "\(timecom) minutes ago" : "\(timecom) minute ago"
+            return (timecom != 1) ? "\(timecom) 分鐘前" : "\(timecom) 分鐘前"
         }else if components! >= 3600, components! < 86400{
             let timecom = Calendar.current.dateComponents([.hour], from: newTarget!, to: now).hour as! Int
-            return (timecom != 1) ? "\(timecom) hours ago" : "\(timecom) hour ago"
+            return (timecom != 1) ? "\(timecom) 小時前" : "\(timecom) 小時前"
         }else if components! >= 86400{
             let timecom = Calendar.current.dateComponents([.day], from: newTarget!, to: now).day as! Int
-            return (timecom != 1) ? "\(timecom) days ago" : "\(timecom) day ago"
+            return (timecom != 1) ? "\(timecom) 天前" : "\(timecom) 天前"
         }else {
             return "error"
         }

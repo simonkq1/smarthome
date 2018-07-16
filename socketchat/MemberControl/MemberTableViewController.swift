@@ -39,7 +39,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     func popoverSelectAction(status: String,rightItemTitle: String, cancelAction: Selector? = #selector(cancelButton), editAction: Selector? = nil) {
         
         self.status = status
-        let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: cancelAction)
+        let cancelBarButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: cancelAction)
         let EditBarButton = UIBarButtonItem(title: rightItemTitle, style: .plain, target: self, action: editAction)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = EditBarButton
@@ -50,7 +50,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     //MARK:- Setting Action
     
     @objc func cancelButton() {
-        print(Global.memberData)
+        
         self.isEdit = false
         for i in 0..<self.radioIsSelected.count {
             self.radioIsSelected[i] = false
@@ -67,6 +67,9 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         self.permissionTarget = nil
         self.deleteTarget = []
     }
+    
+    
+    
     
     @objc func selectButton() {
         
@@ -106,7 +109,6 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     
     
     @objc func deleteButton() {
-        print("AAA")
         self.isEdit = false
         if self.deleteTarget.count != 0 {
             let deleteurl = "http://simonhost.hopto.org/chatroom/deleteMember.php"
@@ -128,7 +130,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
                         }
                     }else {
                         let targetName = self.memberList[i]["username"]
-                        self.showAlert(title: "Warning", msg: "you have no permission to delete \(targetName!)", action: nil)
+                        self.showAlert(title: "警告", msg: "你沒有權限編輯 \(targetName!) 的權限", action: nil)
                         self.isEdit = false
                         self.tableView.reloadData()
                     }
@@ -147,9 +149,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     
     @objc func selectRadioAction(sender: SelectButton) {
         switch status {
-        case "Add":
-            break
-        case "Select":
+        case "選取":
             for i in 0..<radioIsSelected.count {
                 if i == sender.radioInRow {
                     permissionTarget = sender.radioInRow
@@ -159,7 +159,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
                 }
                 tableView.reloadData()
             }
-        case "Delete":
+        case "刪除":
             if sender.isSelected == true {
                 deleteTarget.insert(sender.radioInRow)
             }else {
@@ -209,7 +209,6 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
             self.member = Global.memberData
             self.myPermission = Int(self.member["mod"]!)
         }
-        
         
         loadMemberList()
         
@@ -351,6 +350,37 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 66
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isEdit {
+            let cell = tableView.cellForRow(at: indexPath)
+            let selectRadio = cell?.viewWithTag(20) as! SelectButton
+            selectRadio.isSelected = !selectRadio.isSelected
+            switch status {
+            case "選取":
+                for i in 0..<radioIsSelected.count {
+                    if i == selectRadio.radioInRow {
+                        permissionTarget = selectRadio.radioInRow
+                        radioIsSelected[i] = true
+                    }else {
+                        radioIsSelected[i] = false
+                    }
+                    tableView.reloadData()
+                }
+                break
+            case "刪除":
+                if selectRadio.isSelected == true {
+                    deleteTarget.insert(selectRadio.radioInRow)
+                }else {
+                    deleteTarget.remove(selectRadio.radioInRow)
+                }
+                break
+                
+            default:
+                break
+            }
+        }
     }
     
     /*

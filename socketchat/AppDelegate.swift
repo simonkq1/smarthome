@@ -69,12 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map {String(format: "%02.2hhx", $0)}.joined()
-        print(token)
         
         if let defPwd = user.object(forKey: "password"), let defAcc = user.object(forKey: "account"), let defIsLogin = user.object(forKey: "isLogin") {
             
             let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
-            print("ID : \(Global.selfData.id)")
             Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(token)") { (html, data) in
 //                print("TOKEN : \(html)")
             }
@@ -130,7 +128,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         //stopApp
-        //        Global.SocketServer.disconnectSocketServer()
+        bgTask = application.beginBackgroundTask(expirationHandler: {
+            Global.SocketServer.disconnectSocketServer()
+            application.endBackgroundTask(self.bgTask)
+            self.bgTask = UIBackgroundTaskInvalid
+        })
         print("applicationWillResignActive")
     }
     

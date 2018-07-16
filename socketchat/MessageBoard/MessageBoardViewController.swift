@@ -18,12 +18,13 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func addMessageAction(_ sender: UIBarButtonItem) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "message_create_vc") as! AddMessageViewController
         vc.messageBoard_vc = self
+        vc.status = "增加"
+        
         self.present(vc, animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("load")
         // Do any additional setup after loading the view.
         var timeOut: CGFloat = 0
         let _ = loadMessageList()
@@ -53,12 +54,16 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
             do {
                 let data = try Data(contentsOf: jsonURL)
                 if String(data: data, encoding: .utf8) != "noData" {
+                    self.messageData = []
                     let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String:String]]
                     self.messageData = jsonData
                     status = "0"
                 }else if String(data: data, encoding: .utf8) == "noData"{
+                    
                     status = "1"
-                    tableView.addSubview(drawNoDataString(string: "You Have No Message\n\n Add One Now!!"))
+                    DispatchQueue.main.async {
+                        self.tableView.addSubview(self.drawNoDataString(string: "你沒有任何留言\n\n 新增一個吧!!"))
+                    }
                 }else {
                     status = "3"
                 }
@@ -71,19 +76,50 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
         return status
     }
     func drawNoDataString(string: String) -> UILabel {
-        textLabel.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 300, height: 200)
-        textLabel.center = self.view.center
-        textLabel.center.y = self.view.center.y  - 100
-        textLabel.textColor = UIColor.black
-        textLabel.alpha = 0.5
-        textLabel.font = UIFont(name: "System", size: 100)
-//        textLabel.layer.borderWidth = 1
-        textLabel.textAlignment = .center
-        textLabel.numberOfLines = 0
-        textLabel.text = string
+        DispatchQueue.main.async {
+            self.textLabel.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 300, height: 200)
+            self.textLabel.center = self.view.center
+            self.textLabel.center.y = self.view.center.y  - 100
+            self.textLabel.textColor = UIColor.black
+            self.textLabel.alpha = 0.5
+            self.textLabel.font = UIFont(name: "System", size: 100)
+            //        textLabel.layer.borderWidth = 1
+            self.textLabel.textAlignment = .center
+            self.textLabel.numberOfLines = 0
+            self.textLabel.text = string
+        }
         
         return textLabel
         
+    }
+    
+    
+    func timeToNow(targetTime: String) -> String {
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
+        let now = Date() + (60 * 60 * 8)
+        
+        let newTarget = dateFormatter.date(from: targetTime)
+        let components = Calendar.current.dateComponents([.second], from: newTarget!, to: now).second
+        
+        if components! < 60 {
+            return "剛剛"
+        }else if components! >= 60, components! < 3600{
+            let timecom = Calendar.current.dateComponents([.minute], from: newTarget!, to: now).minute as! Int
+            return "\(timecom) 分鐘前"
+        }else if components! >= 3600, components! < 86400{
+            let timecom = Calendar.current.dateComponents([.hour], from: newTarget!, to: now).hour as! Int
+            return "\(timecom) 小時前"
+        }else if components! >= 86400{
+            dateFormatter.dateFormat = "MM/dd aHH:mm"
+            dateFormatter.pmSymbol = "下午"
+            dateFormatter.amSymbol = "上午"
+            let strdate = dateFormatter.string(from: newTarget!)
+            return strdate
+        }else {
+            return "error"
+        }
     }
     
     
@@ -99,8 +135,12 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MessageBoardTableViewCell
         let title = messageData[indexPath.row]["gtitle"] as! String
         let context = messageData[indexPath.row]["gtext"] as! String
+        let date = messageData[indexPath.row]["gdate"] as! String
+        let datetonow = timeToNow(targetTime: date)
+        
         cell.titleLabel.text = title
         cell.contentLabel.text = context
+        cell.bottom_left_label.text = datetonow
         return cell
     }
     

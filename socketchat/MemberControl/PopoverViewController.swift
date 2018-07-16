@@ -11,8 +11,8 @@ import UIKit
 class PopoverViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     var popsize: CGRect! = nil
 
-    var settingList = ["Add", "Select", "Delete", "Reload"]
-    let selectList = ["Permission"]
+    var settingList = ["Add", "選取", "刪除", "重新載入"]
+    let selectList = ["權限"]
     var member: [String:String] = [:]
     var myPermission: Int!
     var height: CGFloat = 44
@@ -31,32 +31,32 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
         case "Add":
             //add
             print("A")
-        case "Select":
-            //select
-            memberTable_vc.status = "Select"
+        case "選取":
+            //選取
+            memberTable_vc.status = "選取"
             memberTable_vc.barEditBtn.image = nil
-            memberTable_vc.barEditBtn.title = "Edit"
+            memberTable_vc.barEditBtn.title = "編輯"
             memberTable_vc.navigationItem.rightBarButtonItem = memberTable_vc.barEditBtn
             memberTable_vc.editPermissionButton()
             memberTable_vc.isEdit = true
             
-            memberTable_vc.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: memberTable_vc, action: #selector(memberTable_vc.cancelButton))
+            memberTable_vc.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: memberTable_vc, action: #selector(memberTable_vc.cancelButton))
             memberTable_vc.tableView.reloadData()
            
             self.dismiss(animated: true, completion: nil)
             break
-        case "Delete":
-            //delete
-            print("Delete")
-            memberTable_vc.popoverSelectAction(status: "Delete", rightItemTitle: "Delete", cancelAction: #selector(memberTable_vc.cancelButton), editAction: #selector(memberTable_vc.deleteButton))
+        case "刪除":
+            //刪除
+            print("刪除")
+            memberTable_vc.popoverSelectAction(status: "刪除", rightItemTitle: "刪除", cancelAction: #selector(memberTable_vc.cancelButton), editAction: #selector(memberTable_vc.deleteButton))
 //            memberTable_vc.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
             break
-        case "Reload":
+        case "重新載入":
             memberTable_vc.reloadButton()
             self.dismiss(animated: true, completion: nil)
             break
-        case "Logout":
+        case "登出":
             if let _ = user.object(forKey: "password") {
                 user.removeObject(forKey: "password")
             }
@@ -72,14 +72,15 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
             
             let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
             showDetailViewController(vc, sender: nil)
+            Global.SocketServer.disconnectSocketServer()
             break
-        case "Permission":
+        case "權限":
             if memberTable_vc.permissionTarget != nil {
                 let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
                 vc.name = memberTable_vc.memberList[memberTable_vc.permissionTarget!]["account"]!
                 vc.permission = memberTable_vc.memberList[memberTable_vc.permissionTarget!]["mod"]!
                 vc.tid = memberTable_vc.memberList[memberTable_vc.permissionTarget!]["id"]!
-                vc.memberView = memberTable_vc
+                vc.memberView = self.memberTable_vc
                 self.dismiss(animated: true, completion: nil)
                 memberTable_vc.present(vc, animated: true, completion: nil)
 
@@ -102,28 +103,28 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
         memberTable_vc.myPermission = myPermission
         switch myPermission {
         case 1:
-            settingList = ["Select", "Delete", "Reload", "Logout"]
+            settingList = ["選取", "刪除", "重新載入", "登出"]
             break
         case 2:
-            settingList = ["Select", "Delete", "Reload", "Logout"]
+            settingList = ["選取", "刪除", "重新載入", "登出"]
             break
         case 3:
-            settingList = ["Select", "Reload", "Logout"]
+            settingList = ["選取", "重新載入", "登出"]
             break
         case 4:
-            settingList = ["Select", "Reload", "Logout"]
+            settingList = ["選取", "重新載入", "登出"]
             break
         case 5:
-            settingList = ["Reload", "Logout"]
+            settingList = ["重新載入", "登出"]
             break
         case 6:
-            settingList = ["Reload", "Logout"]
+            settingList = ["重新載入", "登出"]
             break
         default:
-            settingList = ["Select", "Delete", "Reload", "Logout"]
+            settingList = ["選取", "刪除", "重新載入", "登出"]
         }
         switch memberTable_vc.status {
-        case "Select":
+        case "選取":
             views = addPopListLabel(list: selectList, size: CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height), startPoint: CGPoint(x: 0, y: 0))
             break
         default:
@@ -138,7 +139,7 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLayoutSubviews() {
         switch memberTable_vc.status {
-        case "Select":
+        case "選取":
             self.preferredContentSize = CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height * CGFloat(selectList.count) + 20)
         default:
             self.preferredContentSize = CGSize(width: (memberTable_vc.view.frame.size.width) / 3, height: height * CGFloat(settingList.count) + 20)

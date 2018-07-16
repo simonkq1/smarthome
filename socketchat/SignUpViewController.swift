@@ -45,23 +45,22 @@ class SignUpViewController: UIViewController {
                     let html = String(data:data, encoding: .utf8)
                     if html == "1" {
                         DispatchQueue.main.async {
-                            self.showAlert(title: "success", msg: "return to login page", action: { (action) in
+                            self.showAlert(title: "成功", msg: "回到登入頁面", action: { (action) in
                                 self.dismiss(animated: true, completion: nil)
                             })
                         }
                     }else if html == "2" {
                         DispatchQueue.main.async {
-                            self.showAlert(title: "Error", msg: "Account is already exist", action: nil)
+                            self.showAlert(title: "錯誤", msg: "此帳號已存在", action: nil)
                         }
                         
                     }else if html == "3" {
                         DispatchQueue.main.async {
-                            self.showAlert(title: "Error", msg: "connect error", action: nil)
+                            self.showAlert(title: "錯誤", msg: "連線錯誤", action: nil)
                         }
                     }else {
-                        
                         DispatchQueue.main.async {
-                            self.showAlert(title: "Error", msg: "connect error", action: nil)
+                            self.showAlert(title: "錯誤", msg: "連線錯誤", action: nil)
                         }
                     }
                 }
@@ -106,7 +105,7 @@ class SignUpViewController: UIViewController {
     func showAlert(title: String, msg: String , action: ((UIAlertAction) -> Void)?) {
         
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        let OK = UIAlertAction(title: "OK", style: .cancel, handler: action)
+        let OK = UIAlertAction(title: "確認", style: .cancel, handler: action)
         alert.addAction(OK)
         self.present(alert,animated: true,completion: nil)
     }
