@@ -315,6 +315,22 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         
         let nameLabel = cell.viewWithTag(10) as! UILabel
         let selectRadio = cell.viewWithTag(20) as! SelectButton
+        let onlineIcon = cell.viewWithTag(30) as! OnlineIconLabel
+        let timeLabel = cell.viewWithTag(40) as! UILabel
+        timeLabel.textColor = UIColor(red: 115/255, green: 115/255, blue: 115/255, alpha: 0.7)
+        timeLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        let isOnline = memberList[indexPath.row]["online"]
+        let tartime = memberList[indexPath.row]["ontime"]
+        
+        
+        if isOnline == "off" {
+            onlineIcon.isOnline = false
+            timeLabel.text = Global.timeToNow(targetTime: tartime!)
+        }else {
+            onlineIcon.isOnline = true
+            timeLabel.text = ""
+        }
+        
         
         selectRadio.isSelected = radioIsSelected[indexPath.row]
         selectRadio.radioInRow = indexPath.row
@@ -356,6 +372,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         if isEdit {
             let cell = tableView.cellForRow(at: indexPath)
             let selectRadio = cell?.viewWithTag(20) as! SelectButton
+            
             selectRadio.isSelected = !selectRadio.isSelected
             switch status {
             case "選取":

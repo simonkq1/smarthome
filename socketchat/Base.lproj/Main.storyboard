@@ -174,12 +174,18 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbN-3s-rQ4">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="30" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbN-3s-rQ4" customClass="OnlineIconLabel" customModule="socketchat" customModuleProvider="target">
                                             <rect key="frame" x="81" y="22.5" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="Is1-iQ-iag"/>
                                                 <constraint firstAttribute="width" constant="20" id="t3b-S8-kYs"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="40" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFF-TW-uXs">
+                                            <rect key="frame" x="109" y="22" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -192,6 +198,8 @@
                                         <constraint firstItem="tbN-3s-rQ4" firstAttribute="leading" secondItem="qOR-r0-K9s" secondAttribute="trailing" constant="8" id="ZAE-7o-khQ"/>
                                         <constraint firstItem="YFT-8u-Y44" firstAttribute="centerY" secondItem="6wD-iR-joM" secondAttribute="centerY" id="aQF-dn-hN9"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="qOR-r0-K9s" secondAttribute="bottom" constant="6" id="goy-c8-6ou"/>
+                                        <constraint firstItem="aFF-TW-uXs" firstAttribute="leading" secondItem="tbN-3s-rQ4" secondAttribute="trailing" constant="8" id="qTJ-2H-IcH"/>
+                                        <constraint firstItem="aFF-TW-uXs" firstAttribute="centerY" secondItem="tbN-3s-rQ4" secondAttribute="centerY" id="sWo-4c-oRQ"/>
                                         <constraint firstItem="YFT-8u-Y44" firstAttribute="leading" secondItem="6wD-iR-joM" secondAttribute="leading" constant="1" identifier="radio_btn_constraint" id="vFV-tc-tYc"/>
                                         <constraint firstItem="qOR-r0-K9s" firstAttribute="centerY" secondItem="YFT-8u-Y44" secondAttribute="centerY" id="zOu-Sa-8hg"/>
                                     </constraints>

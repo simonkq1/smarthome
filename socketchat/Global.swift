@@ -217,8 +217,7 @@ class Global: NSObject {
     static func timeToNow(targetTime: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)
-        let now = Date() + (60 * 60 * 8)
+        let now = Date()
         
         let newTarget = dateFormatter.date(from: targetTime)
         let components = Calendar.current.dateComponents([.second], from: newTarget!, to: now).second
