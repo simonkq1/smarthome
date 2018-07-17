@@ -68,7 +68,7 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
             }
             let logoutURL = "http://simonhost.hopto.org/chatroom/logout.php"
             
-            Global.postToURL(url: logoutURL, body: "id=\(Global.selfData.id)")
+            Global.postToURL(url: logoutURL, body: "id=\(Global.selfData.id as! String)")
             
             let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
             showDetailViewController(vc, sender: nil)

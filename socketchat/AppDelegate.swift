@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let defPwd = user.object(forKey: "password"), let defAcc = user.object(forKey: "account"), let defIsLogin = user.object(forKey: "isLogin") {
             
             let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
-            Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(token)") { (html, data) in
+            Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id as! String)&token=\(token)") { (html, data) in
 //                print("TOKEN : \(html)")
             }
         }
@@ -97,7 +97,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let signUpURL = URL(string: tourl)
             var request = URLRequest(url: signUpURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-            request.httpBody = "account=\(acc)&password=\(pwd)&token=\(token)" .data(using: .utf8)
+            
+            var formatter = DateFormatter()
+            formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+            let now = formatter.string(from: Date())
+            
+            request.httpBody = "account=\(acc)&password=\(pwd)&token=\(token)&now=\(now)" .data(using: .utf8)
             request.httpMethod = "POST"
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
@@ -128,11 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         //stopApp
-        bgTask = application.beginBackgroundTask(expirationHandler: {
-            Global.SocketServer.disconnectSocketServer()
-            application.endBackgroundTask(self.bgTask)
-            self.bgTask = UIBackgroundTaskInvalid
-        })
+        
         print("applicationWillResignActive")
     }
     
@@ -140,6 +141,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         bgTask = application.beginBackgroundTask(expirationHandler: {
+            let offlineURL = "http://simonhost.hopto.org/chatroom/setOffline.php"
+            Global.postToURL(url: offlineURL, body: "tid=\(Global.selfData.id as! String)&status=off")
             Global.SocketServer.disconnectSocketServer()
             application.endBackgroundTask(self.bgTask)
             self.bgTask = UIBackgroundTaskInvalid
@@ -156,6 +159,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //startAPP
         
         if let defIsLogin = user.object(forKey: "isLogin"), defIsLogin as! Bool == true {
+            
+            let offlineURL = "http://simonhost.hopto.org/chatroom/setOffline.php"
+            Global.postToURL(url: offlineURL, body: "tid=\(Global.selfData.id as! String)&status=on")
             if Global.SocketServer.isConnect == false {
                 Global.SocketServer.connectSocketServer()
                 self.window?.reloadInputViews()

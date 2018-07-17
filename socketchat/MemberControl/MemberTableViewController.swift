@@ -383,6 +383,20 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let vi = view as! UITableViewHeaderFooterView
+        vi.textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        vi.textLabel?.textColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
+        
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "成員\(memberList.count)"
+    }
+    
+    
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

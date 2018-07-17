@@ -34,8 +34,13 @@ class SignUpViewController: UIViewController {
         
         if accountText.text != "", passwordText.text != "", realnameText.text != "" {
             let signUpURL = URL(string: url)
+            var formatter = DateFormatter()
+            formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+            
+            let now = formatter.string(from: Date())
+            
             var request = URLRequest(url: signUpURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-            request.httpBody = "account=\(acc!)&password=\(pwd!)&realName=\(rel!)" .data(using: .utf8)
+            request.httpBody = "account=\(acc!)&password=\(pwd!)&realName=\(rel!)&now=\(now)" .data(using: .utf8)
             request.httpMethod = "POST"
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)

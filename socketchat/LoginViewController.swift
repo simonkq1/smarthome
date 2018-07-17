@@ -12,7 +12,6 @@ import LocalAuthentication
 class LoginViewController: UIViewController {
     let url = "http://simonhost.hopto.org/chatroom/logincheck.php"
 //    let url = "http://192.168.211.146/chatroom/logincheck.php"
-    
     @IBOutlet weak var accountText: UITextField!
     
     @IBOutlet weak var passwordText: UITextField!
@@ -22,6 +21,7 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func login(_ sender: UIButton) {
+        
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = passwordText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -63,6 +63,8 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
+        var formatter = DateFormatter()
+        
         self.isEditing = false
         accountText.addTarget(self, action: #selector(accountEndEditing(sender:)), for: .editingDidEndOnExit)
         passwordText.addTarget(self, action: #selector(login(_:)), for: .editingDidEndOnExit)
@@ -87,7 +89,12 @@ class LoginViewController: UIViewController {
             //            TouchID.verify {
             let signUpURL = URL(string: tourl)
             var request = URLRequest(url: signUpURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-            request.httpBody = "account=\(acc)&password=\(pwd)" .data(using: .utf8)
+            
+            var formatter = DateFormatter()
+            formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+            let now = formatter.string(from: Date())
+            
+            request.httpBody = "account=\(acc)&password=\(pwd)&now=\(now)&token=\(Global.selfData.token as! String)" .data(using: .utf8)
             request.httpMethod = "POST"
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
@@ -143,7 +150,7 @@ class LoginViewController: UIViewController {
         
         let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
         print("ID : \(Global.selfData.id)")
-        Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id)&token=\(Global.selfData.token)") { (html, data) in
+        Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id as! String)&token=\(Global.selfData.token as! String)") { (html, data) in
             print("TOKEN : \(html)")
         }
     }
