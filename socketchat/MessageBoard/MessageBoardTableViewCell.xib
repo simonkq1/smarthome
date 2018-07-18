@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14112" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,6 +23,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42A-0K-tiD">
                                 <rect key="frame" x="0.0" y="57" width="349" height="21"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="vJK-mX-i1c"/>
                                 </constraints>
@@ -55,7 +56,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="sUt-w8-VZ2" firstAttribute="top" secondItem="TTd-au-yuP" secondAttribute="bottom" id="0OT-MI-aeP"/>
                             <constraint firstAttribute="trailing" secondItem="jMP-cv-9Uy" secondAttribute="trailing" id="4h0-hJ-WXU"/>
@@ -72,6 +73,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="Ozi-ZR-KtQ" firstAttribute="trailing" secondItem="R2N-5e-6ph" secondAttribute="trailingMargin" constant="5" id="0bf-l2-FoM"/>
                     <constraint firstItem="Ozi-ZR-KtQ" firstAttribute="leading" secondItem="R2N-5e-6ph" secondAttribute="leadingMargin" id="4fy-Nc-hUO"/>
@@ -79,6 +81,7 @@
                     <constraint firstItem="Ozi-ZR-KtQ" firstAttribute="top" secondItem="R2N-5e-6ph" secondAttribute="topMargin" constant="3" id="wXD-Oj-Sbg"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="boardView" destination="Ozi-ZR-KtQ" id="0FL-6q-Zai"/>
                 <outlet property="bottom_left_label" destination="42A-0K-tiD" id="Qgb-K8-Czs"/>

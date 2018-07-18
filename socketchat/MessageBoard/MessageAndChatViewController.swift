@@ -110,6 +110,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
             sleep(1/10)
         }
         if Global.SocketServer.isConnect {
+            Global.SocketServer.isReceive = true
             receiveAction()
         }
         

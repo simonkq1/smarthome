@@ -9,6 +9,71 @@
 import UIKit
 
 
+extension UIImage {
+    
+    //MARK: 壓縮圖片 來源 ： 網路
+    func resizeImage(imagepoint: CGFloat = 640) -> UIImage{
+        
+        //prepare constants
+        let width = self.size.width
+        let height = self.size.height
+        let scale = width/height
+        
+        var sizeChange = CGSize()
+        
+        if width <= imagepoint && height <= imagepoint{ //a，图片宽或者高均小于或等于imagepoint时图片尺寸保持不变，不改变图片大小
+            return self
+        }else if width > imagepoint || height > imagepoint {//b,宽或者高大于imagepoint，但是图片宽度高度比小于或等于2，则将图片宽或者高取大的等比压缩至imagepoint
+            
+            if scale <= 2 && scale >= 1 {
+                let changedWidth:CGFloat = imagepoint
+                let changedheight:CGFloat = changedWidth / scale
+                sizeChange = CGSize(width: changedWidth, height: changedheight)
+                
+            }else if scale >= 0.5 && scale <= 1 {
+                
+                let changedheight:CGFloat = imagepoint
+                let changedWidth:CGFloat = changedheight * scale
+                sizeChange = CGSize(width: changedWidth, height: changedheight)
+                
+            }else if width > imagepoint && height > imagepoint {//宽以及高均大于imagepoint，但是图片宽高比大于2时，则宽或者高取小的等比压缩至imagepoint
+                
+                if scale > 2 {//高的值比较小
+                    
+                    let changedheight:CGFloat = imagepoint
+                    let changedWidth:CGFloat = changedheight * scale
+                    sizeChange = CGSize(width: changedWidth, height: changedheight)
+                    
+                }else if scale < 0.5{//宽的值比较小
+                    
+                    let changedWidth:CGFloat = imagepoint
+                    let changedheight:CGFloat = changedWidth / scale
+                    sizeChange = CGSize(width: changedWidth, height: changedheight)
+                    
+                }
+            }else {//d, 宽或者高，只有一个大于imagepoint，并且宽高比超过2，不改变图片大小
+                return self
+            }
+        }
+        
+        UIGraphicsBeginImageContext(sizeChange)
+        
+        //draw resized image on Context
+        self.draw(in: CGRect(x:0, y:0, width:sizeChange.width, height:sizeChange.height))
+        //        self.draw(in: CGRect(x: 0, y: 0, width: width , height: height))
+        
+        //create UIImage
+        let resizedImg = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return resizedImg!
+        
+    }
+    
+    
+}
+
 extension UILabel {
     func drawUpperLine() {
         let shapeLayer = CAShapeLayer()
@@ -229,7 +294,7 @@ class Global: NSObject {
         }else if components! >= 3600, components! < 86400{
             let timecom = Calendar.current.dateComponents([.hour], from: newTarget!, to: now).hour as! Int
             return (timecom != 1) ? "\(timecom) 小時前" : "\(timecom) 小時前"
-        }else if components! >= 86400{
+        }else if components! >= 8320{
             let timecom = Calendar.current.dateComponents([.day], from: newTarget!, to: now).day as! Int
             return (timecom != 1) ? "\(timecom) 天前" : "\(timecom) 天前"
         }else {
@@ -237,13 +302,19 @@ class Global: NSObject {
         }
     }
     
+    
+    
+    
+    
+    //MARK:- ＳＯＣＫＥＴ
+    
     class SocketServer: Global {
         
        static private var isStream: InputStream? = nil
        static private var outStream: OutputStream? = nil
         static var isConnect: Bool = false
         static var outConnect: Bool = false
-        static var isReceive: Bool = false
+        static var isReceive: Bool = false 
         
         static func connectSocketServer() {
             let _ = Stream.getStreamsToHost(withName: "simonhost.hopto.org", port: 5000, inputStream: &Global.SocketServer.isStream, outputStream: &Global.SocketServer.outStream)

@@ -84,6 +84,7 @@ class SignUpViewController: UIViewController {
             DispatchQueue.main.async {
                 sender.imageView?.image = UIImage(named: "invisible")
                 self.passwordText.textContentType = UITextContentType.password
+                
             }
         }else {
             passwordText.isSecureTextEntry = true

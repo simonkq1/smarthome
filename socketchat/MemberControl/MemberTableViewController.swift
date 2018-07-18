@@ -344,6 +344,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         }
         
         
+        
         selectRadio.isSelected = radioIsSelected[indexPath.row]
         selectRadio.radioInRow = indexPath.row
         

@@ -44,6 +44,9 @@
 		F4D3D8DB20FECDC000FD4DD6 /* BreakInPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */; };
 		F4D3D8DD20FECE4600FD4DD6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8DC20FECE4600FD4DD6 /* TabBarViewController.swift */; };
 		F4D3D8DF20FF1B5500FD4DD6 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8DE20FF1B5500FD4DD6 /* SettingViewController.swift */; };
+		F4D3D8E120FF319300FD4DD6 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8E020FF319300FD4DD6 /* TestViewController.swift */; };
+		F4D3D8E320FF385A00FD4DD6 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8E220FF385A00FD4DD6 /* CircleImage.swift */; };
+		F4D3D8E620FF497900FD4DD6 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8E520FF497900FD4DD6 /* MainNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +90,9 @@
 		F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakInPhotoViewController.swift; sourceTree = "<group>"; };
 		F4D3D8DC20FECE4600FD4DD6 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		F4D3D8DE20FF1B5500FD4DD6 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		F4D3D8E020FF319300FD4DD6 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		F4D3D8E220FF385A00FD4DD6 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		F4D3D8E520FF497900FD4DD6 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +180,7 @@
 				849BE85C20EF48310009FD47 /* socketchat.entitlements */,
 				84B2507120E1CB490046146A /* AppDelegate.swift */,
 				84B2507320E1CB490046146A /* ViewController.swift */,
+				F4D3D8E520FF497900FD4DD6 /* MainNavigationController.swift */,
 				842BCC3820F726E000F9C6B5 /* Assets.xcassets */,
 				84B2507520E1CB490046146A /* Main.storyboard */,
 				84B2507A20E1CB4A0046146A /* LaunchScreen.storyboard */,
@@ -187,10 +194,12 @@
 				84E8F7EF20EB4DE7005BB4A1 /* Global.swift */,
 				F4D3D8DE20FF1B5500FD4DD6 /* SettingViewController.swift */,
 				8440557C20F60B3F00427C42 /* CircleButton.swift */,
+				F4D3D8E220FF385A00FD4DD6 /* CircleImage.swift */,
 				842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */,
 				84810AFD20F440B0001924F0 /* MemberControl */,
 				84810AFC20F4408E001924F0 /* MessageBoard */,
 				842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */,
+				F4D3D8E020FF319300FD4DD6 /* TestViewController.swift */,
 			);
 			path = socketchat;
 			sourceTree = "<group>";
@@ -275,7 +284,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */,
+				F4D3D8E320FF385A00FD4DD6 /* CircleImage.swift in Sources */,
 				8461BE3A20F37185007CE490 /* MessageAndChatViewController.swift in Sources */,
+				F4D3D8E620FF497900FD4DD6 /* MainNavigationController.swift in Sources */,
 				F4D3D8D920FECD9500FD4DD6 /* CircleViewController.swift in Sources */,
 				842BCC2220F7058B00F9C6B5 /* MemberNavigationController.swift in Sources */,
 				F4D3D8DB20FECDC000FD4DD6 /* BreakInPhotoViewController.swift in Sources */,
@@ -297,6 +308,7 @@
 				843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */,
 				8461BE1120F2F4EB007CE490 /* MessageBoardTableViewCell.swift in Sources */,
 				842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */,
+				F4D3D8E120FF319300FD4DD6 /* TestViewController.swift in Sources */,
 				8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */,
 				842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,
