@@ -232,7 +232,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-258.39999999999998" y="1359.6701649175413"/>
+            <point key="canvasLocation" x="-215" y="1594"/>
         </scene>
         <!--主畫面-->
         <scene sceneID="rwq-UD-vMT">
@@ -277,7 +277,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="selectHighLight" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="zQd-rf-3ar" kind="show" id="j0j-W6-m5a"/>
+                                                    <segue destination="dvA-CY-R3f" kind="show" identifier="unlock_to_IOT" id="8eO-ps-dNR"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="安全開鎖" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSL-XG-FIG">
@@ -531,19 +531,20 @@
                         <outlet property="messageBoard" destination="Wzg-MF-SNJ" id="GMn-ED-Ceu"/>
                         <outlet property="monitor" destination="FG9-u4-FPA" id="0Un-dI-fSX"/>
                         <outlet property="safityBox" destination="9Qn-FD-d8h" id="oCg-zd-hHR"/>
+                        <outlet property="security" destination="7R3-gv-cHT" id="cQy-2k-7zd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hz3-7p-Hqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-258" y="448"/>
+            <point key="canvasLocation" x="-215" y="681"/>
         </scene>
         <!--IOT-->
-        <scene sceneID="v5X-6H-PkP">
+        <scene sceneID="w4v-Et-sMu">
             <objects>
-                <viewControllerPlaceholder storyboardName="IOT" id="zQd-rf-3ar" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cax-IR-NLG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="IOT" id="dvA-CY-R3f" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z2D-VC-Rgz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="247" y="644"/>
+            <point key="canvasLocation" x="465" y="794"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uE6-df-clr">
@@ -559,7 +560,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOc-yK-cn8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1409" y="448"/>
+            <point key="canvasLocation" x="-1367" y="681"/>
         </scene>
         <!--Popover View Controller-->
         <scene sceneID="3Gc-AU-ka6">
@@ -581,7 +582,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="456" y="1167"/>
+            <point key="canvasLocation" x="368" y="1401"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="KMG-n7-nFB">
@@ -596,7 +597,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMo-01-mqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1036" y="1360"/>
+            <point key="canvasLocation" x="849" y="1594"/>
         </scene>
         <!--Permission Setting View Controller-->
         <scene sceneID="pPx-Rp-D7x">
@@ -753,7 +754,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hl2-TH-o5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2250" y="760"/>
+            <point key="canvasLocation" x="1036" y="648"/>
         </scene>
         <!--Message Popover View Controller-->
         <scene sceneID="IV4-n4-rTe">
@@ -978,7 +979,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kUT-0b-zhU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3031" y="546"/>
+            <point key="canvasLocation" x="1817" y="434"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="SRf-Mc-FzJ">
@@ -1039,10 +1040,14 @@
                                     <segue destination="Qq6-oC-M5x" kind="show" id="VY8-dq-YyA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCh-h6-ozf">
-                                <rect key="frame" x="322" y="286" width="37" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCh-h6-ozf">
+                                <rect key="frame" x="319" y="286" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="show"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Z3c-cw-iZF"/>
+                                    <constraint firstAttribute="height" constant="40" id="yPz-Jm-ctz"/>
+                                </constraints>
+                                <state key="normal" title="show" image="visible"/>
                                 <connections>
                                     <action selector="showPassword:" destination="lLu-JR-jR0" eventType="touchUpInside" id="ax4-hX-grd"/>
                                 </connections>
@@ -1055,8 +1060,8 @@
                             <constraint firstItem="UiP-iO-1sW" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="16" id="A8I-eu-DXm"/>
                             <constraint firstItem="4Zb-Qj-XL8" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="16" id="AJs-cs-yxU"/>
                             <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="GG9-Tm-HLx" secondAttribute="trailing" constant="16" id="ASk-uA-tjq"/>
-                            <constraint firstItem="NCh-h6-ozf" firstAttribute="top" secondItem="GG9-Tm-HLx" secondAttribute="top" id="Axb-Io-ZcW"/>
                             <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="4Zb-Qj-XL8" secondAttribute="trailing" constant="16" id="CTa-kj-Y3A"/>
+                            <constraint firstItem="NCh-h6-ozf" firstAttribute="trailing" secondItem="UiP-iO-1sW" secondAttribute="trailing" id="Cc3-Ab-MVy"/>
                             <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="wBA-tR-0aA" secondAttribute="trailing" constant="16" id="Cuu-fe-nF9"/>
                             <constraint firstItem="wBA-tR-0aA" firstAttribute="leading" secondItem="cjT-U4-9OX" secondAttribute="leading" constant="16" id="NGS-lT-Hlg"/>
                             <constraint firstItem="4Zb-Qj-XL8" firstAttribute="top" secondItem="cjT-U4-9OX" secondAttribute="top" constant="59" id="Uxm-4D-dwr"/>
@@ -1069,8 +1074,8 @@
                             <constraint firstItem="cjT-U4-9OX" firstAttribute="trailing" secondItem="UiP-iO-1sW" secondAttribute="trailing" constant="16" id="hHM-Ep-Nfa"/>
                             <constraint firstItem="wBA-tR-0aA" firstAttribute="centerX" secondItem="7ol-uT-LK3" secondAttribute="centerX" id="ilQ-N9-CN6"/>
                             <constraint firstItem="GG9-Tm-HLx" firstAttribute="top" secondItem="UiP-iO-1sW" secondAttribute="bottom" constant="21" id="jtt-er-YGe"/>
-                            <constraint firstItem="NCh-h6-ozf" firstAttribute="trailing" secondItem="UiP-iO-1sW" secondAttribute="trailing" id="rKf-Nd-f7A"/>
-                            <constraint firstItem="NCh-h6-ozf" firstAttribute="bottom" secondItem="GG9-Tm-HLx" secondAttribute="bottom" id="w6z-45-OxD"/>
+                            <constraint firstItem="NCh-h6-ozf" firstAttribute="top" secondItem="GG9-Tm-HLx" secondAttribute="top" id="nCi-X1-Ipc"/>
+                            <constraint firstItem="NCh-h6-ozf" firstAttribute="bottom" secondItem="GG9-Tm-HLx" secondAttribute="bottom" id="nNK-en-cJQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cjT-U4-9OX"/>
                     </view>
@@ -1149,13 +1154,13 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem width="42" systemItem="fixedSpace" id="I8e-iN-TL2"/>
-                                    <barButtonItem title="cancle" id="rUg-ce-cjf">
+                                    <barButtonItem title="取消" id="rUg-ce-cjf">
                                         <connections>
                                             <segue destination="lLu-JR-jR0" kind="show" id="ydQ-aV-5fV"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="qwR-4d-nPj"/>
-                                    <barButtonItem title="send" id="Fb5-6Y-LGn">
+                                    <barButtonItem title="送出" id="Fb5-6Y-LGn">
                                         <connections>
                                             <action selector="signup:" destination="Qq6-oC-M5x" id="gRP-e7-phU"/>
                                         </connections>
@@ -1165,13 +1170,6 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y43-cQ-YDi">
-                                <rect key="frame" x="322" y="298" width="37" height="40"/>
-                                <state key="normal" title="show"/>
-                                <connections>
-                                    <action selector="showPassword:" destination="Qq6-oC-M5x" eventType="touchUpInside" id="yTa-Wc-Kfe"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暱稱" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cr1-9V-W9l">
                                 <rect key="frame" x="16" y="346" width="39" height="30"/>
                                 <constraints>
@@ -1181,6 +1179,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y43-cQ-YDi">
+                                <rect key="frame" x="319" y="298" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="RzC-gs-qfJ"/>
+                                    <constraint firstAttribute="width" constant="40" id="YtP-qE-wfP"/>
+                                </constraints>
+                                <state key="normal" title="show" image="visible"/>
+                                <connections>
+                                    <action selector="showPassword:" destination="Qq6-oC-M5x" eventType="touchUpInside" id="yTa-Wc-Kfe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1234,7 +1243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ipJ-Ju-QPR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3031" y="1054"/>
+            <point key="canvasLocation" x="1817" y="942"/>
         </scene>
         <!--Message And Chat View Controller-->
         <scene sceneID="9RN-0x-imU">
@@ -1409,5 +1418,6 @@
         <image name="setting" width="29" height="29"/>
         <image name="setting-icon" width="512" height="512"/>
         <image name="thiefIcon" width="225" height="225"/>
+        <image name="visible" width="29" height="29"/>
     </resources>
 </document>

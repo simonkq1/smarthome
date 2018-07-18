@@ -8,34 +8,26 @@
 
 import UIKit
 import WebKit
-
 class StreamingViewController: UIViewController {
-    @IBAction func onSwitchStreaming(_ sender: UISwitch) {
-        
-        if sender.isOn{
-            
-            //streamingWebView.reload()
-            
-            print("On")
-            
-            
-        }else{
-            
-            
-            
-            print("Off")
-            
-        }
-    }
+    
+    
+    @IBOutlet weak var activityIcon: UIActivityIndicatorView!
     
     @IBOutlet weak var streamingWebView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("AA")
-        
         
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(streamingWebViewReload), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
+    }
+    
+    @objc func streamingWebViewReload(){
+        streamingWebView.reload()
+        print("goBack")
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,11 +35,14 @@ class StreamingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
-        print("viewdidAppear")
+        //print("viewdidAppear")
         
         
-        let openStreamUrl = URL(string: "http://192.168.43.6/cgi-bin/streaming.cgi")
+        
+        let openStreamUrl = URL(string: "http://10.3.141.111/cgi-bin/streaming.cgi")
+        let stopStreamUrl = URL(string: "http://10.3.141.111/cgi-bin/stopStreaming.cgi")
         
         
         
@@ -55,36 +50,61 @@ class StreamingViewController: UIViewController {
             
             
             do{
-                print("DSF")
+                DispatchQueue.main.sync {
+                    self.activityIcon.startAnimating()
+                }
+                let _ = try String(contentsOf: stopStreamUrl!)
+                sleep(1)
+                print("abcde")
                 let _ = try String(contentsOf: openStreamUrl!)
+                
+                var timer:Timer!
+                timer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(self.loadWebView), userInfo: nil, repeats: false)
+                
+                
                 
             }catch{
                 
-                print("Error")
+                print("Open Streaming Fail")
             }
             
             
         }
-        print("SDFg")
-        sleep(4)
-        let url = URL(string: "http://192.168.43.6/streaming/stream.m3u8")
-        let request = URLRequest(url: url!)
-        self.streamingWebView.load(request)
+        
+        //sleep(10)
+        
+        
+        
+        
+        
         
     }
     
+    
+    @objc func loadWebView(){
+        self.activityIcon.stopAnimating()
+        let url = URL(string: "http://10.3.141.111/streaming/stream.m3u8")
+        let request = URLRequest(url: url!)
+        self.streamingWebView.load(request)
+        
+        
+    }
     override func viewDidDisappear(_ animated: Bool) {
-        let stopStreamUrl = URL(string: "http://192.168.43.6/cgi-bin/stopStreaming.cgi")
+        let stopStreamUrl = URL(string: "http://10.3.141.111/cgi-bin/stopStreaming.cgi")
         
         DispatchQueue.global().async {
-            do {
+            do{
                 let _ = try String(contentsOf: stopStreamUrl!)
-            }catch {
+            }catch{
                 
+                print("Stop Streaming Fail")
             }
+            
         }
-        print("viewdiddisAppear")
+        //print("viewdiddisAppear")
     }
+    
+    
     /*
      // MARK: - Navigation
      

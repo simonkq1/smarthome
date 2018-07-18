@@ -29,10 +29,12 @@ class PermissionSettingViewController: UIViewController {
     @IBAction func okAction(_ sender: Any) {
         
         
+        var isCheck: Bool = false
         let url = "http://simonhost.hopto.org/chatroom/chmod.php"
         let mod = permission_picker.permissionList[permission_picker.pickerView.selectedRow(inComponent: 0)]
         
         if permission != mod {
+            
             Global.postToURL(url: url, body: "tid=\(tid)&mod=\(mod)") { (html, data) in
                 if html == "1" {
                     self.memberView.loadMemberList()

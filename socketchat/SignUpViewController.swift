@@ -81,10 +81,16 @@ class SignUpViewController: UIViewController {
         isShowPassword = !isShowPassword
         if isShowPassword {
             passwordText.isSecureTextEntry = false
-            sender.setTitle("hide", for: .normal)
+            DispatchQueue.main.async {
+                sender.imageView?.image = UIImage(named: "invisible")
+                self.passwordText.textContentType = UITextContentType.password
+            }
         }else {
             passwordText.isSecureTextEntry = true
-            sender.setTitle("show", for: .normal)
+            DispatchQueue.main.async {
+                sender.imageView?.image = UIImage(named: "visible")
+                self.passwordText.textContentType = UITextContentType.password
+            }
         }
     }
     

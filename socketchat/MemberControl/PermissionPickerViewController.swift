@@ -38,8 +38,9 @@ class PermissionPickerViewController: UIViewController, UIPickerViewDataSource, 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let removeNum = permissionList.index(of: Global.memberData["mod"]!)
-        permissionList.removeFirst(removeNum!)
+        if let removeNum = permissionList.index(of: Global.memberData["mod"]!) {
+            permissionList.removeFirst(removeNum)
+        }
         
         // Do any additional setup after loading the view.
     }

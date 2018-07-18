@@ -10,7 +10,7 @@ import UIKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     var bgTask: UIBackgroundTaskIdentifier!
@@ -27,8 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             center.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
                 if granted {
                     DispatchQueue.main.async {
+                        center.setNotificationCategories(self.setCategories())
                         application.registerForRemoteNotifications()
-                        //                        application.applicationIconBadgeNumber = 0
+                        
                     }
                 }
             }
@@ -86,6 +87,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(error)
     }
     
+    func setCategories() -> Set<UNNotificationCategory>{
+        
+        var set = Set<UNNotificationCategory>()
+        
+        let a1 = UNNotificationAction(
+            identifier: "a1", title: "按鈕1", options: [.foreground]
+        )
+        
+        let c1 = UNNotificationCategory(
+            
+            identifier: "c1", actions: [a1], intentIdentifiers: [], options: []
+        )
+        
+        set.insert(c1)
+        return set
+        
+        
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        //print("1111111")
+        let action = response.actionIdentifier
+        _ = response.notification.request
+        if action == "a1"{
+            print("asadfsdfasdfsaf")
+            let tabbarcontroller = self.window?.rootViewController as! TabBarViewController
+            
+            tabbarcontroller.selectedIndex = 3
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let homeViewController = storyboard.instantiateViewController(withIdentifier: "NotiVC") as! BreakInPhotoViewController
+            self.window?.rootViewController?.navigationController?.present(homeViewController, animated: true, completion: nil)
+            
+            
+        }
+        completionHandler()
+    }
     
     func autoLogin(tourl: String, account: String, password: String, token: String) -> String {
         

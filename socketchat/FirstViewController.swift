@@ -11,11 +11,12 @@ import UIKit
 class FirstViewController: UIViewController {
     
     @IBOutlet weak var safityBox: CircleButton!
-    
     @IBOutlet weak var member: CircleButton!
-    
     @IBOutlet weak var messageBoard: CircleButton!
     @IBOutlet weak var monitor: CircleButton!
+    
+    @IBOutlet weak var security: CircleButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,6 +24,7 @@ class FirstViewController: UIViewController {
         member.addTarget(self, action: #selector(memberAction(sender:)), for: .touchUpInside)
         messageBoard.addTarget(self, action: #selector(messageBoardAction(sender:)), for: .touchUpInside)
         monitor.addTarget(self, action: #selector(monitorAction(sender:)), for: .touchUpInside)
+        security.addTarget(self, action: #selector(securityAction(sender:)), for: .touchUpInside)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -31,6 +33,7 @@ class FirstViewController: UIViewController {
             backItem.title = "首頁"
             navigationItem.backBarButtonItem = backItem
 //        }
+        
     }
     
     
@@ -44,9 +47,17 @@ class FirstViewController: UIViewController {
     }
     @objc func monitorAction (sender: CircleButton) {
         let story = UIStoryboard(name: "IOT", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
-        let vc = story.instantiateViewController(withIdentifier: "IOT_tabbar_ctrl") as! UITabBarController
+        let vc = story.instantiateViewController(withIdentifier: "IOT_tabbar_ctrl") as! TabBarViewController
         show(vc, sender: self)
         vc.selectedIndex = 1
+        
+    }
+
+    @objc func securityAction (sender: CircleButton) {
+        let story = UIStoryboard(name: "IOT", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
+        let vc = story.instantiateViewController(withIdentifier: "IOT_tabbar_ctrl") as! TabBarViewController
+        show(vc, sender: self)
+        vc.selectedIndex = 2
         
     }
 

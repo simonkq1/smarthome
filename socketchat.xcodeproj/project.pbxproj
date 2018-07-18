@@ -10,7 +10,6 @@
 		8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */; };
 		842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */; };
 		842BCC2220F7058B00F9C6B5 /* MemberNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */; };
-		842BCC2F20F71BF600F9C6B5 /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */; };
 		842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */; };
 		842BCC3720F71D5400F9C6B5 /* IbeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */; };
 		842BCC3920F726E000F9C6B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842BCC3820F726E000F9C6B5 /* Assets.xcassets */; };
@@ -39,13 +38,17 @@
 		84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */; };
 		84E8F7F020EB4DE7005BB4A1 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7EF20EB4DE7005BB4A1 /* Global.swift */; };
 		F4CA3F8F20FDDAEA00844464 /* OnlineIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA3F8E20FDDAEA00844464 /* OnlineIconLabel.swift */; };
+		F4D3D8D520FECC8C00FD4DD6 /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4D3D8D420FECC8C00FD4DD6 /* IOT.storyboard */; };
+		F4D3D8D720FECD5A00FD4DD6 /* UnlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */; };
+		F4D3D8D920FECD9500FD4DD6 /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8D820FECD9500FD4DD6 /* CircleViewController.swift */; };
+		F4D3D8DB20FECDC000FD4DD6 /* BreakInPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */; };
+		F4D3D8DD20FECE4600FD4DD6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8DC20FECE4600FD4DD6 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8416F7D620EE0BEB008F8032 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		842BCC1D20F6E02500F9C6B5 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberNavigationController.swift; path = MemberControl/MemberNavigationController.swift; sourceTree = "<group>"; };
-		842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
 		842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingViewController.swift; sourceTree = "<group>"; };
 		842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbeaconViewController.swift; sourceTree = "<group>"; };
 		842BCC3820F726E000F9C6B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +80,11 @@
 		84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectButton.swift; sourceTree = "<group>"; };
 		84E8F7EF20EB4DE7005BB4A1 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		F4CA3F8E20FDDAEA00844464 /* OnlineIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineIconLabel.swift; sourceTree = "<group>"; };
+		F4D3D8D420FECC8C00FD4DD6 /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
+		F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockViewController.swift; sourceTree = "<group>"; };
+		F4D3D8D820FECD9500FD4DD6 /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
+		F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakInPhotoViewController.swift; sourceTree = "<group>"; };
+		F4D3D8DC20FECE4600FD4DD6 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +102,13 @@
 		842BCC2320F71AF800F9C6B5 /* IOT */ = {
 			isa = PBXGroup;
 			children = (
-				842BCC2E20F71BF600F9C6B5 /* IOT.storyboard */,
+				F4D3D8D420FECC8C00FD4DD6 /* IOT.storyboard */,
 				842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */,
 				842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */,
+				F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */,
+				F4D3D8D820FECD9500FD4DD6 /* CircleViewController.swift */,
+				F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */,
+				F4D3D8DC20FECE4600FD4DD6 /* TabBarViewController.swift */,
 			);
 			path = IOT;
 			sourceTree = "<group>";
@@ -248,7 +260,7 @@
 				8461BE1220F2F4EB007CE490 /* MessageBoardTableViewCell.xib in Resources */,
 				84B2507720E1CB490046146A /* Main.storyboard in Resources */,
 				842BCC3920F726E000F9C6B5 /* Assets.xcassets in Resources */,
-				842BCC2F20F71BF600F9C6B5 /* IOT.storyboard in Resources */,
+				F4D3D8D520FECC8C00FD4DD6 /* IOT.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +273,9 @@
 			files = (
 				84A6F2A220E9BBFD004EBF90 /* TouchID.swift in Sources */,
 				8461BE3A20F37185007CE490 /* MessageAndChatViewController.swift in Sources */,
+				F4D3D8D920FECD9500FD4DD6 /* CircleViewController.swift in Sources */,
 				842BCC2220F7058B00F9C6B5 /* MemberNavigationController.swift in Sources */,
+				F4D3D8DB20FECDC000FD4DD6 /* BreakInPhotoViewController.swift in Sources */,
 				843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */,
 				846D8B7F20F47CE80049CE6E /* ChatTableViewCell.swift in Sources */,
 				8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */,
@@ -275,12 +289,14 @@
 				84E8F7D020EB1F9F005BB4A1 /* MemberTableViewController.swift in Sources */,
 				8461BE1620F2F565007CE490 /* MessageBoardViewController.swift in Sources */,
 				842BCC3B20F746D000F9C6B5 /* BottomBorderTextField.swift in Sources */,
+				F4D3D8DD20FECE4600FD4DD6 /* TabBarViewController.swift in Sources */,
 				843D2EC020ECA4DD009D25C7 /* PermissionSettingViewController.swift in Sources */,
 				8461BE1120F2F4EB007CE490 /* MessageBoardTableViewCell.swift in Sources */,
 				842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */,
 				8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */,
 				842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */,
 				84B2507220E1CB490046146A /* AppDelegate.swift in Sources */,
+				F4D3D8D720FECD5A00FD4DD6 /* UnlockViewController.swift in Sources */,
 				8461BE1820F30FAD007CE490 /* MessagePopoverViewController.swift in Sources */,
 				84D227D220E6033200BE498A /* ChatTextLabel.swift in Sources */,
 				84C571F820E36C0400D9DBEA /* SignUpViewController.swift in Sources */,
