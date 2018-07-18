@@ -180,9 +180,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let offlineURL = "http://simonhost.hopto.org/chatroom/setOffline.php"
+        
         bgTask = application.beginBackgroundTask(expirationHandler: {
-            let offlineURL = "http://simonhost.hopto.org/chatroom/setOffline.php"
-            Global.postToURL(url: offlineURL, body: "tid=\(Global.selfData.id as! String)&status=off")
+            var time = 0
+            if let defIsLogin = self.user.object(forKey: "isLogin"), defIsLogin as! Bool == true {
+                DispatchQueue.global().async {
+                    while time <= 150 {
+                        time += 1
+                        if time >= 150 {
+                            Global.postToURL(url: offlineURL, body: "tid=\(Global.selfData.id as! String)&status=off")
+                        }
+                        sleep(1)
+                    }
+                }
+            }
             Global.SocketServer.disconnectSocketServer()
             application.endBackgroundTask(self.bgTask)
             self.bgTask = UIBackgroundTaskInvalid

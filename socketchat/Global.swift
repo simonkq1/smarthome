@@ -49,7 +49,7 @@ extension UIView {
         case right
     }
     
-    func drawborder(width: CGFloat, color: UIColor,sides: [BorderSides]) {
+    func drawborder(firstIndex:CGFloat = 0, width: CGFloat, color: UIColor,sides: [BorderSides]) {
         self.clipsToBounds = false
         
         let shapelayer = CAShapeLayer()
@@ -57,11 +57,11 @@ extension UIView {
         for i in sides {
             switch i {
             case.up:
-                linePath.move(to: CGPoint(x: 0, y: 0))
+                linePath.move(to: CGPoint(x: firstIndex, y: 0))
                 linePath.addLine(to: CGPoint(x: self.bounds.size.width + 100, y: 0))
                 break
             case .down:
-                linePath.move(to: CGPoint(x: 0, y: self.bounds.size.height))
+                linePath.move(to: CGPoint(x: firstIndex, y: self.bounds.size.height))
                 linePath.addLine(to: CGPoint(x: self.bounds.size.width + 100, y: self.bounds.size.height))
                 break
             case .left:
@@ -74,13 +74,11 @@ extension UIView {
                 break
             }
             shapelayer.strokeColor = color.cgColor
-            shapelayer.fillColor = UIColor.clear.cgColor
+//            shapelayer.fillColor = color.cgColor
             shapelayer.lineWidth = width
             shapelayer.path = linePath.cgPath
             self.layer.addSublayer(shapelayer)
         }
-        
-        
         
     }
 }
@@ -93,6 +91,7 @@ class Global: NSObject {
         static var id: String! = Global.memberData["id"]
         static var token: String? = ""
     }
+    
     static var memberData: [String: String] = [:]
     
     static func reloadSelfData() {

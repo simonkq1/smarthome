@@ -45,6 +45,11 @@ class PermissionSettingViewController: UIViewController {
         memberView.permissionTarget = nil
         memberView.barEditBtn.title = ""
         memberView.barEditBtn.image = UIImage(named: "setting")
+        DispatchQueue.main.async {
+            
+            self.memberView.navigationItem.rightBarButtonItem = self.memberView.barEditBtn
+            self.memberView.barEditBtn.isEnabled = true
+        }
         memberView.reloadTable()
         self.dismiss(animated: true, completion: nil)
         
@@ -59,6 +64,11 @@ class PermissionSettingViewController: UIViewController {
         memberView.permissionTarget = nil
         memberView.barEditBtn.title = ""
         memberView.barEditBtn.image = UIImage(named: "setting")
+        DispatchQueue.main.async {
+            
+            self.memberView.navigationItem.rightBarButtonItem = self.memberView.barEditBtn
+            self.memberView.barEditBtn.isEnabled = true
+        }
         memberView.reloadTable()
         dismiss(animated: true, completion: nil)
     }
@@ -77,7 +87,7 @@ class PermissionSettingViewController: UIViewController {
         self.preferredContentSize = CGSize(width: self.view.frame.size.width, height: self.view.frame.height / 3)
         
         for i in view.constraints {
-            if i.identifier == "button_botton" {
+            if i.identifier == "button_bottom" {
                 i.constant = 0
             }
         }

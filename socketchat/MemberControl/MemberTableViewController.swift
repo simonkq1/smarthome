@@ -73,6 +73,15 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     
     @objc func selectButton() {
         
+        if self.permissionTarget != nil {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
+            vc.name = self.memberList[self.permissionTarget!]["account"]!
+            vc.permission = self.memberList[self.permissionTarget!]["mod"]!
+            vc.tid = self.memberList[self.permissionTarget!]["id"]!
+            vc.memberView = self
+            self.dismiss(animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @objc func editPermissionButton() {
@@ -204,6 +213,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.separatorStyle = .none
         DispatchQueue.main.async {
             sleep(2)
             self.member = Global.memberData
@@ -321,7 +331,9 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         timeLabel.font = UIFont.boldSystemFont(ofSize: 14)
         let isOnline = memberList[indexPath.row]["online"]
         let tartime = memberList[indexPath.row]["ontime"]
-        
+//        if memberList.count - 1 > indexPath.row {
+            cell.contentView.drawborder(firstIndex: 20, width: 0.4, color: UIColor.gray, sides: [.down])
+//        }
         
         if isOnline == "off" {
             onlineIcon.isOnline = false
@@ -402,6 +414,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let vi = view as! UITableViewHeaderFooterView
+//        vi.contentView.drawborder(width: 0.4, color: UIColor.gray, sides: [.down ])
         vi.textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         vi.textLabel?.textColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
         

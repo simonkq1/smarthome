@@ -89,7 +89,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         if id == sid {
             self.navigationItem.rightBarButtonItem = editBarButton
         }else if mod < smod, mod <= 4 {
-            self.navigationItem.rightBarButtonItem = editBarButton
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "刪除", style: .plain, target: self, action: #selector(deleteAction))
         }else {
             self.navigationItem.rightBarButtonItem = nil
         }
@@ -150,7 +150,24 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         return .none
     }
     
-    
+    @objc func deleteAction() {
+        
+        let deleteURL = "http://simonhost.hopto.org/chatroom/deleteGroupMessage.php"
+        let gid = messageData["gid"] as! String
+        Global.postToURL(url: deleteURL, body: "gid=\(gid)") { (string, data) in
+            if string == "0" {
+                self.message_board_vc.messageData = []
+                DispatchQueue.main.async {
+                    let _ = self.message_board_vc.loadMessageList()
+                    self.message_board_vc.tableView.reloadData()
+                }
+            }else if string == "1"{
+                self.message_board_vc.messageData = []
+            }
+        }
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+    }
     
     
     

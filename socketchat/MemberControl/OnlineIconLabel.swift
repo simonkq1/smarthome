@@ -28,10 +28,8 @@ class OnlineIconLabel: UILabel {
     }
     
     func drawOnlineIcon() {
-        let width = self.bounds.size.width
-        let height = self.bounds.size.height
-        let lineWidth: CGFloat = 1
-        let radius: CGFloat = 5
+        
+        let radius: CGFloat = 5.5
         linePath.addArc(
             withCenter: CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2),
             radius: radius,
