@@ -14,9 +14,12 @@ class TestViewController: UIViewController {
     @IBOutlet weak var topImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.backgroundColor = UIColor.blue
+//        self.navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.backgroundColor = UIColor.blue
+        
         let image = UIImage(named: "people")
+//        self.navigationController?.navigationBar.setBackgroundImage(image?.resizeImage(imagepoint: 32).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), resizingMode: .stretch), for: .default)
+        
         let newimage = image?.resizeImage(imagepoint: 1024)
         let imdata = UIImagePNGRepresentation(newimage!)?.base64EncodedData()
         let a = String(data: imdata!, encoding: .utf8)
@@ -25,7 +28,9 @@ class TestViewController: UIViewController {
         topImageView.image = getDataImage(image: image!, imagepoint: 32)
         topImageView.alpha = 0.5
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         

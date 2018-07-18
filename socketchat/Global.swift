@@ -7,7 +7,14 @@
 //
 
 import UIKit
-
+extension UINavigationBar {
+    func barHeight() {
+        self.bounds.size.height += 44
+        let bound = self.bounds
+        
+        self.frame = CGRect(x: 0, y: 0, width: bound.width, height: bound.height + 44)
+    }
+}
 
 extension UIImage {
     
@@ -71,6 +78,26 @@ extension UIImage {
         
     }
     
+    
+    
+    
+    func changeImageToBase64String(resize: CGFloat = 1024) -> String {
+        
+        let newimage = self.resizeImage(imagepoint: resize)
+        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedData()
+        let imageStr = String(data: imdata!, encoding: .utf8)
+        return imageStr!
+    }
+    
+    
+    
+    func changeImageToBase64Data(resize: CGFloat = 1024) -> Data {
+        
+        let newimage = self.resizeImage(imagepoint: resize)
+        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedData()
+        return imdata!
+        
+    }
     
 }
 
@@ -154,6 +181,7 @@ class Global: NSObject {
         static var account: String! = Global.memberData["account"]
         static var username: String! = Global.memberData["username"]
         static var id: String! = Global.memberData["id"]
+        static var image: String! = Global.memberData["image"]
         static var token: String? = ""
     }
     
