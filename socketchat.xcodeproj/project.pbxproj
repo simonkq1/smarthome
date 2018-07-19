@@ -37,9 +37,11 @@
 		84E8F7D020EB1F9F005BB4A1 /* MemberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7CF20EB1F9F005BB4A1 /* MemberTableViewController.swift */; };
 		84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */; };
 		84E8F7F020EB4DE7005BB4A1 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8F7EF20EB4DE7005BB4A1 /* Global.swift */; };
+		F42272E721008C7800CBCDDE /* GlobalParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42272E621008C7800CBCDDE /* GlobalParameter.swift */; };
+		F42272E921008CFD00CBCDDE /* myBtnRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42272E821008CFD00CBCDDE /* myBtnRecordViewController.swift */; };
+		F42272EB21008D3900CBCDDE /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F42272EA21008D3900CBCDDE /* IOT.storyboard */; };
 		F44103AC21002E4E00A91BB4 /* UpdateUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44103AB21002E4E00A91BB4 /* UpdateUserNameViewController.swift */; };
 		F4CA3F8F20FDDAEA00844464 /* OnlineIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA3F8E20FDDAEA00844464 /* OnlineIconLabel.swift */; };
-		F4D3D8D520FECC8C00FD4DD6 /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4D3D8D420FECC8C00FD4DD6 /* IOT.storyboard */; };
 		F4D3D8D720FECD5A00FD4DD6 /* UnlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */; };
 		F4D3D8D920FECD9500FD4DD6 /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8D820FECD9500FD4DD6 /* CircleViewController.swift */; };
 		F4D3D8DB20FECDC000FD4DD6 /* BreakInPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */; };
@@ -84,9 +86,11 @@
 		84E8F7CF20EB1F9F005BB4A1 /* MemberTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewController.swift; sourceTree = "<group>"; };
 		84E8F7D120EB2A98005BB4A1 /* SelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectButton.swift; sourceTree = "<group>"; };
 		84E8F7EF20EB4DE7005BB4A1 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		F42272E621008C7800CBCDDE /* GlobalParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalParameter.swift; sourceTree = "<group>"; };
+		F42272E821008CFD00CBCDDE /* myBtnRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myBtnRecordViewController.swift; sourceTree = "<group>"; };
+		F42272EA21008D3900CBCDDE /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
 		F44103AB21002E4E00A91BB4 /* UpdateUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserNameViewController.swift; sourceTree = "<group>"; };
 		F4CA3F8E20FDDAEA00844464 /* OnlineIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineIconLabel.swift; sourceTree = "<group>"; };
-		F4D3D8D420FECC8C00FD4DD6 /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
 		F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockViewController.swift; sourceTree = "<group>"; };
 		F4D3D8D820FECD9500FD4DD6 /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakInPhotoViewController.swift; sourceTree = "<group>"; };
@@ -112,13 +116,15 @@
 		842BCC2320F71AF800F9C6B5 /* IOT */ = {
 			isa = PBXGroup;
 			children = (
-				F4D3D8D420FECC8C00FD4DD6 /* IOT.storyboard */,
+				F42272EA21008D3900CBCDDE /* IOT.storyboard */,
 				842BCC3420F71CE200F9C6B5 /* StreamingViewController.swift */,
 				842BCC3620F71D5400F9C6B5 /* IbeaconViewController.swift */,
 				F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */,
 				F4D3D8D820FECD9500FD4DD6 /* CircleViewController.swift */,
 				F4D3D8DA20FECDC000FD4DD6 /* BreakInPhotoViewController.swift */,
 				F4D3D8DC20FECE4600FD4DD6 /* TabBarViewController.swift */,
+				F42272E621008C7800CBCDDE /* GlobalParameter.swift */,
+				F42272E821008CFD00CBCDDE /* myBtnRecordViewController.swift */,
 			);
 			path = IOT;
 			sourceTree = "<group>";
@@ -275,7 +281,7 @@
 				8461BE1220F2F4EB007CE490 /* MessageBoardTableViewCell.xib in Resources */,
 				84B2507720E1CB490046146A /* Main.storyboard in Resources */,
 				842BCC3920F726E000F9C6B5 /* Assets.xcassets in Resources */,
-				F4D3D8D520FECC8C00FD4DD6 /* IOT.storyboard in Resources */,
+				F42272EB21008D3900CBCDDE /* IOT.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +318,7 @@
 				8461BE1120F2F4EB007CE490 /* MessageBoardTableViewCell.swift in Sources */,
 				842BCC3520F71CE200F9C6B5 /* StreamingViewController.swift in Sources */,
 				F4D3D8E120FF319300FD4DD6 /* TestViewController.swift in Sources */,
+				F42272E721008C7800CBCDDE /* GlobalParameter.swift in Sources */,
 				8440557D20F60B3F00427C42 /* CircleButton.swift in Sources */,
 				F44103AC21002E4E00A91BB4 /* UpdateUserNameViewController.swift in Sources */,
 				842BCC1E20F6E02500F9C6B5 /* FirstViewController.swift in Sources */,
@@ -319,6 +326,7 @@
 				F4D3D8D720FECD5A00FD4DD6 /* UnlockViewController.swift in Sources */,
 				8461BE1820F30FAD007CE490 /* MessagePopoverViewController.swift in Sources */,
 				84D227D220E6033200BE498A /* ChatTextLabel.swift in Sources */,
+				F42272E921008CFD00CBCDDE /* myBtnRecordViewController.swift in Sources */,
 				84C571F820E36C0400D9DBEA /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

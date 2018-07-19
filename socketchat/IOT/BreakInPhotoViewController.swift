@@ -13,7 +13,7 @@ class BreakInPhotoViewController: UIViewController, WKUIDelegate, WKNavigationDe
     @IBOutlet weak var activityIcon: UIActivityIndicatorView!
     
     @IBOutlet weak var webView: WKWebView!
-    var startUrl = "http://10.3.141.111/streaming/streamingFile"
+    var startUrl = GlobalParameter.piIPAddr + "/streaming/streamingFile"
     var pageTitle: String?
     var requestUrl: String?
     

@@ -11,20 +11,39 @@ import CoreBluetooth
 import CoreLocation
 class UnlockViewController: UIViewController,CLLocationManagerDelegate {
     
+    @IBAction func onTapBtnRecord(_ sender: Any) {
+        
+        
+        
+        
+    }
     
     
-    let url = URL(string: "http://10.3.141.111/cgi-bin/openLockerCgi.cgi")
+    
+    
+    
+    let url = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/openLockerCgi.cgi"))
     
     
     var circleViewVC: CircleViewController!
     
     let lm = CLLocationManager()
+    
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
+        
+        //print(GlobalParameter.piIPAddr)
         
         
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(clearBtnStatusToDisable), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
         
         
         for vc in (self.childViewControllers) {
@@ -147,7 +166,52 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         print("AAAABBBBB")
         clearBtnStatusToDisable()
+        let btnPressTimeList = queryBtnRecordList()
+        (self.view.viewWithTag(100) as! UILabel).text = "  時間:" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
+        (self.view.viewWithTag(200) as! UILabel).text = "  時間:" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
+        
+        
+        //self.navigationController?.navigationBar.topItem?.title = "asdf"
     }
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            
+            self.navigationController?.title = "BBB"
+        }
+    }
+    
+    func queryBtnRecordList()->NSArray{
+        var btnPressTimeList =  NSArray()
+        let url = "http://simonhost.hopto.org/chatroom/btnQueryTime.php"
+        
+        //var status: String = ""
+        if let jsonURL = URL(string: url) {
+            do {
+                let data = try Data(contentsOf: jsonURL)
+                if String(data: data, encoding: .utf8) != "Query Error" {
+                    btnPressTimeList = []
+                    btnPressTimeList = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
+                    print("Query OK")
+                    
+                }else {
+                    print("Query Fail")
+                }
+                
+            } catch {
+                
+                print(error)
+            }
+        }
+        return btnPressTimeList
+    }
+    
+    //
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        print("GG")
+    //        let backItem = UIBarButtonItem()
+    //        backItem.title = "首頁2"
+    //        self.navigationItem.backBarButtonItem = backItem
+    //    }
     
     
 }

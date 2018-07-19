@@ -13,17 +13,17 @@ import CoreLocation
 class IbeaconViewController: UIViewController, CLLocationManagerDelegate {
     
     
-    let url = URL(string: "http://192.168.43.6/cgi-bin/openLockerCgi.cgi")
-    
-    @IBAction func onClickOpenLockBtn(_ sender: Any) {
-        TouchID.verify {
-            DispatchQueue.global().async {
-                let _ = try! String(contentsOf: self.url!)
-            }
-        }
-        
-        
-    }
+    //    let url = URL(string: "http://192.168.43.6/cgi-bin/openLockerCgi.cgi")
+    //
+    //    @IBAction func onClickOpenLockBtn(_ sender: Any) {
+    //        TouchID.verify {
+    //            DispatchQueue.global().async {
+    //                let _ = try! String(contentsOf: self.url!)
+    //            }
+    //        }
+    //
+    //
+    //    }
     
     @IBOutlet weak var openLockBtn: UIButton!
     let lm = CLLocationManager()
@@ -45,6 +45,7 @@ class IbeaconViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         
     }

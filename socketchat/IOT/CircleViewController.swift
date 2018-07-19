@@ -9,67 +9,91 @@
 import UIKit
 
 class CircleViewController: UIViewController {
-
-    let url = URL(string: "http://10.3.141.111/cgi-bin/openLockerCgi.cgi")
+    
+    let url = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/openLockerCgi.cgi"))
     var timeRecorderOrder = 0;
     var layerChangingStatus:Bool = false
     @IBOutlet weak var openLockBtn: UIButton!
     @IBAction func onClickOpenLockBtn(_ sender: Any) {
-        layerChangingStatus = true
+        //        TouchID.verify {
         
-        for layer in self.view.layer.sublayers!{
+        TouchID.verify {
+            print("verifyOK")
             
-            print(layer.name)
-            if layer.name == "LayerWhite" || layer.name == "LayerGreen" || layer.name == "LayerGreenAni" || layer.name == "LayerGrey" {
-                print("AA")
-                layer.removeFromSuperlayer()
+            self.layerChangingStatus = true
+            DispatchQueue.main.async {
+                for layer in self.view.layer.sublayers!{
+                    
+                    print(layer.name)
+                    if layer.name == "LayerWhite" || layer.name == "LayerGreen" || layer.name == "LayerGreenAni" || layer.name == "LayerGrey" {
+                        print("AA")
+                        layer.removeFromSuperlayer()
+                    }
+                    
+                }
+            }
+            
+            //            //print(counter)
+            //
+            DispatchQueue.global().async {
+                do{
+                    
+                    let _ = try String(contentsOf: self.url!)
+                    
+                }catch{
+                    
+                    print("Open Lock Fail")
+                    
+                }
+                
+                
+                
+                
+            }
+            
+            DispatchQueue.main.async {
+                let image2 = UIImage(named: "unlock.png")
+                self.openLockBtn.setImage(image2, for: .normal)
+                self.openLockBtn.isEnabled = false
+                
+                var timer:Timer!
+                timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(self.goLockStatus), userInfo: nil, repeats: false)
+                self.addGreyLayer()
+                self.addGreenInnerLayerAnimation()
+                var btnPressTimeList:NSArray = self.loadBtnRecordList()
+                
+                (self.parent?.view.viewWithTag(100) as! UILabel).text = "    時間：" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
+                
+                (self.parent?.view.viewWithTag(200) as! UILabel).text = "    時間：" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
+                
             }
             
         }
-        //print(counter)
+        //
+        //
+        //
         
-        DispatchQueue.global().async {
-            do{
-                
-                let _ = try String(contentsOf: self.url!)
-                
-            }catch{
-                
-                print("Open Lock Fail")
-                
-            }
-            
-            
-            
-            
-        }
         
         //print("btn pressed")
-        let image2 = UIImage(named: "unlock.png")
-        self.openLockBtn.setImage(image2, for: .normal)
-        self.openLockBtn.isEnabled = false
         
-        var timer:Timer!
-        timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(goLockStatus), userInfo: nil, repeats: false)
-        addGreyLayer()
-        addGreenInnerLayerAnimation()
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-        let timeString = formatter.string(from: Date())
-        if timeRecorderOrder == 0{
-            
-            (self.parent?.view.viewWithTag(100) as! UILabel).text = "    時間：" + timeString
-            timeRecorderOrder = 1
-        }else{
-            (self.parent?.view.viewWithTag(200) as! UILabel).text = "    時間：" + timeString
-            
-            timeRecorderOrder = 0
-        }
+        
+        
+        //
+        //
+        //
+        //
+        
         
         
     }
+    
+    
+    
+    
+    
+    //    }
     
     
     var currentValue:CGFloat? = nil
@@ -233,6 +257,33 @@ class CircleViewController: UIViewController {
     }
     
     
+    
+    
+    func loadBtnRecordList()->NSArray{
+        var btnPressTimeList =  NSArray()
+        let url = "http://simonhost.hopto.org/chatroom/btnTime.php?username=\(Global.selfData.username as String)"
+        
+        //var status: String = ""
+        if let jsonURL = URL(string: url) {
+            do {
+                let data = try Data(contentsOf: jsonURL)
+                if String(data: data, encoding: .utf8) != "Query Error" {
+                    btnPressTimeList = []
+                    btnPressTimeList = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
+                    print("Query OK")
+                    
+                }else {
+                    print("Query Fail")
+                }
+                
+            } catch {
+                
+                print(error)
+            }
+        }
+        return btnPressTimeList
+    }
+    
     @IBOutlet weak var label: UILabel!
     var addGreyLayerFlag = false
     func addGreyLayer(){
@@ -349,5 +400,5 @@ class CircleViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-
+    
 }

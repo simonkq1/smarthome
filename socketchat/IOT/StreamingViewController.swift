@@ -18,9 +18,11 @@ class StreamingViewController: UIViewController {
         super.viewDidLoad()
         
         
+        
         // Do any additional setup after loading the view.
         
         NotificationCenter.default.addObserver(self, selector: #selector(streamingWebViewReload), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
         
     }
     
@@ -41,8 +43,8 @@ class StreamingViewController: UIViewController {
         
         
         
-        let openStreamUrl = URL(string: "http://10.3.141.111/cgi-bin/streaming.cgi")
-        let stopStreamUrl = URL(string: "http://10.3.141.111/cgi-bin/stopStreaming.cgi")
+        let openStreamUrl = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/streaming.cgi"))
+        let stopStreamUrl = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/stopStreaming.cgi"))
         
         
         
@@ -58,8 +60,7 @@ class StreamingViewController: UIViewController {
                 print("abcde")
                 let _ = try String(contentsOf: openStreamUrl!)
                 
-                var timer:Timer!
-                timer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(self.loadWebView), userInfo: nil, repeats: false)
+                
                 
                 
                 
@@ -73,7 +74,8 @@ class StreamingViewController: UIViewController {
         
         //sleep(10)
         
-        
+        var timer:Timer!
+        timer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(self.loadWebView), userInfo: nil, repeats: false)
         
         
         
@@ -83,14 +85,14 @@ class StreamingViewController: UIViewController {
     
     @objc func loadWebView(){
         self.activityIcon.stopAnimating()
-        let url = URL(string: "http://10.3.141.111/streaming/stream.m3u8")
+        let url = URL(string: (GlobalParameter.piIPAddr + "/streaming/stream.m3u8"))
         let request = URLRequest(url: url!)
         self.streamingWebView.load(request)
         
         
     }
     override func viewDidDisappear(_ animated: Bool) {
-        let stopStreamUrl = URL(string: "http://10.3.141.111/cgi-bin/stopStreaming.cgi")
+        let stopStreamUrl = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/stopStreaming.cgi"))
         
         DispatchQueue.global().async {
             do{

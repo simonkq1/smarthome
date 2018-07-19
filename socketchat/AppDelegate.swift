@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         var set = Set<UNNotificationCategory>()
         
         let a1 = UNNotificationAction(
-            identifier: "a1", title: "按鈕1", options: [.foreground]
+            identifier: "a1", title: "照片", options: [.foreground]
         )
         
         let c1 = UNNotificationCategory(
