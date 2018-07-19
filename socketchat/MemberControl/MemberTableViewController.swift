@@ -116,6 +116,25 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         self.deleteTarget = []
     }
     
+    @objc func refreshAction() {
+        self.isEdit = false
+        for i in 0..<self.radioIsSelected.count {
+            self.radioIsSelected[i] = false
+        }
+        DispatchQueue.main.async {
+            self.loadMemberList()
+            if self.memberList.count != self.radioIsSelected.count {
+                self.radioIsSelected = []
+                for _ in self.memberList {
+                    self.radioIsSelected.append(false)
+                }
+            }
+            self.tableView.reloadData()
+        }
+        self.status = ""
+        self.deleteTarget = []
+    }
+    
     
     @objc func deleteButton() {
         self.isEdit = false
@@ -217,7 +236,17 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         DispatchQueue.main.async {
             sleep(2)
             self.member = Global.memberData
-            self.myPermission = Int(self.member["mod"]!)
+//            self.myPermission = formatter.number(from: Global.memberData["mod"] as! String) as! Int
+        }
+        print("AAA")
+        let formatter = NumberFormatter()
+        self.myPermission = formatter.number(from: Global.memberData["mod"] as! String) as! Int
+        print(myPermission)
+        
+        if self.myPermission  >= 5 {
+            DispatchQueue.main.async {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(self.refreshAction))
+            }
         }
         
         loadMemberList()

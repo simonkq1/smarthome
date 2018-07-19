@@ -149,7 +149,25 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 vc.setting_vc = self
             }
             show(vc, sender: self)
+        case "登出":
             
+            if let _ = user.object(forKey: "password") {
+                user.removeObject(forKey: "password")
+            }
+            if let _ = user.object(forKey: "account") {
+                user.removeObject(forKey: "account")
+            }
+            if let _ = user.object(forKey: "isLogin") {
+                user.removeObject(forKey: "isLogin")
+            }
+            let logoutURL = "http://simonhost.hopto.org/chatroom/logout.php"
+            
+            Global.postToURL(url: logoutURL, body: "id=\(Global.selfData.id as! String)")
+            
+            let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
+            showDetailViewController(vc, sender: nil)
+            Global.SocketServer.disconnectSocketServer()
+            break
         default:
             break
         }

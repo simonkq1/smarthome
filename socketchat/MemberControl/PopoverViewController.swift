@@ -58,24 +58,6 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
             memberTable_vc.reloadButton()
             self.dismiss(animated: true, completion: nil)
             break
-        case "登出":
-            if let _ = user.object(forKey: "password") {
-                user.removeObject(forKey: "password")
-            }
-            if let _ = user.object(forKey: "account") {
-                user.removeObject(forKey: "account")
-            }
-            if let _ = user.object(forKey: "isLogin") {
-                user.removeObject(forKey: "isLogin")
-            }
-            let logoutURL = "http://simonhost.hopto.org/chatroom/logout.php"
-            
-            Global.postToURL(url: logoutURL, body: "id=\(Global.selfData.id as! String)")
-            
-            let vc = storyboard?.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
-            showDetailViewController(vc, sender: nil)
-            Global.SocketServer.disconnectSocketServer()
-            break
         case "權限":
             if memberTable_vc.permissionTarget != nil {
                 let vc = storyboard?.instantiateViewController(withIdentifier: "permission_vc") as! PermissionSettingViewController
@@ -104,25 +86,25 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
         memberTable_vc.myPermission = myPermission
         switch myPermission {
         case 1:
-            settingList = ["選取", "刪除", "重新載入", "登出"]
+            settingList = ["選取", "刪除", "重新載入"]
             break
         case 2:
-            settingList = ["選取", "刪除", "重新載入", "登出"]
+            settingList = ["選取", "刪除", "重新載入"]
             break
         case 3:
-            settingList = ["選取", "重新載入", "登出"]
+            settingList = ["選取", "重新載入"]
             break
         case 4:
-            settingList = ["選取", "重新載入", "登出"]
+            settingList = ["選取", "重新載入"]
             break
         case 5:
-            settingList = ["重新載入", "登出"]
+            settingList = ["重新載入"]
             break
         case 6:
-            settingList = ["重新載入", "登出"]
+            settingList = ["重新載入"]
             break
         default:
-            settingList = ["選取", "刪除", "重新載入", "登出"]
+            settingList = ["選取", "刪除", "重新載入"]
         }
         switch memberTable_vc.status {
         case "選取":

@@ -30,7 +30,7 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
         let _ = loadMessageList()
         while messageData == [], timeOut < 10 {
             timeOut += 1/10
-            sleep(1/10)
+            sleep(UInt32(0.1))
         }
         
 //        print(messageData)

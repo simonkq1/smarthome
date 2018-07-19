@@ -107,7 +107,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         messageLoad()
         loadChatData()
         while isLoaded == false {
-            sleep(1/10)
+            sleep(UInt32(0.1))
         }
         if Global.SocketServer.isConnect {
             Global.SocketServer.isReceive = true
