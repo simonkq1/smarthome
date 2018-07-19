@@ -84,9 +84,8 @@ extension UIImage {
     func changeImageToBase64String(resize: CGFloat = 1024) -> String {
         
         let newimage = self.resizeImage(imagepoint: resize)
-        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedData()
-        let imageStr = String(data: imdata!, encoding: .utf8)
-        return imageStr!
+        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedString(options: .endLineWithLineFeed).addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        return imdata!
     }
     
     
@@ -220,7 +219,7 @@ class Global: NSObject {
     
     
     
-    static func autoLogin(tourl: String, account: String, password: String) -> String {
+    static func autoLogin(tourl: String = "http://simonhost.hopto.org/chatroom/logincheck.php", account: String, password: String) -> String {
         let acc = account.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = password.trimmingCharacters(in: .whitespacesAndNewlines)
         var status: String = ""

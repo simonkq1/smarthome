@@ -240,20 +240,45 @@
             </objects>
             <point key="canvasLocation" x="-1349.5999999999999" y="1542.2788605697153"/>
         </scene>
-        <!--View Controller-->
+        <!--Update User Name View Controller-->
         <scene sceneID="EQJ-QA-VYs">
             <objects>
-                <viewController id="2nH-aE-pXu" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="updatename_vc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2nH-aE-pXu" customClass="UpdateUserNameViewController" customModule="socketchat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xz5-PY-WUd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XxW-cw-Hfm">
+                                <rect key="frame" x="16" y="40" width="343" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="kmA-jK-Gh1"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZOL-yP-Ldb" firstAttribute="trailing" secondItem="XxW-cw-Hfm" secondAttribute="trailing" constant="16" id="vNF-Fs-lDk"/>
+                            <constraint firstItem="XxW-cw-Hfm" firstAttribute="leading" secondItem="ZOL-yP-Ldb" secondAttribute="leading" constant="16" id="wrb-EO-rhh"/>
+                            <constraint firstItem="XxW-cw-Hfm" firstAttribute="top" secondItem="ZOL-yP-Ldb" secondAttribute="top" constant="20" id="yYy-sR-2Ju"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ZOL-yP-Ldb"/>
                     </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="XxW-cw-Hfm" id="9DQ-CS-eC2"/>
+                        <outlet property="saveBarButtonItem" destination="KlC-NA-xe1" id="pPH-Eh-rXg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l41-f1-8Rr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="儲存" id="KlC-NA-xe1">
+                    <connections>
+                        <action selector="saveBarButtonAction:" destination="2nH-aE-pXu" id="SWu-gt-FkY"/>
+                    </connections>
+                </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="-689" y="1541"/>
+            <point key="canvasLocation" x="-690.39999999999998" y="1540.4797601199402"/>
         </scene>
         <!--成員管理-->
         <scene sceneID="tKB-F3-VAX">
@@ -300,7 +325,10 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="name_label" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOR-r0-K9s">
-                                            <rect key="frame" x="31" y="16" width="42" height="33"/>
+                                            <rect key="frame" x="82" y="16" width="42" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="33" id="FeM-7O-msr"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -321,18 +349,34 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" tag="50" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q6e-5d-KnV" customClass="CircleImage" customModule="socketchat" customModuleProvider="target">
+                                            <rect key="frame" x="31" y="11" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="lEg-yD-WNM"/>
+                                                <constraint firstAttribute="height" constant="44" id="zeB-sn-1pN"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isOutterCircle" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="outerwidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="outerColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="aFF-TW-uXs" firstAttribute="centerY" secondItem="tbN-3s-rQ4" secondAttribute="centerY" id="4QS-K5-uxb"/>
-                                        <constraint firstItem="qOR-r0-K9s" firstAttribute="leading" secondItem="YFT-8u-Y44" secondAttribute="trailing" constant="8" id="7KF-IV-W1v"/>
+                                        <constraint firstItem="qOR-r0-K9s" firstAttribute="leading" secondItem="q6e-5d-KnV" secondAttribute="trailing" constant="7" id="6SL-0e-bIc"/>
                                         <constraint firstItem="tbN-3s-rQ4" firstAttribute="leading" secondItem="aFF-TW-uXs" secondAttribute="trailing" constant="8" id="9zI-Ah-PFw"/>
-                                        <constraint firstItem="qOR-r0-K9s" firstAttribute="top" secondItem="6wD-iR-joM" secondAttribute="topMargin" constant="5" id="BMy-04-Jwl"/>
-                                        <constraint firstItem="tbN-3s-rQ4" firstAttribute="centerY" secondItem="qOR-r0-K9s" secondAttribute="centerY" id="Q88-kA-3Yk"/>
+                                        <constraint firstItem="tbN-3s-rQ4" firstAttribute="centerY" secondItem="q6e-5d-KnV" secondAttribute="centerY" id="EOR-Vm-SGz"/>
                                         <constraint firstItem="YFT-8u-Y44" firstAttribute="centerY" secondItem="6wD-iR-joM" secondAttribute="centerY" id="aQF-dn-hN9"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="qOR-r0-K9s" secondAttribute="bottom" constant="6" id="goy-c8-6ou"/>
+                                        <constraint firstItem="q6e-5d-KnV" firstAttribute="leading" secondItem="YFT-8u-Y44" secondAttribute="trailing" constant="8" id="ccA-0I-1rP"/>
+                                        <constraint firstItem="qOR-r0-K9s" firstAttribute="centerY" secondItem="q6e-5d-KnV" secondAttribute="centerY" id="hR8-RJ-jnP"/>
+                                        <constraint firstItem="q6e-5d-KnV" firstAttribute="centerY" secondItem="YFT-8u-Y44" secondAttribute="centerY" id="nYJ-mF-Zbw"/>
                                         <constraint firstItem="tbN-3s-rQ4" firstAttribute="trailing" secondItem="6wD-iR-joM" secondAttribute="trailingMargin" constant="5" id="rag-E9-auV"/>
                                         <constraint firstItem="YFT-8u-Y44" firstAttribute="leading" secondItem="6wD-iR-joM" secondAttribute="leading" constant="1" identifier="radio_btn_constraint" id="vFV-tc-tYc"/>
-                                        <constraint firstItem="qOR-r0-K9s" firstAttribute="centerY" secondItem="YFT-8u-Y44" secondAttribute="centerY" id="zOu-Sa-8hg"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -363,7 +407,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="49" y="1541"/>
+            <point key="canvasLocation" x="48.799999999999997" y="1540.4797601199402"/>
         </scene>
         <!--主畫面-->
         <scene sceneID="rwq-UD-vMT">

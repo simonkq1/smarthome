@@ -18,6 +18,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     var list:[String] = ["暱稱","權限","更換名稱","更換照片","登出"]
     var image: UIImage!
     var myImage: UIImage!
+    let user = UserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,18 +32,21 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         //        self.navigationController?.navigationBar.setBackgroundImage(image?.resizeImage(imagepoint: 32).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), resizingMode: .stretch), for: .default)
         if Global.selfData.image == "default" {
             image = UIImage(named: "people")
+            imageView.image = image.resizeImage(imagepoint: 256)
+            topImageView.image = image.resizeImage(imagepoint: 64)
         }else {
-            let imageStr = Data(base64Encoded: Global.selfData.image)
-            image = UIImage(data: imageStr!)
+            let imageStr = Global.selfData.image
+            let imageData = Data(base64Encoded: imageStr!)
+            image = UIImage(data: imageData!)
+            imageView.image = image
+            topImageView.image = image.resizeImage(imagepoint: 64)
         }
-        let newimage = image?.resizeImage(imagepoint: 1024)
-        let imdata = UIImagePNGRepresentation(newimage!)?.base64EncodedData()
-        let a = String(data: imdata!, encoding: .utf8)
-        let b = Data(base64Encoded: a!)
-        imageView.image = UIImage(data: b!)
-        topImageView.image = getDataImage(image: image!, imagepoint: 32)
+        
         topImageView.alpha = 0.5
     }
+    
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -52,6 +56,8 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.navigationController?.navigationBar.backgroundColor = UIColor.white
     }
+    
+    
     
     func getDataImage(image:UIImage, imagepoint: CGFloat) -> UIImage {
         
@@ -65,12 +71,21 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let updateImageURL = "http://simonhost.hopto.org/chatroom/updateUserImage.php"
         let tmp_image = info[UIImagePickerControllerOriginalImage] as! UIImage
         myImage = tmp_image.resizeImage(imagepoint: 64)
-        let finIm = UIImage(data: Data(base64Encoded: tmp_image.changeImageToBase64Data(resize: 256))!)
-        imageView.image = finIm
-        topImageView.image = myImage
-        dismiss(animated: true, completion: nil)
+        let finIm = tmp_image.resizeImage(imagepoint: 512)
+        let imageStr = tmp_image.changeImageToBase64String(resize: 512)
+        Global.postToURL(url: updateImageURL, body: "tid=\(Global.selfData.id as! String)&image=\(imageStr)") { (string, data) in
+            if string == "0" {
+                DispatchQueue.main.async {
+                    self.imageView.image = finIm
+                    self.topImageView.image = self.myImage
+                    Global.selfData.image = imageStr
+                    picker.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func imageChange() {
@@ -126,6 +141,15 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch list[indexPath.row] {
         case "更換照片":
             imageChange()
+            break
+        case "更換名稱":
+            let vc = storyboard?.instantiateViewController(withIdentifier: "updatename_vc") as! UpdateUserNameViewController
+            DispatchQueue.main.async {
+                vc.nameTextField.text = Global.selfData.username as! String
+                vc.setting_vc = self
+            }
+            show(vc, sender: self)
+            
         default:
             break
         }

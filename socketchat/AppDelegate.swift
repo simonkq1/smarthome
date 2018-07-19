@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if defIsLogin as! Bool == true {
                 let status = autoLogin(tourl: url, account: acc, password: pwd, token: myToken)
                 while Global.memberData.count <= 0 {
-                    sleep(1/10)
+                    sleep(UInt32(0.1))
                 }
                 Global.SocketServer.connectSocketServer()
                 self.window = UIWindow(frame: UIScreen.main.bounds)

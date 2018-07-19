@@ -327,6 +327,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         let selectRadio = cell.viewWithTag(20) as! SelectButton
         let onlineIcon = cell.viewWithTag(30) as! OnlineIconLabel
         let timeLabel = cell.viewWithTag(40) as! UILabel
+        let headImage = cell.viewWithTag(50) as! CircleImage
         timeLabel.textColor = UIColor(red: 115/255, green: 115/255, blue: 115/255, alpha: 0.7)
         timeLabel.font = UIFont.boldSystemFont(ofSize: 14)
         let isOnline = memberList[indexPath.row]["online"]
@@ -343,6 +344,12 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
             timeLabel.text = ""
         }
         
+        if memberList[indexPath.row]["image"] == "default" {
+            headImage.image = UIImage(named: "people")?.resizeImage(imagepoint: 120)
+        }else {
+            let image = UIImage(data: Data(base64Encoded: memberList[indexPath.row]["image"]!)!)
+            headImage.image = image?.resizeImage(imagepoint: 120)
+        }
         
         
         selectRadio.isSelected = radioIsSelected[indexPath.row]
