@@ -11,6 +11,9 @@ import WebKit
 class StreamingViewController: UIViewController {
     
     
+    
+    
+    
     @IBOutlet weak var activityIcon: UIActivityIndicatorView!
     
     @IBOutlet weak var streamingWebView: WKWebView!
