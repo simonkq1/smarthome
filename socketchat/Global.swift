@@ -191,6 +191,7 @@ class Global: NSObject {
         Global.selfData.account = Global.memberData["account"]
         Global.selfData.username = Global.memberData["username"]
         Global.selfData.id = Global.memberData["id"]
+        Global.selfData.image = Global.memberData["image"]
     }
     static func postToURL(url: String, body: String, action: ((_ returnData: String?, _ returndata: Data?) -> Void)? = nil) {
         let postURL = URL(string: url)
@@ -402,6 +403,7 @@ class Global: NSObject {
                                 let data = Data(bytes: buf, count: n)
                                 do{
                                     jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
+                                    print(jsonObject)
                                 }catch{
                                     print(error)
                                 }

@@ -695,23 +695,23 @@
                                     <constraint firstAttribute="height" constant="510" id="tQt-iI-s56"/>
                                 </constraints>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4cJ-q2-0AK">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="phO-Qv-otw">
                                 <rect key="frame" x="169" y="283" width="37" height="37"/>
                                 <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4cJ-q2-0AK" firstAttribute="centerX" secondItem="An6-fc-HkD" secondAttribute="centerX" id="DOC-Rm-TpC"/>
                             <constraint firstItem="j3S-cb-u4S" firstAttribute="centerX" secondItem="An6-fc-HkD" secondAttribute="centerX" id="QPi-Z0-DNK"/>
-                            <constraint firstItem="4cJ-q2-0AK" firstAttribute="centerY" secondItem="An6-fc-HkD" secondAttribute="centerY" id="d5V-o8-DRy"/>
+                            <constraint firstItem="phO-Qv-otw" firstAttribute="centerX" secondItem="An6-fc-HkD" secondAttribute="centerX" id="W5h-PD-PrP"/>
                             <constraint firstItem="j3S-cb-u4S" firstAttribute="top" secondItem="3Ze-Kl-NQ7" secondAttribute="top" constant="46" id="iHO-hD-85y"/>
+                            <constraint firstItem="phO-Qv-otw" firstAttribute="centerY" secondItem="An6-fc-HkD" secondAttribute="centerY" id="qbk-nN-S8t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3Ze-Kl-NQ7"/>
                     </view>
                     <navigationItem key="navigationItem" title="主畫面" id="f5m-Mp-3Wr"/>
                     <connections>
-                        <outlet property="loadingActivity" destination="4cJ-q2-0AK" id="B40-XF-FnL"/>
+                        <outlet property="loadingActivity" destination="phO-Qv-otw" id="UUE-iV-PAx"/>
                         <outlet property="member" destination="eNm-3D-Nqq" id="V0l-iF-FRU"/>
                         <outlet property="messageBoard" destination="Wzg-MF-SNJ" id="GMn-ED-Ceu"/>
                         <outlet property="monitor" destination="FG9-u4-FPA" id="0Un-dI-fSX"/>

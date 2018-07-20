@@ -42,7 +42,10 @@ class LoginViewController: UIViewController {
             } else {
                 // Fallback on earlier versions
             }
-            login(tourl: url, account: accountText.text!, password: passwordText.text!)
+            DispatchQueue.global().async {
+                self.login(tourl: self.url, account: self.accountText.text!, password: self.passwordText.text!)
+            }
+            
             
         }
     }
@@ -125,6 +128,7 @@ class LoginViewController: UIViewController {
                         self.accountText.borderStyle = .roundedRect
                         //                            ViewController.memberData = jsonData
                         Global.memberData = jsonData
+                        
                         Global.reloadSelfData()
                         self.updateToken(id: Global.selfData.id!)
                         

@@ -9,7 +9,7 @@
 import UIKit
 
 class AddMessageViewController: UIViewController {
-
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var titleView: UIView!
     
@@ -39,12 +39,15 @@ class AddMessageViewController: UIViewController {
                     switch html {
                     case "0":
                         let apnsURL = "http://simonhost.hopto.org/cgi-bin/pushForNoteBook.cgi?message=\(context)"
+                        let newurl = apnsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                         let ur = URL(string: apnsURL)
                         do {
-                            let _ = try String(contentsOf: ur!)
+                            let html = try String(contentsOf: ur!)
                         }catch{
                             
                         }
+                        
+                        
                         DispatchQueue.main.async {
                             self.view.endEditing(true)
                             self.messageBoard_vc.textLabel.alpha = 0
@@ -94,7 +97,7 @@ class AddMessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         // Do any additional setup after loading the view.
         titleTextField.borderStyle = .none
         titleView.drawborder(width: 0.5, color: UIColor.black, sides: [.down, .up])
@@ -112,23 +115,23 @@ class AddMessageViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         titleIsEditing = false
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

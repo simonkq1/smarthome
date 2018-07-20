@@ -166,7 +166,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         Global.memberData = jsonData
                         
                     }else {
-                        
+                        let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
+                        let vc = story.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
+                        self.window?.rootViewController = vc
+                        self.window?.makeKeyAndVisible()
                     }
                 }
             }
