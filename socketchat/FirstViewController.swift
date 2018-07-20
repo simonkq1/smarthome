@@ -17,8 +17,10 @@ class FirstViewController: UIViewController {
     
     @IBOutlet weak var security: CircleButton!
     
+    @IBOutlet weak var loadingActivity: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingActivity.stopAnimating()
         // Do any additional setup after loading the view.
         safityBox.addTarget(self, action: #selector(safityBoxAction(sender:)), for: .touchUpInside)
         member.addTarget(self, action: #selector(memberAction(sender:)), for: .touchUpInside)
@@ -27,12 +29,17 @@ class FirstViewController: UIViewController {
         security.addTarget(self, action: #selector(securityAction(sender:)), for: .touchUpInside)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        loadingActivity.stopAnimating()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "home_to_member" {
-            let backItem = UIBarButtonItem()
-            backItem.title = "首頁"
-            navigationItem.backBarButtonItem = backItem
-//        }
+        DispatchQueue.main.async {
+            self.loadingActivity.startAnimating()
+        }
+        let backItem = UIBarButtonItem()
+        backItem.title = "首頁"
+        navigationItem.backBarButtonItem = backItem
         
     }
     
@@ -41,6 +48,10 @@ class FirstViewController: UIViewController {
         
     }
     @objc func memberAction (sender: CircleButton) {
+//
+        loadingActivity.startAnimating()
+        
+        
     }
     @objc func messageBoardAction (sender: CircleButton) {
         

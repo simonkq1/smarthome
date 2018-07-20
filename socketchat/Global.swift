@@ -396,19 +396,23 @@ class Global: NSObject {
             DispatchQueue.global().async {
                 while true {
                     if Global.SocketServer.isReceive == true {
-                        if let n = Global.SocketServer.isStream?.read(&buf, maxLength: 1024) {
-                            
-                            let data = Data(bytes: buf, count: n)
-                            do{
-                                jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
-                            }catch{
-                                print(error)
+                        do{
+                            if let n = try Global.SocketServer.isStream?.read(&buf, maxLength: 1024) {
+                                
+                                let data = Data(bytes: buf, count: n)
+                                do{
+                                    jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
+                                }catch{
+                                    print(error)
+                                }
+                                
+                                avaliable(jsonObject)
                             }
+                        }catch{
                             
-                            avaliable(jsonObject)
                         }
                     }
-                    sleep(1/10)
+                    sleep(UInt32(0.1))
                 }
             }
         }

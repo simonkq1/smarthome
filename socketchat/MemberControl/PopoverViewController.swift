@@ -42,7 +42,7 @@ class PopoverViewController: UIViewController, UIPopoverPresentationControllerDe
             
             memberTable_vc.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: memberTable_vc, action: #selector(memberTable_vc.cancelButton))
             
-            memberTable_vc.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "權限", style: .plain, target: memberTable_vc, action: #selector(memberTable_vc.selectButton))
+            memberTable_vc.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "檢視", style: .plain, target: memberTable_vc, action: #selector(memberTable_vc.selectButton))
             memberTable_vc.tableView.reloadData()
            
             self.dismiss(animated: true, completion: nil)

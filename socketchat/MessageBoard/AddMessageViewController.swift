@@ -38,6 +38,13 @@ class AddMessageViewController: UIViewController {
                     print(data)
                     switch html {
                     case "0":
+                        let apnsURL = "http://simonhost.hopto.org/cgi-bin/pushForNoteBook.cgi?message=\(context)"
+                        let ur = URL(string: apnsURL)
+                        do {
+                            let _ = try String(contentsOf: ur!)
+                        }catch{
+                            
+                        }
                         DispatchQueue.main.async {
                             self.view.endEditing(true)
                             self.messageBoard_vc.textLabel.alpha = 0

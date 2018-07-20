@@ -232,13 +232,12 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        
         tableView.separatorStyle = .none
         DispatchQueue.main.async {
-            sleep(2)
             self.member = Global.memberData
-//            self.myPermission = formatter.number(from: Global.memberData["mod"] as! String) as! Int
         }
-        print("AAA")
         let formatter = NumberFormatter()
         self.myPermission = formatter.number(from: Global.memberData["mod"] as! String) as! Int
         print(myPermission)
@@ -254,6 +253,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         for _ in memberList {
             radioIsSelected.append(false)
         }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -292,20 +292,7 @@ class MemberTableViewController: UITableViewController, UIPopoverPresentationCon
         }
     }
     
-    //MARK: 氣泡框內容
-//
-//    func showPopView(list: [String]) {
-//
-//        let height: CGFloat = 44
-//
-//        let startPoint = CGPoint(x: self.view.frame.width - 30, y: 55)
-//        let aView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: (self.view.frame.width) / 3, height: height * CGFloat(list.count)))
-//
-//        let editTable = addPopListLabel(list: list, size: CGSize(width: aView.frame.width, height: height), startPoint: CGPoint(x: 10, y: 10))
-//        for i in editTable {
-//            aView.addSubview(i)
-//        }
-//    }
+    
     
     
     func drawButtonLine( width: CGFloat, height: CGFloat) -> CAShapeLayer {

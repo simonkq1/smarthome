@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if defIsLogin as! Bool == true {
                 let status = autoLogin(tourl: url, account: acc, password: pwd, token: myToken)
                 while Global.memberData.count <= 0 {
-                    sleep(UInt32(0.1))
+                    usleep(100000)
                 }
                 Global.SocketServer.connectSocketServer()
                 self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -91,14 +91,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func setCategories() -> Set<UNNotificationCategory>{
         
         var set = Set<UNNotificationCategory>()
-        
         let a1 = UNNotificationAction(
             identifier: "a1", title: "照片", options: [.foreground]
         )
         
+        let b1 = UNNotificationAction(
+            identifier: "b1", title: "留言板", options: [.foreground]
+        )
+        
         let c1 = UNNotificationCategory(
             
-            identifier: "c1", actions: [a1], intentIdentifiers: [], options: []
+            identifier: "c1", actions: [a1,b1], intentIdentifiers: [], options: []
         )
         
         set.insert(c1)
@@ -119,7 +122,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let vc = story.instantiateViewController(withIdentifier: "IOT_tabbar_ctrl") as! TabBarViewController
             self.window?.rootViewController?.show(vc, sender: nil)
             vc.selectedIndex = 2
-            
+        }
+        
+        if action == "b1"{
+            print("asadfsdfasdfsaf")
+            let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
+            let vc = story.instantiateViewController(withIdentifier: "message_board_vc") as! MessageBoardViewController
+            self.window?.rootViewController?.show(vc, sender: nil)
         }
         completionHandler()
     }
