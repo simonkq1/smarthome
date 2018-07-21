@@ -40,6 +40,7 @@
 		F42272E721008C7800CBCDDE /* GlobalParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42272E621008C7800CBCDDE /* GlobalParameter.swift */; };
 		F42272E921008CFD00CBCDDE /* myBtnRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42272E821008CFD00CBCDDE /* myBtnRecordViewController.swift */; };
 		F42272EB21008D3900CBCDDE /* IOT.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F42272EA21008D3900CBCDDE /* IOT.storyboard */; };
+		F42361882102DD9D00056881 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42361872102DD9D00056881 /* LoadingViewController.swift */; };
 		F44103AC21002E4E00A91BB4 /* UpdateUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44103AB21002E4E00A91BB4 /* UpdateUserNameViewController.swift */; };
 		F4CA3F8F20FDDAEA00844464 /* OnlineIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA3F8E20FDDAEA00844464 /* OnlineIconLabel.swift */; };
 		F4D3D8D720FECD5A00FD4DD6 /* UnlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */; };
@@ -89,6 +90,7 @@
 		F42272E621008C7800CBCDDE /* GlobalParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalParameter.swift; sourceTree = "<group>"; };
 		F42272E821008CFD00CBCDDE /* myBtnRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myBtnRecordViewController.swift; sourceTree = "<group>"; };
 		F42272EA21008D3900CBCDDE /* IOT.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IOT.storyboard; sourceTree = "<group>"; };
+		F42361872102DD9D00056881 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		F44103AB21002E4E00A91BB4 /* UpdateUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserNameViewController.swift; sourceTree = "<group>"; };
 		F4CA3F8E20FDDAEA00844464 /* OnlineIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineIconLabel.swift; sourceTree = "<group>"; };
 		F4D3D8D620FECD5A00FD4DD6 /* UnlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				84810AFC20F4408E001924F0 /* MessageBoard */,
 				842BCC2120F7058B00F9C6B5 /* MemberNavigationController.swift */,
 				F4D3D8E020FF319300FD4DD6 /* TestViewController.swift */,
+				F42361872102DD9D00056881 /* LoadingViewController.swift */,
 			);
 			path = socketchat;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				F4D3D8DB20FECDC000FD4DD6 /* BreakInPhotoViewController.swift in Sources */,
 				F4D3D8DF20FF1B5500FD4DD6 /* SettingViewController.swift in Sources */,
 				843D2EC220ECBC02009D25C7 /* PermissionPickerViewController.swift in Sources */,
+				F42361882102DD9D00056881 /* LoadingViewController.swift in Sources */,
 				846D8B7F20F47CE80049CE6E /* ChatTableViewCell.swift in Sources */,
 				8416F7D720EE0BEB008F8032 /* PopoverViewController.swift in Sources */,
 				84E8F7D220EB2A98005BB4A1 /* SelectButton.swift in Sources */,

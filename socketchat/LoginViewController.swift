@@ -21,7 +21,8 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func login(_ sender: UIButton) {
-        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "loading_vc")
+        present(vc!, animated: false, completion: nil)
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let pwd = passwordText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -36,16 +37,14 @@ class LoginViewController: UIViewController {
             
             sender.isEnabled = false
             if #available(iOS 10.0, *) {
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (timer) in
                     sender.isEnabled = true
                 }
             } else {
                 // Fallback on earlier versions
             }
-            DispatchQueue.global().async {
-                self.login(tourl: self.url, account: self.accountText.text!, password: self.passwordText.text!)
-            }
-            
+                login(tourl: url, account: accountText.text!, password: passwordText.text!)
+            vc?.dismiss(animated: false, completion: nil)
             
         }
     }

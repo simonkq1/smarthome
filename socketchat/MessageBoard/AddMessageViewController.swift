@@ -38,14 +38,8 @@ class AddMessageViewController: UIViewController {
                     print(data)
                     switch html {
                     case "0":
-                        let apnsURL = "http://simonhost.hopto.org/cgi-bin/pushForNoteBook.cgi?message=\(context)"
-                        let newurl = apnsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                        let ur = URL(string: apnsURL)
-                        do {
-                            let html = try String(contentsOf: ur!)
-                        }catch{
-                            
-                        }
+                        let apnsURL = "http://simonhost.hopto.org/cgi-bin/pushForNoteBook.cgi"
+                        Global.postToURL(url: apnsURL, body: "message=\(context)")
                         
                         
                         DispatchQueue.main.async {

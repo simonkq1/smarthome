@@ -628,7 +628,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="selectHighLight" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="SGe-w1-xpj" kind="show" id="fCf-tz-zA5"/>
+                                                    <segue destination="SGe-w1-xpj" kind="show" identifier="home_to_member" id="fCf-tz-zA5"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成員管理" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5d-ms-gie">
@@ -731,10 +731,10 @@
             </objects>
             <point key="canvasLocation" x="465" y="794"/>
         </scene>
-        <!--View Controller-->
+        <!--Loading View Controller-->
         <scene sceneID="JmT-g3-Awh">
             <objects>
-                <viewController storyboardIdentifier="loading_vc" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ExT-0r-koc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loading_vc" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ExT-0r-koc" customClass="LoadingViewController" customModule="socketchat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3ym-UV-UjU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

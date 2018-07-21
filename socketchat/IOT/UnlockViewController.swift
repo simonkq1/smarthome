@@ -19,9 +19,6 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     
-    
-    
-    
     let url = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/openLockerCgi.cgi"))
     
     
@@ -45,10 +42,10 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(clearBtnStatusToDisable), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         
         
-        
         for vc in (self.childViewControllers) {
             if vc.restorationIdentifier == "CircleView" {
                 circleViewVC = vc as! CircleViewController
+                circleViewVC.unlock_vc = self
                 break
             }
         }
@@ -111,14 +108,10 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
             
             
             
-            
-            
-            
             if blueToothDetect.contains(true){
                 //
                 //openLockBtn.isEnabled = true
                 
-                print("111111")
                 if !circleViewVC.layerChangingStatus{
                     circleViewVC.openLockBtn.isEnabled = true
                     circleViewVC.addWhiteLayer()
@@ -167,9 +160,6 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
         print("AAAABBBBB")
         clearBtnStatusToDisable()
         let btnPressTimeList = queryBtnRecordList()
-        (self.view.viewWithTag(100) as! UILabel).text = "  時間:" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
-        (self.view.viewWithTag(200) as! UILabel).text = "  時間:" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
-        
         
         //self.navigationController?.navigationBar.topItem?.title = "asdf"
     }
@@ -191,6 +181,9 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
                 if String(data: data, encoding: .utf8) != "Query Error" {
                     btnPressTimeList = []
                     btnPressTimeList = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
+                    (self.view.viewWithTag(100) as! UILabel).text = "  時間:" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
+                    (self.view.viewWithTag(200) as! UILabel).text = "  時間:" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
+                    
                     print("Query OK")
                     
                 }else {

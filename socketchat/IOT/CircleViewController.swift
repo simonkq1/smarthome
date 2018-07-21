@@ -13,42 +13,31 @@ class CircleViewController: UIViewController {
     let url = URL(string: (GlobalParameter.piIPAddr + "/cgi-bin/openLockerCgi.cgi"))
     var timeRecorderOrder = 0;
     var layerChangingStatus:Bool = false
+    var unlock_vc: UnlockViewController!
     @IBOutlet weak var openLockBtn: UIButton!
     @IBAction func onClickOpenLockBtn(_ sender: Any) {
         //        TouchID.verify {
         
         TouchID.verify {
-            print("verifyOK")
             
             self.layerChangingStatus = true
             DispatchQueue.main.async {
                 for layer in self.view.layer.sublayers!{
                     
-                    print(layer.name)
                     if layer.name == "LayerWhite" || layer.name == "LayerGreen" || layer.name == "LayerGreenAni" || layer.name == "LayerGrey" {
-                        print("AA")
                         layer.removeFromSuperlayer()
                     }
                     
                 }
             }
-            
-            //            //print(counter)
-            //
             DispatchQueue.global().async {
                 do{
                     
                     let _ = try String(contentsOf: self.url!)
                     
                 }catch{
-                    
                     print("Open Lock Fail")
-                    
                 }
-                
-                
-                
-                
             }
             
             DispatchQueue.main.async {
@@ -61,39 +50,15 @@ class CircleViewController: UIViewController {
                 self.addGreyLayer()
                 self.addGreenInnerLayerAnimation()
                 var btnPressTimeList:NSArray = self.loadBtnRecordList()
+                self.unlock_vc.queryBtnRecordList()
                 
-                (self.parent?.view.viewWithTag(100) as! UILabel).text = "    時間：" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
-                
-                (self.parent?.view.viewWithTag(200) as! UILabel).text = "    時間：" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
-                
+//                while btnPressTimeList.count <= 0 {
+//                    usleep(100000)
+//                }
             }
-            
         }
-        //
-        //
-        //
-        
-        
-        //print("btn pressed")
-        
-        
-        
-        
-        
-        //
-        //
-        //
-        //
-        
-        
-        
     }
     
-    
-    
-    
-    
-    //    }
     
     
     var currentValue:CGFloat? = nil
@@ -261,26 +226,30 @@ class CircleViewController: UIViewController {
     
     func loadBtnRecordList()->NSArray{
         var btnPressTimeList =  NSArray()
-        let url = "http://simonhost.hopto.org/chatroom/btnTime.php?username=\(Global.selfData.username as String)"
         
-        //var status: String = ""
-        if let jsonURL = URL(string: url) {
-            do {
-                let data = try Data(contentsOf: jsonURL)
-                if String(data: data, encoding: .utf8) != "Query Error" {
-                    btnPressTimeList = []
-                    btnPressTimeList = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
-                    print("Query OK")
+        let url = "http://simonhost.hopto.org/chatroom/btnTime.php"
+        
+        Global.postToURL(url: url, body: "username=\(Global.selfData.username as String)") { (html, data) in
+            
+            if let jsonData = data {
+                do {
+                    if html != "Query Error" {
+                        btnPressTimeList = []
+                        btnPressTimeList = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSArray
+                        print("Query OK")
+                        
+                    }else {
+                        print("Query Fail")
+                    }
                     
-                }else {
-                    print("Query Fail")
+                } catch {
+                    
+                    print(error)
                 }
-                
-            } catch {
-                
-                print(error)
             }
         }
+        
+        //var status: String = ""
         return btnPressTimeList
     }
     

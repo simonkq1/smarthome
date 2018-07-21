@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let url = "http://simonhost.hopto.org/chatroom/logincheck.php"
     var myToken: String = ""
     
-    
+    var isLog: Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         print("APP Delegate")
         if #available(iOS 10.0, *) {
@@ -44,9 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let pwd = defPwd as! String
             if defIsLogin as! Bool == true {
                 let status = autoLogin(tourl: url, account: acc, password: pwd, token: myToken)
+                
+                while isLog == false {
+                    usleep(100000)
+                }
                 while Global.memberData.count <= 0 {
                     usleep(100000)
                 }
+                
                 Global.SocketServer.connectSocketServer()
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
@@ -76,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             let tokenurl = "http://simonhost.hopto.org/chatroom/updateToken.php"
             Global.postToURL(url: tokenurl, body: "tid=\(Global.selfData.id as! String)&token=\(token)") { (html, data) in
-//                print("TOKEN : \(html)")
+                //                print("TOKEN : \(html)")
             }
         }
         
@@ -161,16 +166,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if jsonData["status"] != nil {
                         status = jsonData["status"] as! String
                     }
-                    print(status)
+                    self.isLog = true
+                    
                     if status == "0" {
                         Global.memberData = jsonData
                         
                     }else {
-                        let story = UIStoryboard(name: "Main", bundle: Bundle(identifier: "Simon-Chang.-socketchat"))
-                        let vc = story.instantiateViewController(withIdentifier: "login_vc") as! LoginViewController
-                        self.window?.rootViewController = vc
-                        self.window?.makeKeyAndVisible()
                     }
+                }
+            }
+            DispatchQueue.main.async {
+                while self.isLog == false {
+                    usleep(100000)
                 }
             }
             dataTesk.resume()
