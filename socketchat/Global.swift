@@ -11,9 +11,12 @@ extension UINavigationBar {
     func barHeight() {
         self.bounds.size.height += 44
         let bound = self.bounds
-        
         self.frame = CGRect(x: 0, y: 0, width: bound.width, height: bound.height + 44)
     }
+}
+
+struct MyVar {
+    let a = "aaa"
 }
 
 extension UIImage {
@@ -193,6 +196,7 @@ class Global: NSObject {
         Global.selfData.id = Global.memberData["id"]
         Global.selfData.image = Global.memberData["image"]
     }
+    
     static func postToURL(url: String, body: String, action: ((_ returnData: String?, _ returndata: Data?) -> Void)? = nil) {
         let postURL = URL(string: url)
         var request = URLRequest(url: postURL!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)

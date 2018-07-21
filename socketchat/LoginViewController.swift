@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func login(_ sender: UIButton) {
+        
         let vc = storyboard?.instantiateViewController(withIdentifier: "loading_vc")
         present(vc!, animated: false, completion: nil)
         let acc = accountText.text?.trimmingCharacters(in: .whitespacesAndNewlines)
