@@ -16,7 +16,7 @@ extension UINavigationBar {
 }
 
 struct MyVar {
-    let a = "aaa"
+    static let a = "aaa"
 }
 
 extension UIImage {
@@ -150,7 +150,7 @@ extension UIView {
         let linePath = UIBezierPath()
         for i in sides {
             switch i {
-            case.up:
+            case .up:
                 linePath.move(to: CGPoint(x: firstIndex, y: 0))
                 linePath.addLine(to: CGPoint(x: self.bounds.size.width + 100, y: 0))
                 break

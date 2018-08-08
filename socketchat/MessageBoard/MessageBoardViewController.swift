@@ -95,6 +95,7 @@ class MessageBoardViewController: UIViewController, UITableViewDelegate, UITable
     
     
     func timeToNow(targetTime: String) -> String {
+        
         var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 8)

@@ -97,7 +97,6 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         titleTextField.isEnabled = false
         titleTextField.borderStyle = .none
         titleTextField.isSelected = false
-        titleView.layer.borderWidth = 0.5
         
         contextHeight = contextViewHeightConstraint.constant
         if contextViewHeightConstraint.constant < contextLabel.frame.size.height {
@@ -115,11 +114,14 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         }
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
         scrollViewToBottom(animated: false)
         originY = self.view.frame.origin.y
+        titleView.drawborder(width: 0.5, color: UIColor.black, sides: [.up, .down])
         contextView.drawborder(width: 0.5, color: UIColor.black, sides: [.down])
         navigationbarHeight = self.navigationController?.navigationBar.frame.size.height
         let vc = storyboard?.instantiateViewController(withIdentifier: "message_popover_vc") as! MessagePopoverViewController

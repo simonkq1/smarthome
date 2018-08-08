@@ -181,8 +181,11 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
                 if String(data: data, encoding: .utf8) != "Query Error" {
                     btnPressTimeList = []
                     btnPressTimeList = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
-                    (self.view.viewWithTag(100) as! UILabel).text = "  時間:" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
-                    (self.view.viewWithTag(200) as! UILabel).text = "  時間:" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
+                    DispatchQueue.main.async {
+                        (self.view.viewWithTag(100) as! UILabel).text = "  時間:" + ((btnPressTimeList[0] as! NSDictionary)["time"] as! String)
+                        (self.view.viewWithTag(200) as! UILabel).text = "  時間:" + ((btnPressTimeList[1] as! NSDictionary)["time"] as! String)
+                    }
+
                     
                     print("Query OK")
                     

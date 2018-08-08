@@ -50,7 +50,7 @@ class CircleViewController: UIViewController {
                 self.addGreyLayer()
                 self.addGreenInnerLayerAnimation()
                 var btnPressTimeList:NSArray = self.loadBtnRecordList()
-                self.unlock_vc.queryBtnRecordList()
+                
                 
 //                while btnPressTimeList.count <= 0 {
 //                    usleep(100000)
@@ -237,6 +237,7 @@ class CircleViewController: UIViewController {
                         btnPressTimeList = []
                         btnPressTimeList = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSArray
                         print("Query OK")
+                        self.unlock_vc.queryBtnRecordList()
                         
                     }else {
                         print("Query Fail")
