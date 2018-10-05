@@ -62,7 +62,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func getDataImage(image:UIImage, imagepoint: CGFloat) -> UIImage {
         
         let newimage = image.resizeImage(imagepoint: imagepoint)
-        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedData()
+        let imdata = newimage.pngData()?.base64EncodedData()
         let a = String(data: imdata!, encoding: .utf8)
         let b = Data(base64Encoded: a!)
         let finishImage = UIImage(data: b!)
@@ -70,9 +70,12 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         let updateImageURL = "http://simonhost.hopto.org/chatroom/updateUserImage.php"
-        let tmp_image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let tmp_image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage
         myImage = tmp_image.resizeImage(imagepoint: 64)
         let finIm = tmp_image.resizeImage(imagepoint: 512)
         let imageStr = tmp_image.changeImageToBase64String(resize: 512)
@@ -210,4 +213,14 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     */
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

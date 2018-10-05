@@ -21,7 +21,7 @@ class TestViewController: UIViewController {
 //        self.navigationController?.navigationBar.setBackgroundImage(image?.resizeImage(imagepoint: 32).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), resizingMode: .stretch), for: .default)
         
         let newimage = image?.resizeImage(imagepoint: 1024)
-        let imdata = UIImagePNGRepresentation(newimage!)?.base64EncodedData()
+        let imdata = newimage!.pngData()?.base64EncodedData()
         let a = String(data: imdata!, encoding: .utf8)
         let b = Data(base64Encoded: a!)
         imageView.image = UIImage(data: b!)
@@ -40,7 +40,7 @@ class TestViewController: UIViewController {
     func getDataImage(image:UIImage, imagepoint: CGFloat) -> UIImage {
         
         let newimage = image.resizeImage(imagepoint: imagepoint)
-        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedData()
+        let imdata = newimage.pngData()?.base64EncodedData()
         let a = String(data: imdata!, encoding: .utf8)
         let b = Data(base64Encoded: a!)
         let finishImage = UIImage(data: b!)

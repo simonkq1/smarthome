@@ -39,10 +39,10 @@ class UnlockViewController: UIViewController,CLLocationManagerDelegate {
         
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(clearBtnStatusToDisable), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(clearBtnStatusToDisable), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         
-        for vc in (self.childViewControllers) {
+        for vc in (self.children) {
             if vc.restorationIdentifier == "CircleView" {
                 circleViewVC = vc as! CircleViewController
                 circleViewVC.unlock_vc = self

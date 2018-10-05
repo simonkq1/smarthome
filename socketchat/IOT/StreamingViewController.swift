@@ -24,7 +24,7 @@ class StreamingViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        NotificationCenter.default.addObserver(self, selector: #selector(streamingWebViewReload), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(streamingWebViewReload), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         
     }

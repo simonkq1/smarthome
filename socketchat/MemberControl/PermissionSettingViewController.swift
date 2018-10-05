@@ -96,7 +96,7 @@ class PermissionSettingViewController: UIViewController {
         permissionLabel.text = permission
         
         // Do any additional setup after loading the view.
-        for i in childViewControllers {
+        for i in children {
             if i.restorationIdentifier == "permission_picker" {
                 permission_picker = i as! PermissionPickerViewController
             }

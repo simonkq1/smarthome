@@ -87,7 +87,7 @@ extension UIImage {
     func changeImageToBase64String(resize: CGFloat = 1024) -> String {
         
         let newimage = self.resizeImage(imagepoint: resize)
-        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedString(options: .endLineWithLineFeed).addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        let imdata = newimage.pngData()?.base64EncodedString(options: .endLineWithLineFeed).addingPercentEncoding(withAllowedCharacters: .alphanumerics)
         return imdata!
     }
     
@@ -96,7 +96,7 @@ extension UIImage {
     func changeImageToBase64Data(resize: CGFloat = 1024) -> Data {
         
         let newimage = self.resizeImage(imagepoint: resize)
-        let imdata = UIImagePNGRepresentation(newimage)?.base64EncodedData()
+        let imdata = newimage.pngData()?.base64EncodedData()
         return imdata!
         
     }
@@ -127,7 +127,7 @@ extension UILabel {
         paraph.firstLineHeadIndent = 2
         //样式属性集合
         
-        let s1 = NSMutableAttributedString(string: self.text!, attributes: [NSAttributedStringKey.paragraphStyle:paraph])
+        let s1 = NSMutableAttributedString(string: self.text!, attributes: [NSAttributedString.Key.paragraphStyle:paraph])
         self.attributedText = s1
         
     }

@@ -248,6 +248,7 @@
 				TargetAttributes = {
 					84B2506D20E1CB490046146A = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -485,7 +486,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Simon-Chang.-socketchat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -504,7 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Simon-Chang.-socketchat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

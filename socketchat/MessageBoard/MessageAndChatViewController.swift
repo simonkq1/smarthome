@@ -74,11 +74,11 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
         
         chatTextField.addTarget(self, action: #selector(sendMessage(_:)), for: .editingDidEndOnExit)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveAction), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveAction), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         let numberFormatter = NumberFormatter()
         let id = numberFormatter.number(from: Global.selfData.id) as! Int
@@ -273,7 +273,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else {return}
-        guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {return}
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
         if self.view.frame.origin.y == originY {
             self.view.frame.origin.y -= keyboardFrame.height
@@ -322,7 +322,7 @@ class MessageAndChatViewController: UIViewController, UIScrollViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     

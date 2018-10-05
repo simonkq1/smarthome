@@ -167,7 +167,7 @@ class CircleViewController: UIViewController {
         ani.toValue = to / 100.0
         ani.isRemovedOnCompletion = false
         
-        ani.fillMode = kCAFillModeForwards
+        ani.fillMode = CAMediaTimingFillMode.forwards
         ani.repeatCount = 0
         
         return ani
@@ -188,7 +188,7 @@ class CircleViewController: UIViewController {
         
         ani.isRemovedOnCompletion = false
         
-        ani.fillMode = kCAFillModeForwards
+        ani.fillMode = CAMediaTimingFillMode.forwards
         ani.repeatCount = 0
         
         
@@ -215,7 +215,7 @@ class CircleViewController: UIViewController {
         
         ani.isRemovedOnCompletion = false
         
-        ani.fillMode = kCAFillModeForwards
+        ani.fillMode = CAMediaTimingFillMode.forwards
         ani.repeatCount = 0
         
         return ani
